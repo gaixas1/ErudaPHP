@@ -5,13 +5,22 @@
  * @author gaixas1
  */
 
-//**comVersion**namespace ErudaSystem;
-
 class Eruda_Router {
+    /**
+     * @var $_def array(Eruda_CF) 
+     * @var $_err array(Eruda_CF)
+     * @var $_ext array(Eruda_Router) 
+     */
     protected $_def = array();
     protected $_err = array();
     protected $_ext = array();
     
+    /**
+     *
+     * @param Eruda_CF|array(Eruda_CF) $def
+     * @param array(Eruda_Router) $ext
+     * @param Eruda_CF|array(Eruda_CF) $err 
+     */
     function __construct($def = null, $ext = array(), $err = null) {
         //Add default CF
         if($def!=null) {
@@ -49,9 +58,13 @@ class Eruda_Router {
                 }
             }
         } 
-        
     }
     
+    /**
+     *
+     * @param Eruda_CF $cf
+     * @return \Eruda_Router 
+     */
     function addDef($cf) {
         if($cf!=null && $cf instanceof Eruda_CF) {
             $this->_def[$cf->getMethod()] = $cf;
@@ -59,6 +72,11 @@ class Eruda_Router {
         return $this;
     }
     
+    /**
+     *
+     * @param Eruda_CF $cf
+     * @return \Eruda_Router 
+     */
     function addErr($cf) {
         if($cf!=null && $cf instanceof Eruda_CF) {
             $this->_err[$cf->getMethod()] = $cf;
@@ -66,6 +84,12 @@ class Eruda_Router {
         return $this;
     }
     
+    /**
+     *
+     * @param string $key
+     * @param Eruda_Router $router
+     * @return \Eruda_Router 
+     */
     function addRouter($key, $router) {
         if($key!=null && is_string($key) && strlen($key)>0 && $router!=null && $router instanceof Eruda_Router) {
             $this->_ext[$key] = $router;
@@ -73,6 +97,13 @@ class Eruda_Router {
         return $this;
     }
     
+    /**
+     * @param string $uri
+     * @param string $method
+     * @param array $params
+     * @return Eruda_CF
+     * @throws Exception 
+     */
     function run($uri, $method, &$params) {
         if(is_string($uri) && strlen($uri)>0) {
             foreach ($this->_ext as $key => $router) {
