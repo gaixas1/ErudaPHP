@@ -1,4 +1,5 @@
 <?php
+/* @var $router Eruda_Router */
 $router = new Eruda_Router(     //Index Router
             new Eruda_CF('Entrada'),
             array(
@@ -133,7 +134,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Paginacion Router
                         new Eruda_CF('Entrada', 'Paginacion')
                 ),
-                '([0-9a-z_-]+)/' 
+                '([a-z][0-9a-z_-]*)/' 
                     => new Eruda_Router(    //Categorias Router
                         new Eruda_CF('Entrada', 'CategoriaIndex'),
                         array(

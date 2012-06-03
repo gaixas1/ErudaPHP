@@ -5,12 +5,12 @@
  * @author gaixas1
  */
 
-class Eruda_Router {
     /**
-     * @var $_def array(Eruda_CF) 
-     * @var $_err array(Eruda_CF)
-     * @var $_ext array(Eruda_Router) 
+     * @property array(Eruda_CF) $_def 
+     * @property array(Eruda_CF) $_err
+     * @property array(Eruda_Router) $_ext 
      */
+class Eruda_Router {
     protected $_def = array();
     protected $_err = array();
     protected $_ext = array();

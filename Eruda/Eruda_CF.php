@@ -5,14 +5,14 @@
  * @author gaixas1
  */
 
-class Eruda_CF {
     /**
-     * @var $_methods array(string)
-     * @var $_meth string
-     * @var $_cont string
-     * @var $_func string
-     * @var $_data array
+     * @property array(string) $_methods
+     * @property string $_meth
+     * @property string $_cont
+     * @property string $_func
+     * @property array $_data
      */
+class Eruda_CF {
     public static $_methods = array('DEFAULT', 'GET', 'POST', 'PUT', 'DELETE', 'HEAD');
     
     protected $_meth;
@@ -42,6 +42,19 @@ class Eruda_CF {
         } else {
             throw new Exception('Eruda_CF::__construct - BAD REQUEST METHOD : '.$method);
         }
+    }
+    
+    
+    public function __toString() {
+        $ret = '<h3>Eruda_CF</h3>';
+        $ret .= '<table>';
+        $ret .= '<tr><td>Controller</td><td>'.$this->_cont.'</td></tr>';
+        $ret .= '<tr><td>Function</td><td>'.$this->_func.'</td></tr>';
+        $ret .= '<tr><td>Method</td><td>'.$this->_meth.'</td></tr>';
+        $ret .= '<tr><td>Data</td><td>'.print_r($this->_data, true).'</td></tr>';
+        $ret .= '</table>';
+        
+        return $ret;
     }
     
     /**

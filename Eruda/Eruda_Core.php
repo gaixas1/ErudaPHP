@@ -4,21 +4,60 @@
  *
  * @author gaixas1
  */
-
+/**
+ * @property string $_uri
+ * @property string $_base
+ * @property string $_method
+ * @property Eruda_Router $_router
+ * @property Eruda_CF $_cf
+ * @property array $_params
+ */
 class Eruda_Core {
-    protected $_router = null;
+    protected $_uri;
     protected $_base;
+    protected $_method;
+    protected $_router;
+    protected $_cf;
+    protected $_params;
     
     /**
      * @param Eruda_Router $router 
      */
-    function __construct($router=null, $base=null){
-        if($router!=null)
-            $this->setRouter($router);
-        if($base!=null)
-            $this->setBase($base);
-        else
-            $this->setBase('');
+    function __construct(){
+        $this->_router = null;
+        $this->_base = '';
+        $this->setUri($_SERVER['REQUEST_URI']);
+        $this->setMethod($_SERVER['REQUEST_METHOD']);
+        
+        $this->_cf = null;
+        $this->_params = array();
+    }
+    
+    
+    public function __toString() {
+        $ret = '<h3>Eruda_Core</h3>';
+        $ret .= '<table>';
+        $ret .= '<tr><td>Uri</td><td>'.$this->_uri.'</td></tr>';
+        $ret .= '<tr><td>Base</td><td>'.$this->_base.'</td></tr>';
+        $ret .= '<tr><td>Method</td><td>'.$this->_method.'</td></tr>';
+        $ret .= '<tr><td>CF</td><td>'.$this->_cf.'</td></tr>';
+        $ret .= '<tr><td>Params</td><td>'.print_r($this->_params, true).'</td></tr>';
+        $ret .= '</table>';
+        
+        return $ret;
+    }
+    
+    /** 
+     * @return \Eruda_Core 
+     */
+    function parseUri() {
+        if($this->_router!=null) {
+            $uri = preg_replace('~'.$this->_base.'~', '', $this->_uri, 1);
+            if($uri[0]=='/') $uri = substr($uri, 1);
+            $this->setCF($this->_router->run($uri, $this->_method, $this->_params));
+        }
+        
+        return $this;
     }
     
     /**
@@ -48,10 +87,10 @@ class Eruda_Core {
      * @throws Exception 
      */
     function setBase($base) {
-        if($base!= null && !is_string($base)) {
+        if($base!= null && is_string($base)) {
             $this->_base = $base;
         } else {
-            throw new Exception('Eruda_Core::run - NOT VALID BASE');
+            throw new Exception('Eruda_Core::setBase - NOT VALID BASE');
         }
         return $this;
     }
@@ -63,6 +102,71 @@ class Eruda_Core {
         return $this->_base;
     }
     
+    
+    /**
+     *
+     * @param string $uri
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function setUri($uri) {
+        if($uri!= null && is_string($uri)) {
+            $this->_uri = $uri;
+        } else {
+            throw new Exception('Eruda_Core::setUri - NOT URI');
+        }
+        return $this;
+    }
+    
+    /**
+     * @return string 
+     */
+    function getUri() {
+        return $this->_uri;
+    }
+    
+    /**
+     *
+     * @param string $method
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function setMethod($method) {
+        if($method!= null && is_string($method) && in_array($method, Eruda_CF::$_methods)) {
+            $this->_method = $method;
+        } else {
+            throw new Exception('Eruda_Core::setMethod - Bad Method');
+        }
+        return $this;
+    }
+    
+    /**
+     * @return string 
+     */
+    function getMethod() {
+        return $this->_method;
+    }
+    
+    /**
+     * @param Eruda_CF $cf
+     * @throws Exception 
+     * @return Eruda_Core
+     */
+    function setCF($cf) {
+        if($cf!=null && $cf instanceof Eruda_CF) {
+            $this->_cf = $cf;
+        } else {
+            throw new Exception('Eruda_Core::setCF - Bad CF');
+        }
+        return $this;
+    }
+    
+    /**
+     * @return type 
+     */
+    function getCF(){
+        return $this->_cf;
+    }
 }
 
 ?>
