@@ -77,16 +77,15 @@ $router = new Eruda_Router(     //Index Router
                 ),
                 '([0-9]+)/(.*)/' 
                     => new Eruda_Router(    //Entrada Router
-                        new Eruda_CF('Entrada', 'View')
+                        array(
+                            new Eruda_CF('Entrada', 'View'),
+                            new Eruda_CF('Entrada', 'Comentar', 'POST'),
+                            new Eruda_CF('Entrada', 'Comentar', 'PUT')
+                        )
                 ),
                 '([0-9]{2})-([0-9]{4})/' 
                     => new Eruda_Router(    //Archivos Router
-                        array(
-                            new Eruda_CF('Entrada', 'Archivo'),
-                            new Eruda_CF('Entrada', 'Comentar', 'POST'),
-                            new Eruda_CF('Entrada', 'Comentar', 'PUT'),
-                            new Eruda_CF('Entrada', 'DelComent', 'DELETE')
-                        )
+                        new Eruda_CF('Entrada', 'Archivo')
                 ),
                 'manga/' 
                     => new Eruda_Router(    //Manga Router

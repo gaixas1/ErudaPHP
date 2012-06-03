@@ -68,7 +68,7 @@ class Eruda_Router {
     
     function addRouter($key, $router) {
         if($key!=null && is_string($key) && strlen($key)>0 && $router!=null && $router instanceof Eruda_Router) {
-            $this->_err[$key] = $router;
+            $this->_ext[$key] = $router;
         }
         return $this;
     }
@@ -76,11 +76,12 @@ class Eruda_Router {
     function run($uri, $method, &$params) {
         if(is_string($uri) && strlen($uri)>0) {
             foreach ($this->_ext as $key => $router) {
-                if(preg_match('|$'.$key.'.*^|', $uri, $matches)) {
+                if(preg_match('~^'.$key.'.*$~', $uri, $matches)) {
+                    array_shift($matches); 
                     foreach ($matches as $value) {
                         $params[] = $value;
                     }
-                    $uri = preg_replace ('|$'.$key.'.*^|', '', $uri);
+                    $uri = preg_replace ('~^'.$key.'~', '', $uri);
                     return $router->run($uri, $method, $params);
                 }
             }

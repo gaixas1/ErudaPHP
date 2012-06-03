@@ -14,8 +14,8 @@ class Eruda_CF {
     protected $_func;
     protected $_data;
     
-    function __construct($controller = null, $function = null, $method = 'DEFAULT') {
-        if($method!=null && is_string($function) && in_array($method, $this->_methods)) {
+    function __construct($controller = null, $function = null, $method = 'DEFAULT') { 
+        if($method!=null && is_string($method) && in_array($method, Eruda_CF::$_methods)) {
             $this->_meth = $method;
             if($controller!=null && is_string($controller) && strlen($controller)>0) {
                 $this->_cont = $controller;
@@ -28,7 +28,7 @@ class Eruda_CF {
                 $this->_func = 'Index';
             }
         } else {
-            throw new Exception('Eruda_CF::__construct - BAD REQUEST METHOD');
+            throw new Exception('Eruda_CF::__construct - BAD REQUEST METHOD : '.$method);
         }
     }
     
