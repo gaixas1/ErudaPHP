@@ -47,6 +47,7 @@ class Eruda_Header_HTML extends Eruda_Header {
             'HTML5'
         );
         $this->_cType = 'utf-8';
+        $this->setType('HTML5');
         
     }
 
