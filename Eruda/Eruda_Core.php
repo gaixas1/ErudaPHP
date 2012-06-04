@@ -11,6 +11,7 @@
  * @property Eruda_Router $_router
  * @property Eruda_CF $_cf
  * @property array $_params
+ * @property array(string) $_folders
  */
 class Eruda_Core {
     protected $_uri;
@@ -19,6 +20,8 @@ class Eruda_Core {
     protected $_router;
     protected $_cf;
     protected $_params;
+    
+    protected $_folders = array();
     
     /**
      * @param Eruda_Router $router 
@@ -166,6 +169,42 @@ class Eruda_Core {
      */
     function getCF(){
         return $this->_cf;
+    }
+    
+    /**
+     * @return \Eruda_Core 
+     */
+    function resetFolders(){
+        $this->_folders = array();
+        return $this;
+    }
+    
+    /**
+     *
+     * @param string $folder
+     * @param string $dir
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function addFolder($folder, $dir) {
+        if($folder!=null && is_string($folder) && strlen($folder)>0) {
+            if($dir!=null && is_string($dir) && strlen($dir)>0) {
+                $folder = strtolower($folder);
+                $this->_folders[$folder] = $dir;
+            } else {
+                throw new Exception('Eruda_Core::addFolder - INVALID DIRECTORY : '.$dir);
+            }
+        } else {
+            throw new Exception('Eruda_Core::addFolder - INVALID FOLDER : '.$folder);
+        }
+        return $this;
+    }
+    
+    /**
+     * @return array(string) 
+     */
+    function getFolders(){
+        return $this->_folders;
     }
 }
 
