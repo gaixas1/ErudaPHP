@@ -1,0 +1,76 @@
+********
+2 Versiones de la libreria:
+********
+- Desarrollo : 
+	Todas las funciones
+	Todas las comprovaciones
+	Una clase por fichero
+- Uso :
+	Enrutador serializado
+	Solo funciones de uso, sin comprobaciones extra.
+		Ej:
+			Setters > Directo "$this->_attr = $val"
+			Eruda_Core > {__construct, parseUri<sin "if($this->_router!=null)">, 
+			Eruda_Router > {run}
+			Eruda_CF > Solo Getters y setData
+	Varias clases por archivo
+	
+	
+	
+********
+Orden de acontecimientos >> Versión Uso
+********
+include > ErudaCore >> {Loader, Core, Router, CF,...}
+include > configFile >> {$dbCon, $folders, $eruda_file}
+$Eruda = unserialize(file_get_contents($eruda_file));
+$Eruda->setUri($_SERVER['REQUEST_URI'])->setFolders($folders)->setDBConnector($dbCon);
+$Eruda->parseUri()
+>>
+	setCF( router->run())
+<<
+->run()
+>>
+	$controller = new CF->Controller($dbCon, $params);
+	>>
+		Config
+		[$dbCon->open();]
+	<<
+	MV{method, model, view{header}} = $controller->[CF->Function]();
+	
+	$controller->clean();
+	>>
+		[$dbCon->close();]
+	<<
+<<
+[->prepareView]
+>>
+	View->$body = View->ResultToString();
+<<
+->show();
+>>
+	if(MV.method=='HEAD')
+		exit();
+	else 
+		View->show();	
+<<
+exit();
+
+
+
+********
+Formularios
+********
+- Formulario compuesto por array de campos
+- Comprovación retorna map de valores
+- Los Field:
+	* Valor/valores de origen segun el tipo de campo
+	* Requerido o no requerido
+	* Destino de retorno > Posición donde guardar el valor resultante
+	* Tienen una lista ordenada de validadores y modificadores
+	* Campos especiales con validación interna directa y/o retorno especial
+		Ej:
+			Field_Mail > check is mail > RET Mail{name, domain}
+			Field_URL > check is url > RET URL{protocol, host, uri}
+			Field_Date > check is date > RET Date
+
+			

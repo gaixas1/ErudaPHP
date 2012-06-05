@@ -180,7 +180,20 @@ class Eruda_Core {
     }
     
     /**
-     *
+     * @param array(string) $folder
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function setFolders($folders) {
+        if($folders!=null && is_array($folders)) {
+			$this->_folders = $folders;
+        } else {
+            throw new Exception('Eruda_Core::setFolders - INVALIDS FOLDERS : '.$folders);
+        }
+        return $this;
+    }
+    
+    /**
      * @param string $folder
      * @param string $dir
      * @return \Eruda_Core
