@@ -12,6 +12,8 @@
  * @property Eruda_CF $_cf
  * @property array $_params
  * @property array(string) $_folders
+ * @property array $_environment
+ * @property Eruda_DBConnector $_dbcon
  */
 class Eruda_Core {
     protected $_uri;
@@ -20,6 +22,8 @@ class Eruda_Core {
     protected $_router;
     protected $_cf;
     protected $_params;
+    protected $_environment;
+    protected $_dbcon;
     
     protected $_folders = array();
     
@@ -153,7 +157,7 @@ class Eruda_Core {
     /**
      * @param Eruda_CF $cf
      * @throws Exception 
-     * @return Eruda_Core
+     * @return \Eruda_Core
      */
     function setCF($cf) {
         if($cf!=null && $cf instanceof Eruda_CF) {
@@ -218,6 +222,77 @@ class Eruda_Core {
      */
     function getFolders(){
         return $this->_folders;
+    }
+    
+    
+    
+    
+    /**
+     * @return \Eruda_Core 
+     */
+    function resetEnvironment(){
+        $this->_environment = array();
+        return $this;
+    }
+    
+    /**
+     * @param array(string) $folder
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function setEnvironment($environment) {
+        if($environment!=null && is_array($environment)) {
+			$this->_environment = $environment;
+        } else {
+            throw new Exception('Eruda_Core::setFolders - INVALIDS FOLDERS : '.$environment);
+        }
+        return $this;
+    }
+    
+    /**
+     * @param string $folder
+     * @param string $dir
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function addEnvironment($attr, $val) {
+        if($attr!=null && is_string($attr) && strlen($attr)>0) {
+            if($val!=null && is_string($val) && strlen($val)>0) {
+                $this->_environment[$attr] = $val;
+            } else {
+                throw new Exception('Eruda_Core::addEnvironment - INVALID VALUE : '.$val);
+            }
+        } else {
+            throw new Exception('Eruda_Core::addEnvironment - INVALID ATTRIBUTE : '.$attr);
+        }
+        return $this;
+    }
+    
+    /**
+     * @return array(string) 
+     */
+    function getEnvironment(){
+        return $this->_environment;
+    }
+    
+    /**
+     * @return \Eruda_DBConnector 
+     */
+    function getDBConnector(){
+        return $this->_dbcon;
+    }
+    
+    /**
+     * @param Eruda_DBConnector $connector
+     * @return \Eruda_Core
+     * @throws Exception 
+     */
+    function setDBConnector($connector){
+        if($connector!=null && $connector instanceof Eruda_DBConnector)
+            return $this->_dbcon = $connector;
+        else
+            throw new Exception('Eruda_Core::setDBConnector - INVALID DBCONNECTOR : '.$connector);
+        return $this;
     }
 }
 

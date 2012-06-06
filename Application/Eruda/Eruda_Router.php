@@ -101,7 +101,7 @@ class Eruda_Router {
      * @param string $uri
      * @param string $method
      * @param array $params
-     * @return Eruda_CF
+     * @return \Eruda_CF
      * @throws Exception 
      */
     function run($uri, $method, &$params) {
