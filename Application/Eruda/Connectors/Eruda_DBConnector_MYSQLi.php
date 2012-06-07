@@ -206,7 +206,56 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         }
         $query .= implode(',', $qvals);
         if($where!=null)
-        $query .= ' WHERE '.$where;
+        $query .= ' WHERE '.$where.';';
+        $this->_mysqli->query($query);
+        return $this->_mysqli->affected_rows;
+    }
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param string $id
+     * @return int
+     */
+    function updateID($table, $values, $id) {
+        $query = 'UPDATE '.$table.' SET ';
+        $qvals = array();
+        foreach($values as $attr => $val){
+            if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                $qvals[] = $attr.' = '.$val;
+            else if(is_array($val) && $val[1] = true)
+                $qvals[] = $attr.' = '.$val;
+            else
+                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($id).'"';
+        }
+        $query .= implode(',', $qvals);
+        if($where!=null)
+        $query .= ' WHERE id = "'.$id.'";';
+        $this->_mysqli->query($query);
+        return $this->_mysqli->affected_rows;
+    }
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param string $attr
+     * @param string $val
+     * @return int
+     */
+    function updateVal($table, $attr, $val){
+        $query = 'UPDATE '.$table.' SET ';
+        $qvals = array();
+        foreach($values as $attr => $val){
+            if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                $qvals[] = $attr.' = '.$val;
+            else if(is_array($val) && $val[1] = true)
+                $qvals[] = $attr.' = '.$val;
+            else
+                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($id).'"';
+        }
+        $query .= implode(',', $qvals);
+        if($where!=null)
+        $query .= ' WHERE '.$attr.'="'.$this->_mysqli->real_escape_string($val).'";';
         $this->_mysqli->query($query);
         return $this->_mysqli->affected_rows;
     }
@@ -247,5 +296,197 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
     }
     
     
+    /**
+     * @param string $table
+     * @param string $id
+     * @param string $object
+     * @return null|array|Eruda_Model 
+     */
+    function selectID($table, $id, $object=null){
+        if($object!=null) $object = 'Eruda_Model_'.$object;
+        $query = 'SELECT * FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
+        $res = $this->_mysqli->query($query);
+        
+        $ret = null;
+        if($object!=null && is_string($object)){
+            if($res){
+                $res = new $object($res->fetch_array());
+            }
+        } else {
+            if($res){
+                $res = $res->fetch_array();
+            }
+        }
+        return $ret;
+    }
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param int $start
+     * @param string $object
+     * @return null|array|Eruda_Model 
+     */
+    function selectOne($table, $values, $start=0, $object=null){
+        if($object!=null) $object = 'Eruda_Model_'.$object;
+        $query = 'SELECT * FROM '.$table.' WHERE ';
+        
+        $qvals = array();
+        foreach($values as $attr => $val){
+            if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                $qvals[] = $attr.' = '.$val;
+            else if(is_array($val) && $val[1] = true)
+                $qvals[] = $attr.' = '.$val;
+            else
+                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+        }
+        
+        $query .= implode(' AND ', $qvals).' ';
+        
+        $query .= ' LIMIT '.$start.', 1 ;';
+        
+        $res = $this->_mysqli->query($query);
+        
+        $ret = null;
+        if($object!=null && is_string($object)){
+            if($res){
+                $ret = new $object($res->fetch_array());
+            }
+        } else {
+            if($res){
+                $ret = $res->fetch_array();
+            }
+        }
+        return $ret;
+    }
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param int $start
+     * @param string $object
+     * @return array
+     */
+    function selectMulti($table, $values, $order=null, $start=0, $total = 999999, $object=null){
+        if($object!=null) $object = 'Eruda_Model_'.$object;
+        $query = 'SELECT * FROM '.$table.' WHERE ';
+        
+        $qvals = array();
+        foreach($values as $attr => $val){
+            if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                $qvals[] = $attr.' = '.$val;
+            else if(is_array($val) && $val[1] = true)
+                $qvals[] = $attr.' = '.$val;
+            else
+                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+        }
+        
+        $query .= implode(' AND ', $qvals).' ';
+        if($order==null && is_array($order) && count($order)>0){
+            $ovals = array();
+            foreach($order as $val){
+                $ovals[] = $val[0].','.$val[1];
+            }
+            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+        }
+        
+        $query .= ' LIMIT '.$start.', '.$total.' ;';
+        
+        $res = $this->_mysqli->query($query);
+        
+        $ret = array();
+        if($object!=null && is_string($object)){
+            while($res){
+                $ret[] = new $object($res->fetch_array());
+            }
+        } else {
+            while($res){
+                $ret[] = $res->fetch_array();
+            }
+        }
+        
+        return $ret;
+    }
+    
+    /**
+     * @param string $table
+     * @param int $start
+     * @param string $object
+     * @return array
+     */
+    function selectAll($table, $order=null, $start=0, $total = 999999, $object=null){
+        if($object!=null) $object = 'Eruda_Model_'.$object;
+        $query = 'SELECT * FROM '.$table.' ';
+        
+        if($order==null && is_array($order) && count($order)>0){
+            $ovals = array();
+            foreach($order as $val){
+                $ovals[] = $val[0].','.$val[1];
+            }
+            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+        }
+        
+        $query .= ' LIMIT '.$start.', '.$total.' ;';
+        
+        $res = $this->_mysqli->query($query);
+        
+        $ret = array();
+        if($object!=null && is_string($object)){
+            while($res){
+                $ret[] = new $object($res->fetch_array());
+            }
+        } else {
+            while($res){
+                $ret[] = $res->fetch_array();
+            }
+        }
+        
+        return $ret;
+    }
+    
+    
+    /**
+     * @param string $table
+     * @param array $group
+     * @param array $order
+     * @return array 
+     */
+    function selectCount($table, $group=null, $order=null){
+        $query = null;
+        
+        if($group==null && is_array($group) && count($group)>0){
+            $query = 'SELECT '.implode(',',$group).', count(*) AS count FROM '.$table.' ';
+            $query .= ' GROUP BY '.implode(',', $group).' ';
+        } else {
+            $query = 'SELECT count(*) AS count FROM '.$table.' ';
+        }
+        
+        if($order==null && is_array($order) && count($order)>0){
+            $ovals = array();
+            foreach($order as $val){
+                $ovals[] = $val[0].','.$val[1];
+            }
+            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+        }
+        
+        
+        $res = $this->_mysqli->query($query);
+        
+        $ret = array();
+        while($res){
+                $ret[] = new $object($res->fetch_array());
+        }
+        
+        return $ret;
+    }
+    
+    /**
+     *
+     * @param string $query
+     * @return mysqli_result 
+     */
+    function query($query){
+        return $this->_mysqli->query($query);
+    }
 }
 ?>

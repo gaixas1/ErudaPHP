@@ -46,6 +46,23 @@ abstract class  Eruda_DBConnector {
      */
     abstract function update($table, $values, $where);
     
+    /**
+     * @param string $table
+     * @param array $values
+     * @param string $id
+     * @return int
+     */
+    abstract function updateID($table, $values, $id);
+    
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param string $attr
+     * @param string $val
+     * @return int
+     */
+    abstract function updateVal($table, $attr, $val);
     
     /**
      * @param string $table
@@ -68,6 +85,50 @@ abstract class  Eruda_DBConnector {
      * @return int 
      */
     abstract function deleteVal($table, $attr, $val);
+    
+    /**
+     * @param string $table
+     * @param string $id
+     * @param string $object
+     * @return null|array|Eruda_Model 
+     */
+    abstract function selectID($table, $id, $object=null);
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @param int $start
+     * @param string $object
+     * @return null|array|Eruda_Model 
+     */
+    abstract function selectOne($table, $values, $start=0, $object=null);
+    
+    /**
+     * @param string $table
+     * @param int $start
+     * @param string $object
+     * @return array
+     */
+    abstract function selectAll($table, $order=null, $start=0, $total = 999999, $object=null);
+            
+    /**
+     * @param string $table
+     * @param array $values
+     * @param int $start
+     * @param string $object
+     * @return array
+     */
+    abstract function selectMulti($table, $values, $order=null, $start=0, $total = 999999, $object=null);
+    
+    
+    /**
+     * @param string $table
+     * @param array $group
+     * @param array $order
+     * @return array 
+     */
+    abstract function selectCount($table, $group=null, $order=null);
 }
+
 
 ?>
