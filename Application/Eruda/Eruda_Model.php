@@ -20,9 +20,9 @@ abstract class Eruda_Model {
     }
     
     function __construct($vals = array()){
-        exit('in');
-        foreach($vals as $key=> $value) 
-            $this->__set($key, $value);
+        if(is_array($vals))
+            foreach($vals as $key=> $value) 
+                $this->__set($key, $value);
     }
     
 }

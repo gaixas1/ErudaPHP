@@ -9,9 +9,21 @@
  * @property string $_table
  */
 class Eruda_Mapper_Category {
-    public static $_table = 'category_view';
+    public static $_tableA = 'category';
+    public static $_tableB = 'category_view';
     
     public static $cats = array();
+    
+    /**
+     *
+     * @param int $id
+     * @return Eruda_Model_Category
+     */
+    static function All(){
+        $cats = Eruda::getDBConnector()->selectAll(self::$_tableB, array(array('name','ASC')), 0, 999, 'Category');
+        foreach($cats as $cat) self::$cats[$cat->get_id()] = $cat;
+        return $cats;
+    }
     
     /**
      *
@@ -21,8 +33,51 @@ class Eruda_Mapper_Category {
     static function get($id){
         if(isset(self::$cats[$id])) return self::$cats[$id];
         
-        $cat = Eruda::getDBConnector()->selectID(self::$_table, $id, 'Category');
-        self::$cats[$cat->get_id()] = $cat;
+        $cat = Eruda::getDBConnector()->selectID(self::$_tableB, $id, 'Category');
+        if($cat) self::$cats[$cat->get_id()] = $cat;
+        return $cat;
+    }
+    
+    /**
+     *
+     * @param string $name
+     * @return Eruda_Model_Category
+     */
+    static function getName($name){
+        $cat = Eruda::getDBConnector()->selectOne(self::$_tableB, array('name' => $name), 0, 'Category');
+        if($cat) self::$cats[$cat->get_id()] = $cat;
+        return $cat;
+    }
+    
+    /**
+     *
+     * @param string $link
+     * @return Eruda_Model_Category
+     */
+    static function getLink($link){
+        $cat = Eruda::getDBConnector()->selectOne(self::$_tableB, array('link' => $link), 0, 'Category');
+        if($cat) self::$cats[$cat->get_id()] = $cat;
+        return $cat;
+    }
+    
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
+    static function save(&$cat){
+        $attr = array(
+            'name',
+            'link'
+        );
+        $values = array(
+            $cat->get_name(),
+            $cat->get_link()
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableA, $attr, $values);
+        $cat->set_id(Eruda::getDBConnector()->lastID());
+        if($cat) self::$cats[$cat->get_id()] = $cat;
         return $cat;
     }
 }

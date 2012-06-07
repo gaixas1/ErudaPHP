@@ -8,15 +8,11 @@
     Eruda::setRouter($router);
     
     Eruda::setDBConnector(
-        new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root')
+        new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', 'root')
     );
     
     Eruda::getDBConnector()->connect();
-    
-    
-    $user = Eruda_Mapper_User::get(1);
-    /*
-    echo $user->get_id();
-    */
-    
+        
+    foreach(Eruda_Mapper_Category::All() as $cat)
+        var_dump($cat);
 ?>

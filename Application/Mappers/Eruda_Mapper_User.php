@@ -15,7 +15,6 @@ class Eruda_Mapper_User {
     public static $users = array();
     
     /**
-     *
      * @param int $id
      * @return \Eruda_Model_User 
      */
@@ -23,7 +22,27 @@ class Eruda_Mapper_User {
         if(isset(self::$users[$id])) return self::$users[$id];
         
         $user = Eruda::getDBConnector()->selectID(self::$_table, $id, 'User');
-        self::$users[$user->get_id()] = $user;
+        if($user) self::$users[$user->get_id()] = $user;
+        return $user;
+    }
+    
+    /**
+     * @param string $name
+     * @return \Eruda_Model_User 
+     */
+    static function getName($name){
+        $user = Eruda::getDBConnector()->selectOne(self::$_table, array('name' => $name), 0, 'User');
+        if($user) self::$users[$user->get_id()] = $user;
+        return $user;
+    }
+    
+    /**
+     * @param string $mail
+     * @return \Eruda_Model_User 
+     */
+    static function getMail($mail){
+        $user = Eruda::getDBConnector()->selectOne(self::$_table, array('mail' => $mail), 0, 'User');
+        if($user) self::$users[$user->get_id()] = $user;
         return $user;
     }
     
@@ -52,7 +71,7 @@ class Eruda_Mapper_User {
         
         Eruda::getDBConnector()->insertOne(self::$_table, $attr, $values);
         $user->set_id(Eruda::getDBConnector()->lastID());
-        self::$users[$user->get_id()] = $user;
+        if($user) self::$users[$user->get_id()] = $user;
         return $user;
     }
     

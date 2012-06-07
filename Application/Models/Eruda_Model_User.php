@@ -13,11 +13,6 @@ class Eruda_Model_User extends Eruda_Model {
     protected $registered;
     protected $last_log;
     
-    function __construct($vals = array()){
-        exit('inUser');
-        parent::__construct($vals);
-    }
-    
     function set_id($id){
         $this->id = $id;
         return $this;

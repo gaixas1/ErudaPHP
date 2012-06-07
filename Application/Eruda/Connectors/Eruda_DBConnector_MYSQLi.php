@@ -304,29 +304,17 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
      */
     function selectID($table, $id, $object=null){
         if($object!=null) $object = 'Eruda_Model_'.$object;
-        $query = 'SELECT id,name FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
+        $query = 'SELECT * FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
         
-     $result = $this->_mysqli->query($query);   
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        printf ("%s (%s)\n", $row["id"], $row["name"]);
-    }
-}
-        exit();
-
-        $res = $this->_mysqli->query($query);
         $ret = null;
-        if($object!=null && is_string($object)){
-            if($res){
-                echo $res->num_rows;
-                exit();
-                $res = new $object($res->fetch_array());
+        if($res = $this->_mysqli->query($query))
+            if($object!=null && is_string($object)){
+                if($row = $res->fetch_array()){
+                    $ret = new $object($row);
+                }
+            } else {
+                $ret = $res->fetch_array();
             }
-        } else {
-            if($res){
-                $res = $res->fetch_array();
-            }
-        }
         $res->close();
         return $ret;
     }
@@ -356,18 +344,16 @@ if ($result) {
         
         $query .= ' LIMIT '.$start.', 1 ;';
         
-        $res = $this->_mysqli->query($query);
-        
         $ret = null;
-        if($object!=null && is_string($object)){
-            if($res){
-                $ret = new $object($res->fetch_array());
-            }
-        } else {
-            if($res){
+        
+        if($res = $this->_mysqli->query($query))
+            if($object!=null && is_string($object)){
+                if($row = $res->fetch_array()){
+                    $ret = new $object($row);
+                }
+            } else {
                 $ret = $res->fetch_array();
             }
-        }
         return $ret;
     }
     
@@ -403,18 +389,18 @@ if ($result) {
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
         
-        $res = $this->_mysqli->query($query);
-        
         $ret = array();
-        if($object!=null && is_string($object)){
-            while($res){
-                $ret[] = new $object($res->fetch_array());
+        
+        if($res = $this->_mysqli->query($query))
+            if($object!=null && is_string($object)){
+                while($row = $res->fetch_array()){
+                    $ret[] = new $object($row);
+                }
+            } else {
+                while($row = $res->fetch_array()){
+                    $ret[] = $row;
+                }
             }
-        } else {
-            while($res){
-                $ret[] = $res->fetch_array();
-            }
-        }
         
         return $ret;
     }
@@ -439,18 +425,18 @@ if ($result) {
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
         
-        $res = $this->_mysqli->query($query);
-        
         $ret = array();
-        if($object!=null && is_string($object)){
-            while($res){
-                $ret[] = new $object($res->fetch_array());
+        
+        if($res = $this->_mysqli->query($query))
+            if($object!=null && is_string($object)){
+                while($row = $res->fetch_array()){
+                    $ret[] = new $object($row);
+                }
+            } else {
+                while($row = $res->fetch_array()){
+                    $ret[] = $row;
+                }
             }
-        } else {
-            while($res){
-                $ret[] = $res->fetch_array();
-            }
-        }
         
         return $ret;
     }
@@ -480,13 +466,12 @@ if ($result) {
             $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
         }
         
-        
-        $res = $this->_mysqli->query($query);
-        
         $ret = array();
-        while($res){
-                $ret[] = new $object($res->fetch_array());
-        }
+        
+        if($res = $this->_mysqli->query($query))
+            while($row = $res->fetch_array()){
+                    $ret[] = new $object($row);
+            }
         
         return $ret;
     }
