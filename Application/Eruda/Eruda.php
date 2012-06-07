@@ -15,7 +15,7 @@
  * @property array $_environment
  * @property Eruda_DBConnector $_dbcon
  */
-class Eruda_Core {
+class Eruda {
     static protected $_uri;
     static protected $_base;
     static protected $_method;
@@ -42,7 +42,6 @@ class Eruda_Core {
     
     
     /** 
-     * @return \Eruda_Core 
      */
     static function parseUri() {
         if(self::$_router!=null) {
@@ -50,13 +49,10 @@ class Eruda_Core {
             if($uri[0]=='/') $uri = substr($uri, 1);
             self::setCF(self::$_router->run($uri, self::$_method, self::$_params));
         }
-        
-        return $this;
     }
     
     /**
      * @param Eruda_Router $router
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setRouter($router) {
@@ -65,7 +61,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::run - NOT VALID ROUTER');
         }
-        return $this;
     }
     
     /**
@@ -77,8 +72,7 @@ class Eruda_Core {
     
     /**
      * @param string $base
-     * @return \Eruda_Core
-     * @throws Exception 
+     * * @throws Exception 
      */
     static function setBase($base) {
         if($base!= null && is_string($base)) {
@@ -86,7 +80,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setBase - NOT VALID BASE');
         }
-        return $this;
     }
     
     /**
@@ -100,7 +93,6 @@ class Eruda_Core {
     /**
      *
      * @param string $uri
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setUri($uri) {
@@ -109,7 +101,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setUri - NOT URI');
         }
-        return $this;
     }
     
     /**
@@ -122,7 +113,6 @@ class Eruda_Core {
     /**
      *
      * @param string $method
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setMethod($method) {
@@ -131,7 +121,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setMethod - Bad Method');
         }
-        return $this;
     }
     
     /**
@@ -144,7 +133,6 @@ class Eruda_Core {
     /**
      * @param Eruda_CF $cf
      * @throws Exception 
-     * @return \Eruda_Core
      */
     static function setCF($cf) {
         if($cf!=null && $cf instanceof Eruda_CF) {
@@ -152,27 +140,23 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setCF - Bad CF');
         }
-        return $this;
     }
     
     /**
-     * @return type 
+     * @return Eruda_CF 
      */
     static function getCF(){
         return self::$_cf;
     }
     
     /**
-     * @return \Eruda_Core 
      */
     static function resetFolders(){
         self::$_folders = array();
-        return $this;
     }
     
     /**
      * @param array(string) $folder
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setFolders($folders) {
@@ -181,13 +165,11 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setFolders - INVALIDS FOLDERS : '.$folders);
         }
-        return $this;
     }
     
     /**
      * @param string $folder
      * @param string $dir
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function addFolder($folder, $dir) {
@@ -201,7 +183,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::addFolder - INVALID FOLDER : '.$folder);
         }
-        return $this;
     }
     
     /**
@@ -213,16 +194,13 @@ class Eruda_Core {
     
     
     /**
-     * @return \Eruda_Core 
      */
     static function resetEnvironment(){
         self::$_environment = array();
-        return $this;
     }
     
     /**
      * @param array(string) $folder
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setEnvironment($environment) {
@@ -231,13 +209,11 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::setFolders - INVALIDS FOLDERS : '.$environment);
         }
-        return $this;
     }
     
     /**
      * @param string $folder
      * @param string $dir
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function addEnvironment($attr, $val) {
@@ -250,7 +226,6 @@ class Eruda_Core {
         } else {
             throw new Exception('Eruda_Core::addEnvironment - INVALID ATTRIBUTE : '.$attr);
         }
-        return $this;
     }
     
     /**
@@ -269,7 +244,6 @@ class Eruda_Core {
     
     /**
      * @param Eruda_DBConnector $connector
-     * @return \Eruda_Core
      * @throws Exception 
      */
     static function setDBConnector($connector){
@@ -277,7 +251,6 @@ class Eruda_Core {
             self::$_dbcon = $connector;
         else
             throw new Exception('Eruda_Core::setDBConnector - INVALID DBCONNECTOR : '.$connector);
-        return $this;
     }
 }
 

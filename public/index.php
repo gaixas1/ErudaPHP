@@ -2,11 +2,12 @@
     set_include_path('../Application/');
     require_once 'Eruda/Eruda_Loader.php';
     
-    Eruda_Core::init();
+    Eruda::init();
     require_once '../configure.php';
     
-    Eruda_Core::parseUri();
-    Eruda_Core::addFolder('css', 'http://fallensoul.es/template/');
+    /*
+    Eruda::parseUri();
+    Eruda::addFolder('css', 'http://fallensoul.es/template/');
     
     
     $header = new Eruda_Header_HTML();
@@ -37,3 +38,5 @@
         Afected rows = <?php echo $afected;?>
     </body>
 </html>
+     * 
+     */?>

@@ -7,10 +7,9 @@
 
 
 /**
- * @property Eruda_DBConnector_MYSQLi $_connector
  * @property string $_table
  */
-class Eruda_Mapper_User extends Eruda_Mapper{
+class Eruda_Mapper_User {
     public static $_table = 'user';
     
     public static $users = array();
@@ -23,7 +22,7 @@ class Eruda_Mapper_User extends Eruda_Mapper{
     static function get($id){
         if(isset(self::$users[$id])) return self::$users[$id];
         
-        $user = Eruda_Core::getDBConnector()->selectID(self::$_table, $id, 'User');
+        $user = Eruda::getDBConnector()->selectID(self::$_table, $id, 'User');
         self::$users[$user->get_id()] = $user;
         return $user;
     }
@@ -33,20 +32,26 @@ class Eruda_Mapper_User extends Eruda_Mapper{
      * @param Eruda_Model_User $user
      * @return \Eruda_Model_User 
      */
-    static function save($user){
+    static function save(&$user){
         $attr = array(
             'name',
             'pass',
-            'mail'
+            'mail',
+            'level',
+            'registered',
+            'last_log'
         );
         $values = array(
             $user->get_name(),
             $user->get_pass(),
-            $user->get_mail()
+            $user->get_mail(),
+            $user->get_level(),
+            'NOW()',
+            'NOW()'
         );
         
-        Eruda_Core::getDBConnector()->insertOne(self::$_table, $attr, $values);
-        $user->set_id(Eruda_Core::getDBConnector()->lastID());
+        Eruda::getDBConnector()->insertOne(self::$_table, $attr, $values);
+        $user->set_id(Eruda::getDBConnector()->lastID());
         self::$users[$user->get_id()] = $user;
         return $user;
     }
@@ -59,10 +64,12 @@ class Eruda_Mapper_User extends Eruda_Mapper{
     static function update($user){
         $values = array(
             'pass' => $user->get_pass(),
-            'mail' => $user->get_mail()
+            'mail' => $user->get_mail(),
+            'level' => $user->get_level(),
+            'last_log' => 'NOW()'
         );
         
-        Eruda_Core::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
+        Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
         return $user;
     }
     

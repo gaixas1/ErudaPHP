@@ -9,7 +9,14 @@ class Eruda_Model_User extends Eruda_Model {
     protected $name;
     protected $pass;
     protected $mail;
+    protected $level;
+    protected $registered;
+    protected $last_log;
     
+    function __construct($vals = array()){
+        exit('inUser');
+        parent::__construct($vals);
+    }
     
     function set_id($id){
         $this->id = $id;
@@ -41,6 +48,30 @@ class Eruda_Model_User extends Eruda_Model {
     }
     function get_mail(){
         return $this->mail;
+    }
+    
+    function set_level($level){
+        $this->level = $level;
+        return $this;
+    }
+    function get_level(){
+        return $this->level;
+    }
+    
+    function set_registered($registered){
+        $this->registered = $registered;
+        return $this;
+    }
+    function get_registered(){
+        return $this->registered;
+    }
+    
+    function set_last_log($last_log){
+        $this->last_log = $last_log;
+        return $this;
+    }
+    function get_last_log(){
+        return $this->last_log;
     }
     
     

@@ -15,7 +15,7 @@
  */
 
 class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
-    public static $_protectedValues = array('NOW');
+    public static $_protectedValues = array('NOW()');
     protected $_host;
     protected $_dbase;
     protected $_port;
@@ -304,12 +304,22 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
      */
     function selectID($table, $id, $object=null){
         if($object!=null) $object = 'Eruda_Model_'.$object;
-        $query = 'SELECT * FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
-        $res = $this->_mysqli->query($query);
+        $query = 'SELECT id,name FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
         
+     $result = $this->_mysqli->query($query);   
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        printf ("%s (%s)\n", $row["id"], $row["name"]);
+    }
+}
+        exit();
+
+        $res = $this->_mysqli->query($query);
         $ret = null;
         if($object!=null && is_string($object)){
             if($res){
+                echo $res->num_rows;
+                exit();
                 $res = new $object($res->fetch_array());
             }
         } else {
@@ -317,6 +327,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
                 $res = $res->fetch_array();
             }
         }
+        $res->close();
         return $ret;
     }
     
