@@ -20,6 +20,22 @@ function __autoload($class_name) {
         else
             throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
         
+    } else if(preg_match('~^Eruda_Helper_.*$~', $class_name)) {                      //Helpers
+        if(is_file($inc.'Helpers/'.$class_name.'.php'))
+            include 'Helpers/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/Models/'.$class_name.'.php'))
+            include 'Eruda/Helpers/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
+    } else if(preg_match('~^Eruda_Controller_.*$~', $class_name)) {                      //Controller
+        if(is_file($inc.'Controllers/'.$class_name.'.php'))
+            include 'Controllers/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/Controllers/'.$class_name.'.php'))
+            include 'Eruda/Controllers/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
     } else if(preg_match('~^Eruda_Mapper_.*$~', $class_name)) {                      //Mapper
         if(is_file($inc.'Mappers/'.$class_name.'.php'))
             include 'Mappers/'.$class_name . '.php';
@@ -53,8 +69,12 @@ function __autoload($class_name) {
             throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
         
         
-    } else{
-            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
-    }
+    } else if(is_file($inc.'Extra/'.$class_name.'.php'))
+        include 'Extra/'.$class_name . '.php';
+    else if(is_file($inc.'Eruda/Extra/'.$class_name.'.php'))
+        include 'Eruda/Extra/'.$class_name . '.php';
+    else
+        throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
 }
 ?>
