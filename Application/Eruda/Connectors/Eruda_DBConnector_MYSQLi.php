@@ -242,7 +242,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
      * @param string $val
      * @return int
      */
-    function updateVal($table, $attr, $val){
+    function updateVal($table, $values, $where){
         $query = 'UPDATE '.$table.' SET ';
         $qvals = array();
         foreach($values as $attr => $val){
@@ -254,8 +254,10 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
                 $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($id).'"';
         }
         $query .= implode(',', $qvals);
+        
         if($where!=null)
-        $query .= ' WHERE '.$attr.'="'.$this->_mysqli->real_escape_string($val).'";';
+            $query .= ' WHERE '.$attr.'="'.$this->_mysqli->real_escape_string($val).'";';
+        
         $this->_mysqli->query($query);
         return $this->_mysqli->affected_rows;
     }

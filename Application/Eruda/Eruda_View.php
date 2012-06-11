@@ -34,7 +34,7 @@ abstract class Eruda_View {
     /**
      * @param Eruda_Model $model
      */
-    abstract function show($model);
+    abstract function show($folders, $model);
 }
 
 ?>

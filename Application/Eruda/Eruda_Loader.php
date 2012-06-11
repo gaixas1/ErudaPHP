@@ -52,6 +52,14 @@ function __autoload($class_name) {
         else
             throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
         
+    } else if(preg_match('~^Eruda_MV_.*$~', $class_name)) {                       //MV
+        if(is_file($inc.'MV/'.$class_name.'.php'))
+            include 'MV/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/MV/'.$class_name.'.php'))
+            include 'Eruda/MV/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
     } else if(preg_match('~^Eruda_Header_.*$~', $class_name)) {                     //Header
         if(is_file($inc.'Headers/'.$class_name.'.php'))
             include 'Headers/'.$class_name . '.php';

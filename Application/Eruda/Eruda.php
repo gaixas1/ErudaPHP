@@ -12,8 +12,9 @@
  * @property Eruda_CF $_cf
  * @property array $_params
  * @property array(string) $_folders
- * @property array $_environment
+ * @property Eruda_Environment $_environment
  * @property Eruda_DBConnector $_dbcon
+ * @property Eruda_MV $_mv
  */
 class Eruda {
     static protected $_uri;
@@ -24,6 +25,7 @@ class Eruda {
     static protected $_params;
     static protected $_environment;
     static protected $_dbcon;
+    static protected $_mv;
     
     static protected $_folders = array();
     
@@ -200,36 +202,19 @@ class Eruda {
     }
     
     /**
-     * @param array(string) $folder
+     * @param Eruda_Environment $environment
      * @throws Exception 
      */
     static function setEnvironment($environment) {
-        if($environment!=null && is_array($environment)) {
+        if($environment!=null && $environment instanceof Eruda_Environment) {
             self::$_environment = $environment;
         } else {
-            throw new Exception('Eruda_Core::setFolders - INVALIDS FOLDERS : '.$environment);
+            throw new Exception('Eruda_Core::setEnvironment - INVALIDS ENVIRONMENT : '.$environment);
         }
     }
     
     /**
-     * @param string $folder
-     * @param string $dir
-     * @throws Exception 
-     */
-    static function addEnvironment($attr, $val) {
-        if($attr!=null && is_string($attr) && strlen($attr)>0) {
-            if($val!=null && is_string($val) && strlen($val)>0) {
-                self::$_environment[$attr] = $val;
-            } else {
-                throw new Exception('Eruda_Core::addEnvironment - INVALID VALUE : '.$val);
-            }
-        } else {
-            throw new Exception('Eruda_Core::addEnvironment - INVALID ATTRIBUTE : '.$attr);
-        }
-    }
-    
-    /**
-     * @return array(string) 
+     * @return \Eruda_Environment
      */
     static function getEnvironment(){
         return self::$_environment;
@@ -251,6 +236,34 @@ class Eruda {
             self::$_dbcon = $connector;
         else
             throw new Exception('Eruda_Core::setDBConnector - INVALID DBCONNECTOR : '.$connector);
+    }
+    
+    
+    static function runController(){
+        $temp = null;
+        $i=0;
+        do {
+            $controller_name = 'Eruda_Controller_'.self::$_cf->getController();
+            $function_name = self::$_cf->getFunction();
+            
+            $controller = new $controller_name(self::$_params, self::$_method=='HEADER');
+            $controller->ini();
+            $temp = $controller->$function_name();
+            $controller->end();
+            $i++;
+        }while(($temp instanceof Eruda_CF) && $i<5);
+        
+        if($i>=5){
+            $controller = new Eruda_Controller_Error(null, self::$_method=='HEADER');
+            $controller->ini();
+            $temp = $controller->E500();
+            $controller->end();
+        }
+        self::$_mv = $temp;
+    }
+    
+    static function show(){
+        self::$_mv->show();
     }
 }
 

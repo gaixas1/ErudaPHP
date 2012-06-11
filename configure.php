@@ -6,13 +6,13 @@
     define('APP_PATH', PATH.'/Application/');
     require_once APP_PATH.'routeMap.php';
     Eruda::setRouter($router);
+    Eruda::setEnvironment(new Eruda_Environment('Fallensoul', '/', 5));
     
     Eruda::setDBConnector(
         new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', 'root')
     );
     
-    Eruda::getDBConnector()->connect();
-        
-    foreach(Eruda_Mapper_Category::All() as $cat)
-        var_dump($cat);
+    Eruda::addFolder('css', 'http://fallensoul.es/template/');
+    
+    
 ?>

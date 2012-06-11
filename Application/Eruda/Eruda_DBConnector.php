@@ -58,11 +58,11 @@ abstract class  Eruda_DBConnector {
     /**
      * @param string $table
      * @param array $values
-     * @param string $attr
+     * @param string $where
      * @param string $val
      * @return int
      */
-    abstract function updateVal($table, $attr, $val);
+    abstract function updateVal($table, $values, $where);
     
     /**
      * @param string $table

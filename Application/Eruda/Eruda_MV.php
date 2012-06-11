@@ -65,6 +65,11 @@ class Eruda_MV {
             throw new Exception('Eruda_MV::setView - BAD MODEL : '.$view);
         return $this;
     }
+    
+    
+    function show(){
+        $this->_view->show(Eruda::getFolders(), $this->_model);
+    }
 }
 
 ?>
