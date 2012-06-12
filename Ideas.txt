@@ -18,7 +18,7 @@
 	
 	
 ********
-Orden de acontecimientos >> Versi髇 Uso
+Orden de acontecimientos >> Versi贸n Uso
 ********
 include > ErudaCore >> {Loader, Core, Router, CF,...}
 include > configFile >> {$dbCon, $folders, $eruda_file}
@@ -61,13 +61,13 @@ exit();
 Formularios
 ********
 - Formulario compuesto por array de campos
-- Comprovaci髇 retorna map de valores
+- Comprovaci贸n retorna map de valores
 - Los Field:
 	* Valor/valores de origen segun el tipo de campo
 	* Requerido o no requerido
-	* Destino de retorno > Posici髇 donde guardar el valor resultante
+	* Destino de retorno > Posici贸n donde guardar el valor resultante
 	* Tienen una lista ordenada de validadores y modificadores
-	* Campos especiales con validaci髇 interna directa y/o retorno especial
+	* Campos especiales con validaci贸n interna directa y/o retorno especial
 		Ej:
 			Field_Mail > check is mail > RET Mail{name, domain}
 			Field_URL > check is url > RET URL{protocol, host, uri}

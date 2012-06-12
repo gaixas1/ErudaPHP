@@ -1,0 +1,276 @@
+
+/*Anime*/
+
+article.anime {
+	border:solid 2px #CCC;
+	margin : auto;
+	margin-bottom : 10px;
+	margin-top : 10px;
+}
+
+article.anime  header {
+	border-bottom : solid 1px #dddddd;
+	padding: 7px 10px 7px 10px;
+	text-align : left;
+	margin : 0px;
+}
+
+article.anime  header h1 {
+	color : #cccccc;
+	font-size : 1.2em;
+	font-family : Georgia, 'Lucida Grande', Tahoma, Arial, sans-serif;
+	margin : 0px;
+	padding : 0px;
+}
+
+article.anime  header h2 {
+	font-size : 0.9em;
+	padding : 0px;
+	margin : 0px;
+	font-family : Arial, sans-serif;
+}
+
+article.anime  .imagenes {
+	text-align: center;
+}
+article.anime  .imagenes img {
+	width: 300px;
+}
+
+article.anime  footer {
+	margin : 0px;
+	border-top : solid 1px #dddddd;
+	padding-top : 3px;
+	text-align : center;
+}
+
+article.anime  footer .donwImage, article.anime  footer .donwImage:hover, article.anime  footer .donwImageOff, article.anime  footer .donwImageOff:hover  {
+	margin : 0;
+	margin-left : 3px;
+	margin-right : 3px;
+	height : 18px;
+	padding : 3px;
+	border : solid 3px;
+	padding : 3px;
+}
+
+.animelink, .animelinkOff {
+	text-align : left;
+	margin : 0 !important;
+	padding : 0 !important;
+	border : solid 3px;
+}
+
+.animelink {
+	background-color : #6f8470;
+}
+.animelink:hover {
+	background-color : #d4f2f7;
+}
+.animelinkOff, .animelinkOff:hover {
+	background-color : #653737;
+}
+.animelink a {
+	padding : 0 !important;
+	margin : 0 !important;
+}
+
+.animelink .donwImage, .animelink .donwImage:hover, .animelinkOff .donwImageOff, .animelinkOff .donwImageOff:hover {
+	border-left-width : 3px !important;
+	border-right-width : 6px !important;
+	border-top : 0 !important;
+	border-bottom : 0 !important;
+	margin-left : 0 !important;
+	margin-right : 15px !important;
+}
+.dtext{
+	vertical-align : super;
+	font-weight : bold;
+}
+
+.animelink .dtext{
+	color: #a7dba9 !important;
+}
+.animelink:hover .dtext{
+	color: #9fc0c5 !important;
+}
+
+.animelinkOff .dtext, .animelinkOff:hover .dtext{
+	color: #c59f9f !important;
+}
+
+
+.download  footer .donwImage, .animelink {
+	border-color: #a7dba9;
+}
+.download  footer .donwImage:hover, .animelink:hover, .animelink:hover .donwImage{
+	border-color: #9fc0c5;
+}
+.download  footer .donwImageOff, .download  footer .donwImageOff:hover, .animelinkOff, .animelinkOff:hover {
+	border-color: #c59f9f;
+	
+}
+
+.download .manga .imagenes img {
+	height : 200px;
+	background-color : inherit!important;
+}
+
+.download .anime .imagenes img {
+	width : 300px;
+	background-color : inherit!important;
+}
+
+.download .anime footer a {
+	display : block;
+	color: #a01d1e;
+	text-decoration : none;
+	text-align : left;
+	padding : 3px 5px 3px 30px;
+	font-weight : bold;
+}
+
+.download .anime footer a:hover {
+	color: #dddddd;
+}
+
+.download  .imagenes {
+	padding : 5px;
+}
+
+
+/*Evangelion*/
+.anime_Evangelion {
+	border-color : #A4CCB7 !important;
+}
+.anime_Evangelion header {
+	background-image : url('anime/evan.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #CFF0DF;
+	border-color : #A4CCB7;
+}
+.anime_Evangelion header h1 {
+	color : #8AB9A1;
+}
+.anime_Evangelion header h2 {
+	color : #A4CCB7;
+}
+.anime_Evangelion .imagenes {
+	background-color : #BDDFCD;
+	border-color : #A4CCB7;
+}
+.anime_Evangelion footer {
+	background-color : #CFF0DF;
+	border-color : #A4CCB7;
+}
+
+/*Fate*/
+.anime_Fate_Stay_Night {
+	border-color : #5e2529 !important;
+}
+.anime_Fate_Stay_Night header {
+	background-image : url('anime/fate.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #6d3f42;
+	border-color : #5e2529;
+}
+.anime_Fate_Stay_Night header h1 {
+	color : #d25950 !important;
+}
+.anime_Fate_Stay_Night header h2 {
+	color : #ca8e8a !important;
+}
+.anime_Fate_Stay_Night .imagenes {
+	background-color : #d25950;
+	border-color : #5e2529;
+}
+.anime_Fate_Stay_Night .imagenes img{
+	border-color : #5e2529 !important;
+}
+.anime_Fate_Stay_Night .imagenes img:hover{
+	border-color : #5e2529 !important;
+}
+.anime_Fate_Stay_Night footer {
+	background-color : #6d3f42;
+	border-color : #5e2529;
+}
+
+/*Imouto de Ikou*/
+.anime_Hentai_-_Imouto_de_Ikou {
+	border-color : #E3CFC4 !important;
+}
+.anime_Hentai_-_Imouto_de_Ikou header {
+	background-image : url('anime/imouto.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #D0BFB6;
+	border-color : #E3CFC4;
+}
+.anime_Hentai_-_Imouto_de_Ikou header h1 {
+	color : #ECD9CF !important;
+}
+.anime_Hentai_-_Imouto_de_Ikou header h2 {
+	color : #E3CFC4 !important;
+}
+.anime_Hentai_-_Imouto_de_Ikou .imagenes {
+	background-color : #D9C8BF;
+	border-color : #E3CFC4;
+}
+.anime_Hentai_-_Imouto_de_Ikou footer {
+	background-color : #D0BFB6;
+	border-color : #E3CFC4;
+}
+
+/*Jigoku Shoujo Mitsuganae*/
+.anime_Jigoku_Shoujo_Mitsuganae {
+	border-color : #6B4974 !important;
+}
+.anime_Jigoku_Shoujo_Mitsuganae header {
+	background-image : url('anime/mitsu.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #080409;
+	border-color : #6B4974;
+}
+.anime_Jigoku_Shoujo_Mitsuganae header h1 {
+	color : #93759B !important;
+}
+.anime_Jigoku_Shoujo_Mitsuganae header h2 {
+	color : #6B4974 !important;
+}
+.anime_Jigoku_Shoujo_Mitsuganae .imagenes {
+	background-color : #2E1734;
+	border-color : #6B4974;
+}
+.anime_Jigoku_Shoujo_Mitsuganae footer {
+	background-color : #080409;
+	border-color : #6B4974;
+}
+
+/*Mahou Sensei Negima DORAMA*/
+.anime_Mahou_Sensei_Negima_DORAMA {
+	border-color : #9EA179 !important;
+}
+.anime_Mahou_Sensei_Negima_DORAMA header {
+	background-image : url('anime/negi.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #D5D7B4;
+	border-color : #9EA179;
+}
+.anime_Mahou_Sensei_Negima_DORAMA header h1 {
+	color : #8C8E63 !important;
+}
+.anime_Mahou_Sensei_Negima_DORAMA header h2 {
+	color : #9EA179 !important;
+}
+.anime_Mahou_Sensei_Negima_DORAMA .imagenes {
+	background-color : #7C7F5F;
+	border-color : #C6C8A6;
+}
+.anime_Mahou_Sensei_Negima_DORAMA footer {
+	background-color : #D5D7B4;
+	border-color : #D5D7B4;
+}

@@ -9,10 +9,12 @@
     Eruda::setEnvironment(new Eruda_Environment('Fallensoul', '/', 5));
     
     Eruda::setDBConnector(
-        new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', 'root')
+        new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', '')
     );
     
-    Eruda::addFolder('css', 'http://fallensoul.es/template/');
+    Eruda::addFolder('css', 'css/');
+    Eruda::addFolder('js', 'js/');
+    Eruda::addFolder('img', 'img/');
     
     
 ?>

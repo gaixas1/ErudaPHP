@@ -368,29 +368,31 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
      */
     function selectMulti($table, $values, $order=null, $start=0, $total = 999999, $object=null){
         if($object!=null) $object = 'Eruda_Model_'.$object;
-        $query = 'SELECT * FROM '.$table.' WHERE ';
+        $query = 'SELECT * FROM '.$table.' ';
         
-        $qvals = array();
-        foreach($values as $attr => $val){
-            if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
-                $qvals[] = $attr.' = '.$val;
-            else if(is_array($val) && $val[1] = true)
-                $qvals[] = $attr.' = '.$val;
-            else
-                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+        if(count($values)>0){
+            $query .= ' WHERE ';
+            $qvals = array();
+            foreach($values as $attr => $val){
+                if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                    $qvals[] = $attr.' = '.$val;
+                else if(is_array($val) && $val[1] = true)
+                    $qvals[] = $attr.' = '.$val;
+                else
+                    $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+            }
+
+            $query .= implode(' AND ', $qvals).' ';
         }
-        
-        $query .= implode(' AND ', $qvals).' ';
-        if($order==null && is_array($order) && count($order)>0){
+        if($order!=null && is_array($order) && count($order)>0){
             $ovals = array();
             foreach($order as $val){
-                $ovals[] = $val[0].','.$val[1];
+                $ovals[] = $val[0].' '.$val[1];
             }
-            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+            $query .= ' ORDER BY '.implode(' , ', $ovals).' ';
         }
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
-        
         $ret = array();
         
         if($res = $this->_mysqli->query($query))
@@ -468,12 +470,22 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
             $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
         }
         
-        $ret = array();
+        $ret = null;
         
-        if($res = $this->_mysqli->query($query))
+        if($group==null && is_array($group) && count($group)>0){
+            $ret = array();
+            if($res = $this->_mysqli->query($query))
             while($row = $res->fetch_array()){
-                    $ret[] = new $object($row);
+                $ret[] = $row;
             }
+        } else {
+            $ret = 0;
+            if($res = $this->_mysqli->query($query))
+            while($row = $res->fetch_array()){
+                $ret = $row['count'];
+            }
+        }
+        
         
         return $ret;
     }

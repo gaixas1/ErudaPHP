@@ -25,5 +25,6 @@ abstract class Eruda_Model {
                 $this->__set($key, $value);
     }
     
+    abstract function __toString();
 }
 ?>

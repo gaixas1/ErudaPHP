@@ -9,6 +9,10 @@ class Eruda_Model_Entry extends Eruda_Model {
     protected $id;
     protected $title;
     protected $text;
+    protected $fragments;
+    
+    protected $created;
+    protected $lastmod;
     
     protected $author_id;
     protected $author;
@@ -45,6 +49,14 @@ class Eruda_Model_Entry extends Eruda_Model {
     }
     function get_text(){
         return $this->text;
+    }
+    
+    function set_fragments($fragments){
+        $this->fragments = $fragments;
+        return $this;
+    }
+    function get_fragments(){
+        return $this->fragments;
     }
     
     function set_author_id($author_id){
@@ -104,6 +116,27 @@ class Eruda_Model_Entry extends Eruda_Model {
         return $this->items;
     }
     
+    
+    function set_created($created){
+        $this->created = $created;
+        return $this;
+    }
+    function get_created(){
+        return $this->created;
+    }
+    
+    function set_lastmod($lastmod){
+        $this->lastmod = $lastmod;
+        return $this;
+    }
+    function get_lastmod(){
+        return $this->lastmod;
+    }
+    
+
+    public function __toString() {
+        return 'Eruda_Model_Entry('.$this->id.')::'.$this->title;
+    }
 }
 
 ?>

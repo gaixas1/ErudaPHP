@@ -23,7 +23,7 @@ class Eruda_Header_HTML extends Eruda_Header {
     private $_title = array();
     private $_titleSep = ' - ';
     
-    private $_cType = 'utf-8';
+    private $_cType = 'UTF-8';
     private $_base = '/';
     private $_target = '_self';
     private $_keys = array();
@@ -46,7 +46,7 @@ class Eruda_Header_HTML extends Eruda_Header {
             'XHTML1 Frameset',
             'HTML5'
         );
-        $this->_cType = 'utf-8';
+        $this->_cType = 'UTF-8';
         $this->setType('HTML5');
         
     }

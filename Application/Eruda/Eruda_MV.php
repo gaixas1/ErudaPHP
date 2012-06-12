@@ -68,7 +68,7 @@ class Eruda_MV {
     
     
     function show(){
-        $this->_view->show(Eruda::getFolders(), $this->_model);
+        $this->_view->show($this->_model);
     }
 }
 

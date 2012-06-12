@@ -243,14 +243,21 @@ class Eruda {
         $temp = null;
         $i=0;
         do {
-            $controller_name = 'Eruda_Controller_'.self::$_cf->getController();
-            $function_name = self::$_cf->getFunction();
-            
-            $controller = new $controller_name(self::$_params, self::$_method=='HEADER');
-            $controller->ini();
-            $temp = $controller->$function_name();
-            $controller->end();
-            $i++;
+            try {
+                $controller_name = 'Eruda_Controller_'.self::$_cf->getController();
+                $function_name = self::$_cf->getFunction();
+
+                $controller = new $controller_name(self::$_params, self::$_method=='HEADER');
+                $controller->ini();
+                $temp = $controller->$function_name();
+                $controller->end();
+                $i++;
+            } catch (Exception $e) {
+                $controller = new Eruda_Controller_Error(null, self::$_method=='HEADER');
+                $controller->ini();
+                $temp = $controller->E500();
+                $controller->end();
+            }
         }while(($temp instanceof Eruda_CF) && $i<5);
         
         if($i>=5){

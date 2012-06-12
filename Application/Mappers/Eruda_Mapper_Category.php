@@ -11,6 +11,7 @@
 class Eruda_Mapper_Category {
     public static $_tableA = 'category';
     public static $_tableB = 'category_view';
+    public static $_tableC = 'entry_cat';
     
     public static $cats = array();
     
@@ -58,6 +59,15 @@ class Eruda_Mapper_Category {
         $cat = Eruda::getDBConnector()->selectOne(self::$_tableB, array('link' => $link), 0, 'Category');
         if($cat) self::$cats[$cat->get_id()] = $cat;
         return $cat;
+    }
+    
+    static function IdsfromEntry($id){
+        $rows = Eruda::getDBConnector()->selectMulti(self::$_tableC, array('entry'=>$id));
+        $catsId = array();
+        foreach($rows as $row){
+            $catsId[] = $row['cat'];
+        }
+        return $catsId;
     }
     
     /**

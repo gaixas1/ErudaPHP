@@ -42,6 +42,10 @@ class Eruda_Model_Category extends Eruda_Model {
     function get_count(){
         return $this->count;
     }
+
+    public function __toString() {
+        return 'Eruda_Model_Category('.$this->id.')::'.$this->name;
+    }
     
 }
 

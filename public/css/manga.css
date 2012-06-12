@@ -1,0 +1,318 @@
+
+/*Manga*/
+
+
+article.manga {
+	border:solid 2px #CCC;
+	margin : auto;
+	margin-bottom : 10px;
+	margin-top : 10px;
+}
+
+article.manga  header {
+	border-bottom : solid 1px #dddddd;
+	padding: 7px 10px 7px 10px;
+	text-align : left;
+	margin : 0px;
+}
+
+article.manga  header h1 {
+	color : #cccccc;
+	font-size : 1.2em;
+	font-family : Georgia, 'Lucida Grande', Tahoma, Arial, sans-serif;
+	margin : 0px;
+	padding : 0px;
+}
+
+article.manga  header h2 {
+	font-size : 0.9em;
+	padding : 0px;
+	margin : 0px;
+	font-family : Arial, sans-serif;
+}
+
+article.manga  .imagenes {
+	text-align: center;
+}
+article.manga  .imagenes img {
+	height: 255px;
+}
+
+article.manga  footer {
+	margin : 0px;
+	border-top : solid 1px #dddddd;
+	padding-top : 3px;
+	text-align : center;
+}
+
+article.manga  footer .donwImage, article.manga  footer .donwImage:hover, article.manga  footer .donwImageOff, article.manga  footer .donwImageOff:hover  {
+	margin : 0;
+	margin-left : 3px;
+	margin-right : 3px;
+	height : 18px;
+	padding : 3px;
+	border : solid 3px;
+	padding : 3px;
+}
+
+
+/*Okitsune-Sama De Chu*/
+.manga_Okitsune-Sama_De_Chu {
+	border-color : #fef400 !important;
+}
+.manga_Okitsune-Sama_De_Chu header {
+	background-image : url('manga/okit.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #fef400;
+	border-color : #fef400 !important;
+}
+.manga_Okitsune-Sama_De_Chu header h1 {
+	color : #666666;
+}
+.manga_Okitsune-Sama_De_Chu header h2 {
+	color : #888888;
+}
+.manga_Okitsune-Sama_De_Chu .imagenes {
+	background-color : #fffccc;
+	border-color : #fef400 !important;
+}
+.manga_Okitsune-Sama_De_Chu footer {
+	background-color : #fef400;
+	border-color : #fef400 !important;
+}
+
+/*Koudelka*/
+.manga_Koudelka {
+	border-color : FireBrick  !important;
+}
+.manga_Koudelka header {
+	background-image : url('manga/koudelka.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #ffffff;
+	border-color : FireBrick  !important;
+}
+.manga_Koudelka header h1 {
+	color : DarkRed;
+}
+.manga_Koudelka header h2 {
+	color : FireBrick;
+}
+.manga_Koudelka .imagenes {
+	background-color : #ffe5d2;
+	border-color : FireBrick  !important;
+}
+.manga_Koudelka footer {
+	background-color : FireBrick ;
+	border-color : FireBrick  !important;
+}
+
+/*Gacha Gacha Capsule*/
+.manga_Gacha_Gacha {
+	border-color : #d2eeff !important;
+}
+.manga_Gacha_Gacha header {
+	background-image : url('manga/gachac.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #16a6fd;
+	border-color : #d2eeff !important;
+}
+.manga_Gacha_Gacha header h1 {
+	color : #c2eeff;
+}
+.manga_Gacha_Gacha header h2 {
+	color : #d2eeff;
+}
+.manga_Gacha_Gacha .imagenes {
+	background-color : #d2eeff;
+	border-color : #d2eeff !important;
+}
+.manga_Gacha_Gacha footer {
+	background-color : #16a6fd;
+	border-color : #d2eeff !important;
+}
+
+/*Gacha Gacha Secrets*/
+.manga_Gacha_Gacha_Secret {
+	border-color : #fff0c6 !important;
+}
+.manga_Gacha_Gacha_Secret header {
+	background-image : url('manga/gachas.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #ffb102;
+	border-color : #fff0c6 !important;
+}
+.manga_Gacha_Gacha_Secret header h1 {
+	color : #fff0b6;
+}
+.manga_Gacha_Gacha_Secret header h2 {
+	color : #fff0c6;
+}
+.manga_Gacha_Gacha_Secret .imagenes {
+	border-color : #fff0c6 !important;
+	background-color : #fff0c6;
+}
+.manga_Gacha_Gacha_Secret footer {
+	background-color : #ffb102;
+	border-color : #fff0c6 !important;
+}
+
+/*Crossing25*/
+.manga_Crossing_25 {
+	border-color : #A3BDC1 !important;
+}
+.manga_Crossing_25 header {
+	background-image : url('manga/crossing.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #6E9399;
+	border-color : #A3BDC1 !important;
+}
+.manga_Crossing_25 header h1 {
+	color : #C6D8DB;
+}
+.manga_Crossing_25 header h2 {
+	color : #A3BDC1;
+}
+.manga_Crossing_25 .imagenes {
+	background-color : #A3BDC1;
+	border-color : #A3BDC1 !important;
+}
+.manga_Crossing_25 footer {
+	background-color : #6E9399;
+	border-color : #A3BDC1 !important;
+}
+
+/*Doll Star*/
+.manga_Doll_Star {
+	border-color : #666 !important;
+}
+.manga_Doll_Star header {
+	background-image : url('manga/doll.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #000;
+	border-color : #666 !important;
+}
+.manga_Doll_Star header h1 {
+	color : #888;
+}
+.manga_Doll_Star header h2 {
+	color : #666;
+}
+.manga_Doll_Star .imagenes {
+	background-color : #F7F5EE;
+	border-color : #666 !important;
+}
+.manga_Doll_Star footer {
+	background-color : #000;
+	border-color : #666 !important;
+}
+
+/*Hentai*/
+.manga_Hentai {
+	border-color : #D7C6A8 !important;
+}
+.manga_Hentai header {
+	background-image : url('manga/henti.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #F5EAD6;
+	border-color : #D7C6A8 !important;
+}
+.manga_Hentai header h1 {
+	color : #C3B294;
+}
+.manga_Hentai header h2 {
+	color : #D7C6A8;
+}
+.manga_Hentai .imagenes {
+	background-color : #E0D1B5;
+	border-color : #D7C6A8 !important;
+}
+.manga_Hentai footer {
+	background-color : #F5EAD6;
+	border-color : #D7C6A8 !important;
+}
+
+/*OneShots*/
+.manga_One_Shots {
+	border-color : #A0A7D9 !important;
+}
+.manga_One_Shots header {
+	background-image : url('manga/one.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #4B569F;
+	border-color : #A0A7D9 !important;
+}
+.manga_One_Shots header h1 {
+	color : #BDC4F1;
+}
+.manga_One_Shots header h2 {
+	color : #A0A7D9;
+}
+.manga_One_Shots .imagenes {
+	background-color : #A0A7D9;
+	border-color : #A0A7D9 !important;
+}
+.manga_One_Shots footer {
+	background-color : #4B569F;
+	border-color : #A0A7D9 !important;
+}
+
+/*Shina Dark*/
+.manga_Shina_Dark {
+	border-color : #9CB8D4 !important;
+}
+.manga_Shina_Dark header {
+	background-image : url('manga/shina.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #C6DEF6;
+	border-color : #9CB8D4;
+}
+.manga_Shina_Dark header h1 {
+	color : #8CABCA;
+}
+.manga_Shina_Dark header h2 {
+	color : #9CB8D4;
+}
+.manga_Shina_Dark .imagenes {
+	background-color : #B9D0E8;
+	border-color : #9CB8D4;
+}
+.manga_Shina_Dark footer {
+	background-color : #C6DEF6;
+	border-color : #9CB8D4;
+}
+
+/*Tokio Red Hood*/
+.manga_Tokio_Red_Hood {
+	border-color : #353535!important;
+}
+.manga_Tokio_Red_Hood header {
+	background-image : url('manga/tokio.jpg');
+	background-position : bottom right;
+	background-repeat : no-repeat;
+	background-color : #575757;
+	border-color : #353535;
+}
+.manga_Tokio_Red_Hood header h1 {
+	color : #7F2222;
+}
+.manga_Tokio_Red_Hood header h2 {
+	color : #353535;
+}
+.manga_Tokio_Red_Hood .imagenes {
+	background-color : #B39E9E;
+	border-color : #353535;
+}
+.manga_Tokio_Red_Hood footer {
+	background-color : #575757;
+	border-color : #353535;
+}
+

@@ -84,7 +84,7 @@ $router = new Eruda_Router(     //Index Router
                             new Eruda_CF('Entrada', 'Comentar', 'PUT')
                         )
                 ),
-                '([0-9]{2})-([0-9]{4})/' 
+                '([1-9][0-9]?)-([0-9]{4})/' 
                     => new Eruda_Router(    //Archivos Router
                         new Eruda_CF('Entrada', 'Archivo')
                 ),
@@ -130,7 +130,7 @@ $router = new Eruda_Router(     //Index Router
                             )
                         )
                 ),
-                'p([0-1]+)/' 
+                'p([0-9]+)/' 
                     => new Eruda_Router(    //Paginacion Router
                         new Eruda_CF('Entrada', 'Paginacion')
                 ),
@@ -138,7 +138,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Categorias Router
                         new Eruda_CF('Entrada', 'CategoriaIndex'),
                         array(
-                            'p([0-1]+)/' 
+                            'p([0-9]+)/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router
                                         new Eruda_CF('Entrada', 'CategoriaPaginacion')
                             )

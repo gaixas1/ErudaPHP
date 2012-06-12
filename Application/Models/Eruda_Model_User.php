@@ -70,6 +70,9 @@ class Eruda_Model_User extends Eruda_Model {
     }
     
     
+    public function __toString() {
+        return 'Eruda_Model_User('.$this->id.')::'.$this->name;
+    }
 }
 
 ?>

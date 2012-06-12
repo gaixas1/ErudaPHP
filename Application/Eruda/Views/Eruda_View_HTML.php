@@ -12,14 +12,17 @@
  */
 class Eruda_View_HTML extends Eruda_View{
     protected $layout;
+    protected $frames;
     
-    function __construct($layout) {
+    function __construct($layout, $frames=array()) {
         $this->layout = $layout;
+        $this->frames = $frames;
     }
 
 
     
-    public function show($folders, $model) {
+    public function show($model) {
+        $folders = Eruda::getFolders();
         $this->_header->printDOCTYPE();
 ?>
 <html>
@@ -31,6 +34,11 @@ class Eruda_View_HTML extends Eruda_View{
 ?>
 </html>
 <?php
+    }
+    
+    public function showframe($frame, $model) {
+        $folders = Eruda::getFolders();
+        include('Layouts/Frames/'.$this->frames[$frame].'.php');
     }
 }
 
