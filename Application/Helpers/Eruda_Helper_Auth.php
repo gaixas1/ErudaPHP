@@ -24,7 +24,7 @@ class Eruda_Helper_Auth {
                 $uspass = $user->get_pass();
                 $hasher = new PasswordHash(8, TRUE);
                 if($hasher->CheckPassword($pass, $uspass)){
-                    setUser($user, $mantain);
+                    self::setUser($user, $mantain);
                     return $user->get_id();
                 }
             }
@@ -38,6 +38,15 @@ class Eruda_Helper_Auth {
     static function LogOut(){
         $_SESSION['Eruda_auth'] = null;
         unset($_SESSION['Eruda_auth']);
+        
+        if(isset($_COOKIE['Eruda_auth']) && isset($_COOKIE['Eruda_session'])){
+            $auth = $_COOKIE['Eruda_auth'];
+            $session = $_COOKIE['Eruda_session'];
+            Eruda_Mapper_Auth::del($auth, $session);
+            setcookie('Eruda_auth', $auth, time()-3600, '/');
+            setcookie('Eruda_session', $session, time()-3600, '/');
+        }
+        
     }
     
     /**
@@ -47,8 +56,9 @@ class Eruda_Helper_Auth {
         $user = null;
         if(isset($_SESSION['Eruda_auth']) && is_array($_SESSION['Eruda_auth'])){
             $id = $_SESSION['Eruda_auth']['id'];
-            if(is_int($id) && $id>0)
+            if(is_numeric($id) && $id>0){
                 $user = Eruda_Mapper_User::get($id);
+            }
         }
         
         if($user==null && isset($_COOKIE['Eruda_auth']) && isset($_COOKIE['Eruda_session'])){
@@ -79,8 +89,8 @@ class Eruda_Helper_Auth {
             $auth = self::random_gen(64);
             $session = self::random_gen(64);
             Eruda_Mapper_Auth::set($auth, $session, $user->get_id());
-            setcookie('Eruda_auth', $auth, time()+30000000);
-            setcookie('Eruda_session', $session, time()+30000000);
+            setcookie('Eruda_auth', $auth, time()+30000000, '/');
+            setcookie('Eruda_session', $session, time()+30000000, '/');
         }
     }
     
@@ -92,6 +102,13 @@ class Eruda_Helper_Auth {
         $hasher = new PasswordHash(8, TRUE);
 	$pass= $hasher->HashPassword($pass);
         $user->set_pass($pass);
+    }
+    
+    /**
+     * @param Eruda_Model_User $user 
+     */
+    static function canAdmin($user){
+        return $user->get_level()>=7;
     }
     
     

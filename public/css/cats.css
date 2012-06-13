@@ -1,0 +1,65 @@
+/*** Categorias>>>>>>> ***/
+a.cat_img_link {
+    display : block;
+    width : 150px;
+    height : 40px;
+    background-color : #333;
+    background-position : top;
+    z-index : 1000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin : auto;
+    margin-top : 4px;
+    margin-bottom : 4px;
+}
+
+a.cat_img_link:hover{
+    background-color : #666;
+    background-position : bottom;
+}
+
+#cat_koudelka{
+    background-image : url('cat/koudelka.jpg');
+}
+
+#cat_doll{
+    background-image : url('cat/doll.jpg');
+}
+
+#cat_tokio{
+    background-image : url('cat/tokio.jpg');
+}
+
+#cat_oneshot{
+    background-image : url('cat/oneshot.jpg');
+}
+
+#cat_mov{
+    background-image : url('cat/mov.jpg');
+}
+
+#cat_gacha{
+    background-image : url('cat/gacha.jpg');
+}
+
+#cat_shina{
+    background-image : url('cat/shina.jpg');
+}
+
+#cat_okit{
+    background-image : url('cat/okit.jpg');
+}
+
+#cat_crossing{
+    background-image : url('cat/crossing.jpg');
+}
+
+#cat_mitsu{
+    background-image : url('cat/mitsu.jpg');
+}
+
+#cat_negi{
+    background-image : url('cat/negi.jpg');
+}
+/*** <<<<<<<Categorias ***/

@@ -1,4 +1,5 @@
 <?php
+    session_start();
     set_include_path('../Application/');
     require_once 'Eruda/Eruda_Loader.php';
     

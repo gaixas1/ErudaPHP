@@ -56,6 +56,24 @@ article.manga  footer .donwImage, article.manga  footer .donwImage:hover, articl
 }
 
 
+article.manga  footer .donwImage {
+	border-color: #a7dba9;
+}
+
+article.manga  footer .donwImage:hover {
+	border-color: #9fc0c5;
+}
+
+article.manga  footer .donwImageOff, article.manga  footer .donwImageOff:hover {
+	border-color: #c59f9f;
+}
+
+
+article.manga  .imagenes {
+	padding : 5px;
+}
+
+
 /*Okitsune-Sama De Chu*/
 .manga_Okitsune-Sama_De_Chu {
 	border-color : #fef400 !important;

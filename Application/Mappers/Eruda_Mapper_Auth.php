@@ -47,6 +47,19 @@ class Eruda_Mapper_Auth {
         );
         $session = Eruda::getDBConnector()->insertOne(self::$_table, $attr, $values);
     }
+    
+    /**
+     *
+     * @param string $auth
+     * @param string $session
+     */
+    static function del($auth, $session){
+        $values = array(
+            'idauth' => $auth,
+            'idsession' => $session
+        );
+        Eruda::getDBConnector()->deleteVals(self::$_table, $values);
+    }
 }
 
 ?>

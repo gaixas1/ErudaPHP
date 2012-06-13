@@ -69,10 +69,15 @@ class Eruda_Model_User extends Eruda_Model {
         return $this->last_log;
     }
     
+    function get_gravatar($size = 80) {
+        return 'http://www.gravatar.com/avatar.php?gravatar_id='.md5( strtolower($this->mail) ).'&default='.urlencode('http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s='.$size).'&size='.$size;
+    }
     
     public function __toString() {
         return 'Eruda_Model_User('.$this->id.')::'.$this->name;
     }
+    
+    
 }
 
 ?>

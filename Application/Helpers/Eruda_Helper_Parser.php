@@ -30,6 +30,10 @@ class Eruda_Helper_Parser {
             '-',$text);
     }
     
+    static function Link2Text($text){
+        return str_replace('_', ' ', $text);
+    }
+    
     static function parseText($text){
         
         $text = utf8_encode($text);

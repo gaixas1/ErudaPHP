@@ -73,8 +73,24 @@ $router = new Eruda_Router(     //Index Router
                         /*TO-DO*/
                 ),
                 'user/' 
-                    => new Eruda_Router(    //User Router
-                        /*TO-DO*/
+                    => new Eruda_Router(    //Categorias Router
+                        new Eruda_CF('Error', 'E404'),
+                        array(
+                            'log/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        array(new Eruda_CF('User', 'LogIn', 'POST'),
+                                        new Eruda_CF('User', 'LogForm', 'DEFAULT'))
+                                ),
+                            'register/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        new Eruda_CF('User', 'RegisterForm'),
+                                        new Eruda_CF('User', 'Register')
+                                ),
+                            'logout/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        new Eruda_CF('User', 'LogOut')
+                                )
+                            )
                 ),
                 '([0-9]+)/(.*)/' 
                     => new Eruda_Router(    //Entrada Router

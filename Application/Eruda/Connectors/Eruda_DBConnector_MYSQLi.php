@@ -15,7 +15,7 @@
  */
 
 class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
-    public static $_protectedValues = array('NOW()');
+    public static $_protectedValues = array('NOW()', 'RAND()');
     protected $_host;
     protected $_dbase;
     protected $_port;
@@ -297,6 +297,27 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         return $this->_mysqli->affected_rows;
     }
     
+    function deleteVals($table, $values){
+        $query = 'DELETE FROM '.$table.' ';
+        
+        if(count($values)>0){
+            $query .= ' WHERE ';
+            $qvals = array();
+            foreach($values as $attr => $val){
+                if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                    $qvals[] = $attr.' = '.$val;
+                else if(is_array($val) && $val[1] = true)
+                    $qvals[] = $attr.' = '.$val;
+                else
+                    $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+            }
+
+            $query .= implode(' AND ', $qvals).' ';
+        }
+        
+        $this->_mysqli->query($query);
+        return $this->_mysqli->affected_rows;
+    }
     
     /**
      * @param string $table
@@ -393,8 +414,8 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         }
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
-        $ret = array();
         
+        $ret = array();
         if($res = $this->_mysqli->query($query))
             if($object!=null && is_string($object)){
                 while($row = $res->fetch_array()){

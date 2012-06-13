@@ -1,6 +1,25 @@
 <body>
     <section id="user">
-        
+        <?php
+        $user = $model->get_user();
+        if($user->get_id()>0){
+        ?>
+        <h3><?php echo $user->get_name();?></h3>
+        <img class="user_avatar" alt="<?php echo $user->get_name();?>" src="<?php echo $user->get_gravatar();?>"> 
+        <a title="Salir" href="/user/logout/"> Salir </a>
+        <?php if(Eruda_Helper_Auth::canAdmin($user)) {?>
+        <a  title="Administración" href="/admin/"> Admin </a>
+        <?php }?>
+        <?php
+        }else{
+        ?>
+        <h3>Invitado</h3>
+        <img class="user_avatar" alt="Invitado" src="http://www.gravatar.com/avatar.php?gravatar_id=f2768ecb9d6958f3fecce263e592f75a&amp;default=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D50&amp;size=70"> 
+        <a title="Entrar" href="/user/log/"> Entrar </a>
+        <a  title="Registrarse" href="/user/register/"> Registrarse </a>
+        <?php
+        }
+        ?>
     </section>
     <section id="social">
         <a id="social_rss"      title="RSS"         href="/rss">&nbsp;</a>
@@ -13,7 +32,7 @@
         <header id="cabecera">
             <div id="baner"><img alt="FallenSoul" src="img/b0.jpg" /></div>
             <nav id="menu_superior">
-                <a id="link_inicio" href="http://fallensoul.es/">Inicio</a><a id="link_veronline" href="http://veronline.fallensoul.es">Ver Online</a><a id="link_manga" href="http://fallensoul.es/manga/">Manga</a><a id="link_anime" href="http://fallensoul.es/anime/">Anime</a><a id="link_proyectos" href="http://fallensoul.es/proyectos/">Proyectos</a><a id="link_respaldo" href="http://respaldo.fallensoul.es/">Respaldo</a>
+                <a id="link_inicio" href="/">Inicio</a><a id="link_veronline" href="http://veronline.fallensoul.es">Ver Online</a><a id="link_manga" href="/manga/">Manga</a><a id="link_anime" href="/anime/">Anime</a><a id="link_proyectos" href="/proyectos/">Proyectos</a><a id="link_respaldo" href="http://respaldo.fallensoul.es/">Respaldo</a>
             </nav>
         </header>
         
@@ -23,65 +42,10 @@
             </section>
         
             <nav id="menu_lateral">
-                <div class="nav_container">
-                    <h1>Actuales</h1>
-                    <a class="cat_img_link" title="Categoria - Koudelka"             id="cat_koudelka" href="/koudelka/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Doll Star"             id="cat_doll" href="/doll-star/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_tokio" href="/tokio-red/">&nbsp;</a>
-                </div>
-                
-                <div class="nav_container">
-                    <h1>Publicidad</h1>
-<!-- Start J-List Affiliate Code -->
-                    <a class="jlist_img_mini" href="http://moe.jlist.com/click/3919/118" target="_blank" title="You've got a friend in Japan at J-List!">
-                        <img src="http://moe.jlist.com/media/3919/118" alt="You've got a friend in Japan at J-List!" >
-                    </a>
-<!-- End J-List Affiliate Code -->
-                </div>
-                
-                <div class="nav_container">
-                    <h1>Completos</h1>
-                    <a class="cat_img_link" title="Categoria - Koudelka"             id="cat_oneshot" href="/koudelka/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Doll Star"             id="cat_mov" href="/doll-star/">&nbsp;</a>
-                    <br />
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_gacha" href="/tokio-red/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_shina" href="/tokio-red/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_okit" href="/tokio-red/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_crossing" href="/tokio-red/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_mitsu" href="/tokio-red/">&nbsp;</a>
-                    <a class="cat_img_link" title="Categoria - Tokio Red Hood"         id="cat_negi" href="/tokio-red/">&nbsp;</a>
-                </div>
-                
-                <div class="nav_container">
-                    <h1>Archivos</h1>
-                    <select id="nav_archivos">
-<?php
-    $lastyear=null;
-    foreach($model->get_archives() as $archive){
-        if($lastyear != $archive['year']){
-            if($lastyear!=null)
-                echo '</optgroup>';
-            $lastyear = $archive['year'];
-            echo '<optgroup label="'.$lastyear.'">';
-        }
-        echo '<option value="/'.$archive['month'].'-'.$archive['year'].'/">'.Eruda_Helper_Parser::parseMonth($archive['month']).' '.$archive['year'].'</option>';
-    }
-    echo '</optgroup>';
-?>
-                    </select>
-                </div>
-                
-                
-                <div class="nav_container">
-                    <h1>Publicidad</h1>
-<!-- Start J-List Affiliate Code -->
-                    <a class="jlist_img_max" href="http://pocky.jlist.com/click/3919/117" target="_blank" title="Click to visit J-List now">
-                        <img src="http://pocky.jlist.com/media/3919/117" alt="Click to visit J-List now">
-                    </a>
-<!-- End J-List Affiliate Code -->
-                </div>
+                <?php
+                $this->showframe('lateral',$model);
+                ?>
             </nav>
-            
                 <?php
                 $this->showframe('section',$model);
                 ?>

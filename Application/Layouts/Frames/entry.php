@@ -1,13 +1,7 @@
             <section id="articulos"> 
                 <?php
-                    if($model->get_title()!=null){
-                        echo '<h1 class="grupo_entradas">'.$model->get_title().'</h1>';
-                    }
+                    $entry = $model->get_entry()
                 ?>
-            
-                <?php
-                    foreach($model->get_entries() as $entry){
-                        ?>
                 <article class="entrada" id="entrada_701">
                     <header class="entrada_titulo">
                         <h1>
@@ -58,35 +52,4 @@
                         </div>
                     </footer>
                 </article>
-                        <?php
-                    }
-                ?>
-                
-                <?php
-                        $page = $model->get_page();
-                        if($page){
-                            $base = $page->get_base();
-                            $prev = $page->get_prev();
-                            $next = $page->get_next();
-                ?>
-                <nav id="paginacion">
-                    <?php
-                        
-                        if($prev)
-                            if($prev>1)
-                                echo '<a class="link_a" title="Página Anterior" href="'.$base.'p'.$prev.'/">«Página Anterior</a>';
-                            else
-                                echo '<a class="link_a" title="Página Anterior" href="'.$base.'">«Página Anterior</a>';
-                        else
-                            echo '<a class="link_a hidden" title="Página Anterior" href="'.$base.'p'.$prev.'/">«Página Anterior</a>';
-                        echo '<a class="link_b" title="Arriba" href="#">Arriba</a>';
-                        if($next)
-                            echo '<a class="link_c" title="Siguiente Página" href="'.$base.'p'.$next.'/">Siguiente Página»</a>';
-                        else
-                            echo '<a class="link_c hidden" title="Siguiente Página" href="'.$base.'p'.$next.'/">Siguiente Página»</a>';
-                    ?>
-                </nav>
-                <?php
-                        }
-                ?>
             </section>

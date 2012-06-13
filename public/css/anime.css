@@ -34,7 +34,7 @@ article.anime  .imagenes {
 	text-align: center;
 }
 article.anime  .imagenes img {
-	width: 300px;
+	height: 180px;
 }
 
 article.anime  footer {
@@ -44,15 +44,6 @@ article.anime  footer {
 	text-align : center;
 }
 
-article.anime  footer .donwImage, article.anime  footer .donwImage:hover, article.anime  footer .donwImageOff, article.anime  footer .donwImageOff:hover  {
-	margin : 0;
-	margin-left : 3px;
-	margin-right : 3px;
-	height : 18px;
-	padding : 3px;
-	border : solid 3px;
-	padding : 3px;
-}
 
 .animelink, .animelinkOff {
 	text-align : left;
@@ -70,20 +61,23 @@ article.anime  footer .donwImage, article.anime  footer .donwImage:hover, articl
 .animelinkOff, .animelinkOff:hover {
 	background-color : #653737;
 }
-.animelink a {
-	padding : 0 !important;
-	margin : 0 !important;
-}
 
 .animelink .donwImage, .animelink .donwImage:hover, .animelinkOff .donwImageOff, .animelinkOff .donwImageOff:hover {
+	height : 18px;
+	padding : 3px;
+	border : solid;
+	padding : 3px;
+        
 	border-left-width : 3px !important;
 	border-right-width : 6px !important;
 	border-top : 0 !important;
 	border-bottom : 0 !important;
 	margin-left : 0 !important;
 	margin-right : 15px !important;
+        
 }
-.dtext{
+
+.animelink .dtext, .animelinkOff .dtext {
 	vertical-align : super;
 	font-weight : bold;
 }
@@ -99,42 +93,25 @@ article.anime  footer .donwImage, article.anime  footer .donwImage:hover, articl
 	color: #c59f9f !important;
 }
 
-
-.download  footer .donwImage, .animelink {
+.animelink, .animelink .donwImage {
 	border-color: #a7dba9;
+        color :  #a7dba9;
 }
-.download  footer .donwImage:hover, .animelink:hover, .animelink:hover .donwImage{
-	border-color: #9fc0c5;
+.animelink:hover, .animelink:hover .donwImage {
+	border-color: #57dba9;
+        color :  #57dba9;
 }
-.download  footer .donwImageOff, .download  footer .donwImageOff:hover, .animelinkOff, .animelinkOff:hover {
+
+.animelinkOff, .animelinkOff:hover {
 	border-color: #c59f9f;
-	
+        color :  #c59f9f;
 }
 
-.download .manga .imagenes img {
-	height : 200px;
-	background-color : inherit!important;
+.animelinkOff, .animelinkOff:hover {
+	border-color: #c59f9f;
 }
 
-.download .anime .imagenes img {
-	width : 300px;
-	background-color : inherit!important;
-}
-
-.download .anime footer a {
-	display : block;
-	color: #a01d1e;
-	text-decoration : none;
-	text-align : left;
-	padding : 3px 5px 3px 30px;
-	font-weight : bold;
-}
-
-.download .anime footer a:hover {
-	color: #dddddd;
-}
-
-.download  .imagenes {
+article.anime  .imagenes {
 	padding : 5px;
 }
 

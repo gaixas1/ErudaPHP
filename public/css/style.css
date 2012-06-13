@@ -82,7 +82,29 @@ body {
     background-color : #2a2a2a;
     float : left;
 }
-
+#user h3 {
+    color : #d0d0d0;
+    font-family: "arial",sans-serif; 
+    padding : 10px 25px;
+}
+#user .user_avatar {
+    width: 70px;
+    height: 70px;
+    float:left;
+    margin : 15px;
+}
+#user a {
+    display : block;
+    color : #e0e0e0;
+    font-family: "arial",sans-serif; 
+    font-size: 1.1em;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+#user a:hover {
+    color : #c0c0c0;
+    text-decoration: underline;
+}
 
 /*   Social   */
 #social {
@@ -288,71 +310,19 @@ body {
     font-size : 1em;
 }
 
-/*** Categorias>>>>>>> ***/
-a.cat_img_link {
-    display : block;
-    width : 150px;
-    height : 40px;
-    background-color : #333;
-    background-position : top;
-    z-index : 1000;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    margin : auto;
-    margin-top : 4px;
-    margin-bottom : 4px;
+.nav_container h2 {
+    color : #555555;
+    font-family: "arial",sans-serif; 
+    font-size : 0.9em;
+    padding-left: 30px;
 }
 
-a.cat_img_link:hover{
-    background-color : #666;
-    background-position : bottom;
+.nav_container h2 a{
+    color : #777777;
 }
-
-#cat_koudelka{
-    background-image : url('cat/koudelka.jpg');
+.nav_container h2 a:hover{
+    color : #333333;
 }
-
-#cat_doll{
-    background-image : url('cat/doll.jpg');
-}
-
-#cat_tokio{
-    background-image : url('cat/tokio.jpg');
-}
-
-#cat_oneshot{
-    background-image : url('cat/oneshot.jpg');
-}
-
-#cat_mov{
-    background-image : url('cat/mov.jpg');
-}
-
-#cat_gacha{
-    background-image : url('cat/gacha.jpg');
-}
-
-#cat_shina{
-    background-image : url('cat/shina.jpg');
-}
-
-#cat_okit{
-    background-image : url('cat/okit.jpg');
-}
-
-#cat_crossing{
-    background-image : url('cat/crossing.jpg');
-}
-
-#cat_mitsu{
-    background-image : url('cat/mitsu.jpg');
-}
-
-#cat_negi{
-    background-image : url('cat/negi.jpg');
-}
-/*** <<<<<<<Categorias ***/
 
 #nav_archivos {
     display : block;
@@ -582,6 +552,15 @@ a.jlist_img_max img {
     -webkit-border-bottom-right-radius: 25px 13px;
     -moz-border-radius-bottomright: 25px 13px;
     border-bottom-right-radius: 25px 13px;
+}
+
+
+/**  Articulos  **/
+
+#manganime {
+    padding-right:  25px;
+    padding-bottom:  35px;
+    margin-left : 250px;
 }
 
 /*   Pie de pagina   */

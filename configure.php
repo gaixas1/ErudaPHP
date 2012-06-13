@@ -12,9 +12,9 @@
         new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', '')
     );
     
-    Eruda::addFolder('css', 'css/');
-    Eruda::addFolder('js', 'js/');
-    Eruda::addFolder('img', 'img/');
+    Eruda::addFolder('css', '/css/');
+    Eruda::addFolder('js', '/js/');
+    Eruda::addFolder('img', '/img/');
     
     
 ?>

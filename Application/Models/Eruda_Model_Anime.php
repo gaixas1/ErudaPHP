@@ -63,7 +63,7 @@ class Eruda_Model_Anime extends Eruda_Model{
                 else if($servers[$link[0]]==2)
                     $a .=  '<div class="animelink"><a title="Descargar Torrent" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage"  alt="Descargar Torrent" src="'.self::$URLt.'torrent.jpg"><span class="dtext"> Descargar Torrent</span></a></div>';
                 else
-                    $a .=  '<div class="animelinkOff"><img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.URLt.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></div>';
+                    $a .=  '<div class="animelinkOff"><img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.self::$URLt.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></div>';
             else
                 $a .=  '<div class="animelink"><a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage" alt="Descargar '.$link[0].'" src="'.self::$URLt.'default.jpg"><span class="dtext"> Descargar '.$link[2].'</span></a></div>';
         }
