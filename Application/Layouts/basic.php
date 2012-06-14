@@ -6,6 +6,7 @@
         ?>
         <h3><?php echo $user->get_name();?></h3>
         <img class="user_avatar" alt="<?php echo $user->get_name();?>" src="<?php echo $user->get_gravatar();?>"> 
+        <a title="Editar" href="/user/edit/"> Editar </a>
         <a title="Salir" href="/user/logout/"> Salir </a>
         <?php if(Eruda_Helper_Auth::canAdmin($user)) {?>
         <a  title="Administración" href="/admin/"> Admin </a>

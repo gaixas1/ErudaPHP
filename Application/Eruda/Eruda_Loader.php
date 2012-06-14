@@ -76,6 +76,22 @@ function __autoload($class_name) {
         else
             throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
         
+    } else if(preg_match('~^Eruda_Validator_.*$~', $class_name)) {                //Validator
+        if(is_file($inc.'Validators/'.$class_name.'.php'))
+            include 'Validators/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/Validators/'.$class_name.'.php'))
+            include 'Eruda/Validators/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
+    } else if(preg_match('~^Eruda_Mailer_.*$~', $class_name)) {                //Mailer
+        if(is_file($inc.'Mailers/'.$class_name.'.php'))
+            include 'Mailers/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/Mailers/'.$class_name.'.php'))
+            include 'Eruda/Mailers/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
         
     } else if(is_file($inc.'Extra/'.$class_name.'.php'))
         include 'Extra/'.$class_name . '.php';

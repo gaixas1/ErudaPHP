@@ -33,6 +33,15 @@ class Eruda_Helper_Auth {
         return 0;
     }
     
+    static function checkPass($user, $pass){
+        $uspass = $user->get_pass();
+        $hasher = new PasswordHash(8, TRUE);
+        if($hasher->CheckPassword($pass, $uspass)){
+            return true;
+        }
+        return false;
+    }
+    
     /**
      */
     static function LogOut(){
@@ -63,7 +72,7 @@ class Eruda_Helper_Auth {
         
         if($user==null && isset($_COOKIE['Eruda_auth']) && isset($_COOKIE['Eruda_session'])){
             $id = Eruda_Mapper_Auth::get($_COOKIE['Eruda_auth'], $_COOKIE['Eruda_session']);
-            if(is_int($id) && $id>0)
+            if(is_numeric($id) && $id>0)
                 $user = Eruda_Mapper_User::get($id);
         }
         
@@ -97,11 +106,10 @@ class Eruda_Helper_Auth {
     /**
      * @param Eruda_Model_User $user 
      */
-    static function hashPassword(&$user){
-        $pass = $user->get_pass();
+    static function hashPassword($pass){
         $hasher = new PasswordHash(8, TRUE);
 	$pass= $hasher->HashPassword($pass);
-        $user->set_pass($pass);
+        return $pass;
     }
     
     /**

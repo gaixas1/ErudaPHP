@@ -226,11 +226,12 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
             else if(is_array($val) && $val[1] = true)
                 $qvals[] = $attr.' = '.$val;
             else
-                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($id).'"';
+                $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
         }
         $query .= implode(',', $qvals);
-        if($where!=null)
+        
         $query .= ' WHERE id = "'.$id.'";';
+        
         $this->_mysqli->query($query);
         return $this->_mysqli->affected_rows;
     }

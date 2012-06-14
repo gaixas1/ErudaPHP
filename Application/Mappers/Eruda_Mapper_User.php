@@ -58,13 +58,13 @@ class Eruda_Mapper_User {
             'mail',
             'level',
             'registered',
-            'last_log'
+            'lastlog'
         );
         $values = array(
             $user->get_name(),
             $user->get_pass(),
             $user->get_mail(),
-            $user->get_level(),
+            1,
             'NOW()',
             'NOW()'
         );
@@ -85,10 +85,25 @@ class Eruda_Mapper_User {
             'pass' => $user->get_pass(),
             'mail' => $user->get_mail(),
             'level' => $user->get_level(),
-            'last_log' => 'NOW()'
+            'lastlog' => 'NOW()'
         );
         
         Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
+        return $user;
+    }
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
+    static function updatePass(&$user, $pass){
+        $values = array(
+            'pass' => $pass,
+            'lastlog' => 'NOW()'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
+        $user->set_pass($pass);
         return $user;
     }
     

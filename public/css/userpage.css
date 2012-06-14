@@ -28,6 +28,41 @@ body {
 }
 
 
+.center {
+    text-align : center;
+}
+
+#linkscontainer {
+     display: table-cell;
+}
+
+a.link {
+    display : inline-block;
+    background-color: #ffffff;
+    padding : 10px 20px;
+    
+    border-left : solid 5px #999999;
+    border-right : solid 5px #999999;
+    border-top : solid 3px #999999;
+    
+    color : #666666;
+    font-family: "arial",sans-serif; 
+    font-weight: bold;
+}
+
+a.link:hover {
+    background-color: #aaaaaa;
+    color : #333333;
+}
+
+h1{
+    
+    color : #666666;
+    font-family: "arial",sans-serif; 
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
 #formcontainer{
      display: table-cell;
      vertical-align: middle;
@@ -36,10 +71,10 @@ body {
 
 .allform{
     background-color: #ffffff;
-    border-left : solid 5px #446699;
-    border-right : solid 5px #446699;
-    border-top : solid 3px #446699;
-    border-bottom : solid 3px #446699;
+    border-left : solid 5px #999999;
+    border-right : solid 5px #999999;
+    border-top : solid 3px #999999;
+    border-bottom : solid 3px #999999;
     padding : 25px;
 }
 
@@ -97,6 +132,15 @@ input[type=checkbox] {
     font-weight: bold;
 }
 
+.ok {
+    margin : 10px 20px;
+    padding: 5px;
+    text-align: center;
+    border: dotted #59d250 2px;
+    color : #33aa33;
+    font-weight: bold;
+}
+
 .extra{
     margin-top:15px;
     font-size: 1em;
@@ -107,4 +151,38 @@ input[type=checkbox] {
 .extra a:hover{
     color : #444444;
     text-decoration: underline;
+}
+
+
+
+/*   Menu de usuario   */
+
+#user {
+    display : block;
+    width : 500px;
+    height : 90px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-right-radius: 10px;
+    background-color : #2a2a2a;
+    margin-bottom: 20px;
+    
+}
+#user h3 {
+    color : #d0d0d0;
+    font-family: "arial",sans-serif; 
+    padding : 10px 25px;
+    margin-left: 90px;
+}
+#user h4 {
+    color : #d0d0d0;
+    font-family: "arial",sans-serif; 
+    padding : 10px 25px;
+    margin-left: 120px;
+}
+#user .user_avatar {
+    width: 70px;
+    height: 70px;
+    float:left;
+    margin : 10px;
 }

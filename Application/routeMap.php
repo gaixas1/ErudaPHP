@@ -83,8 +83,18 @@ $router = new Eruda_Router(     //Index Router
                                 ),
                             'register/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router
-                                        new Eruda_CF('User', 'RegisterForm'),
-                                        new Eruda_CF('User', 'Register')
+                                        array(new Eruda_CF('User', 'RegisterForm'),
+                                        new Eruda_CF('User', 'Register', 'POST'))
+                                ),
+                            'edit/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        array(new Eruda_CF('User', 'EditForm'),
+                                        new Eruda_CF('User', 'Edit', 'POST'))
+                                ),
+                            'recupera/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        array(new Eruda_CF('User', 'RecuperaForm'),
+                                        new Eruda_CF('User', 'Recupera', 'POST'))
                                 ),
                             'logout/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router

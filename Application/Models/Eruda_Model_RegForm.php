@@ -10,46 +10,28 @@
  *
  * @author gaixas1
  */
-class Eruda_Model_LogForm extends Eruda_Model{
+class Eruda_Model_RegForm extends Eruda_Model{
     protected $username;
-    protected $mantain;
-    protected $error;
+    protected $mail;
     protected $pass;
+    protected $error = array();
+    
+    public function __construct(){
+    }
     
     public function __toString() {
-        return 'Eruda_Model_LogForm';
+        return 'Eruda_Model_RegForm';
     }
     
-    public function get_mantain() {
-        return $this->mantain;
-    }
     public function get_username() {
         return $this->username;
+    }
+    public function get_mail() {
+        return $this->mail;
     }
     public function get_pass() {
         return $this->pass;
     }
-    public function get_error() {
-        return $this->error;
-    }
-    
-    public function set_username($val) {
-        return $this->username = $val;
-    }
-    public function set_mantain($val) {
-        return $this->mantain = $val;
-    }
-    public function set_pass($val) {
-        return $this->pass = $val;
-    }
-    public function set_errors($val) {
-        return $this->error = $val;
-    }
-    public function add_error($val) {
-        return $this->error[] = $val;
-    }
-    
-    
     public function get_errors() {
         $ret = '';
         $i = 1;
@@ -61,9 +43,26 @@ class Eruda_Model_LogForm extends Eruda_Model{
         
         return $ret;
     }
-    
     public function has_errors() {
         return $this->error!=null;
+    }
+    
+    
+    
+    public function set_username($val) {
+        return $this->username = $val;
+    }
+    public function set_mail($val) {
+        return $this->mail = $val;
+    }
+    public function set_pass($val) {
+        return $this->pass = $val;
+    }
+    public function set_errors($val) {
+        return $this->error = $val;
+    }
+    public function add_error($val) {
+        return $this->error[] = $val;
     }
 }
 

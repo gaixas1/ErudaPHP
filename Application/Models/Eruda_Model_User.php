@@ -11,7 +11,7 @@ class Eruda_Model_User extends Eruda_Model {
     protected $mail;
     protected $level;
     protected $registered;
-    protected $last_log;
+    protected $lastlog;
     
     function set_id($id){
         $this->id = $id;
@@ -61,12 +61,12 @@ class Eruda_Model_User extends Eruda_Model {
         return $this->registered;
     }
     
-    function set_last_log($last_log){
-        $this->last_log = $last_log;
+    function set_lastlog($last_log){
+        $this->lastlog = $last_log;
         return $this;
     }
-    function get_last_log(){
-        return $this->last_log;
+    function get_lastlog(){
+        return $this->lastlog;
     }
     
     function get_gravatar($size = 80) {
