@@ -260,12 +260,12 @@ class Eruda {
     
     
     static function runController(){
-        $temp = null;
+        $temp = self::$_cf;
         $i=0;
         do {
             try {
-                $controller_name = 'Eruda_Controller_'.self::$_cf->getController();
-                $function_name = self::$_cf->getFunction();
+                $controller_name = 'Eruda_Controller_'.$temp->getController();
+                $function_name =$temp->getFunction();
 
                 $controller = new $controller_name(self::$_params, self::$_method=='HEADER');
                 $controller->ini();

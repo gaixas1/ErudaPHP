@@ -94,7 +94,24 @@ $router = new Eruda_Router(     //Index Router
                             'recupera/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router
                                         array(new Eruda_CF('User', 'RecuperaForm'),
-                                        new Eruda_CF('User', 'Recupera', 'POST'))
+                                        new Eruda_CF('User', 'Recupera', 'POST')),
+                                        array(
+                                            'sended/'
+                                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                                    new Eruda_CF('User', 'RecuperaSended')
+                                                ),
+                                            'changed/'
+                                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                                    new Eruda_CF('User', 'RecuperaChanged')
+                                                ),
+                                            '([0-9]+)-(.*)'
+                                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                                    array(
+                                                        new Eruda_CF('User', 'RecuperaMailForm'),
+                                                        new Eruda_CF('User', 'RecuperaMail', 'POST')
+                                                    )
+                                                )
+                                        )
                                 ),
                             'logout/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router

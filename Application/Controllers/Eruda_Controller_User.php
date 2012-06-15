@@ -7,9 +7,12 @@
 class Eruda_Controller_User extends Eruda_Controller{
     protected $user;
     protected $header;
+    protected $refered;
     
     public function ini() {
         Eruda::getDBConnector()->connect();
+        
+        $this->setRefered();
         
         $this->user = Eruda_Helper_Auth::getUser();
         
@@ -20,7 +23,6 @@ class Eruda_Controller_User extends Eruda_Controller{
             $this->header->append2Title(Eruda::getEnvironment()->getTitle());
             $this->header->addCSS('userpage.css');
             $this->header->addJavascript('jquery.js');
-            $this->header->addJavascript('user.js');
         }
     }
     
@@ -32,13 +34,15 @@ class Eruda_Controller_User extends Eruda_Controller{
     function LogForm() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
             
             
             $model = new Eruda_Model_LogForm('');
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'logform'));
             $view->setHeader($this->header);
@@ -50,7 +54,8 @@ class Eruda_Controller_User extends Eruda_Controller{
     function LogIn() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
@@ -68,11 +73,13 @@ class Eruda_Controller_User extends Eruda_Controller{
             
             $model = $form->getValue();
             
+            $loged = false;
+            
+            $name = null;
             
             if(count($form->getErrors())>0) {
                 $model->set_errors($form->getErrors());
             } else {
-            
                 $name = $model->get_username();
                 $pass = $model->get_pass();
                 $mantain = $model->get_mantain();
@@ -80,16 +87,21 @@ class Eruda_Controller_User extends Eruda_Controller{
 
                 $userid = Eruda_Helper_Auth::LogIn($name, $pass, $mantain);
 
-                if($userid > 0) {
-                    header( 'Location: /' ) ;
-                    $this->end();
-                    exit();
-                }
-                
-                $model->set_errors(array('Usuario o contraseña incorrecto'));
+                if(!($userid > 0))
+                    $model->set_errors(array('Usuario o contraseña incorrecto'));
+                else
+                    $loged = true;
             }
             
-            $view = new Eruda_View_HTML('user', array('form'=>'logform'));
+            if($loged){
+                $model = new Eruda_Model_Message('Bienvenido '.$name);
+            $this->header->addJavascript('user.js');
+                $view = new Eruda_View_HTML('user', array('form'=>'okmessage'));
+            }else
+                $view = new Eruda_View_HTML('user', array('form'=>'logform'));
+            
+            $model->set_ref($this->refered);
+            
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -99,13 +111,16 @@ class Eruda_Controller_User extends Eruda_Controller{
     function RegisterForm() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
             
             
             $model = new Eruda_Model_RegForm();
+            
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'regform'));
             $view->setHeader($this->header);
@@ -118,7 +133,8 @@ class Eruda_Controller_User extends Eruda_Controller{
     function Register() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
@@ -176,11 +192,14 @@ class Eruda_Controller_User extends Eruda_Controller{
                 Eruda_Mapper_User::save($user);
                 Eruda_Helper_Auth::setUser($user);
                 
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
             
+            
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'regform'));
             $view->setHeader($this->header);
@@ -194,7 +213,8 @@ class Eruda_Controller_User extends Eruda_Controller{
     function EditForm() {        
         if(!$this->_onlyheader) {
             if(!($this->user->get_id()>0)) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
@@ -202,6 +222,8 @@ class Eruda_Controller_User extends Eruda_Controller{
             $model = new Eruda_Model_EditForm();
             
             $model->set_user($this->user);
+            
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'editform'));
             $view->setHeader($this->header);
@@ -213,7 +235,8 @@ class Eruda_Controller_User extends Eruda_Controller{
     function Edit() {        
         if(!$this->_onlyheader) {
             if(!($this->user->get_id()>0)) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
@@ -251,6 +274,8 @@ class Eruda_Controller_User extends Eruda_Controller{
                 }
             }
             
+            $model->set_ref($this->refered);
+            
             $view = new Eruda_View_HTML('user', array('form'=>'editform'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
@@ -263,12 +288,15 @@ class Eruda_Controller_User extends Eruda_Controller{
     function RecuperaForm() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
             
             $model = new Eruda_Model_RecForm();
+            
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'recform'));
             $view->setHeader($this->header);
@@ -281,7 +309,8 @@ class Eruda_Controller_User extends Eruda_Controller{
     function Recupera() {        
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
-                header( 'Location: /' ) ;
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
                 $this->end();
                 exit();
             }
@@ -333,16 +362,33 @@ class Eruda_Controller_User extends Eruda_Controller{
             
             if($user!=null) {
                 $rand = Eruda_Helper_Auth::random_gen(40);
-                $msg = 'Hola, '.$user->get_name().':\n
-Acabamos de recibir una petición para recuperar tu contraseña
-Sigue este enlace para recuperar el control de tu cuenta:
-'.Eruda::getEnvironment()->getBaseURL();
+                Eruda_Mapper_User::setRecup($user, $rand);
                 
-                
+                $msg = '
+<html>
+<head>
+<title>Recuperación de Contraseña</title>
+</head>
+<body>
+<p><strong>Hola, '.$user->get_name().'</strong></p>
+<p>Se ha generado una solicitud de Recuperación de Contraseña desde nuestro Sitio Web - '.Eruda::getEnvironment()->getTitle().' <br/>
+Si usted no ha solicitado este mensaje, por favor ignórelo. Si sigue recibiéndolo contáctenos 
+a <strong>'.Eruda::getEnvironment()->getMail().'</strong>.</p>
+<p>Sigue este enlace para recuperar el control de tu cuenta: <br/>
+<a href="'.Eruda::getEnvironment()->getBaseURL().'user/recupera/'.$user->get_id().'-'.$rand.'/">'.Eruda::getEnvironment()->getBaseURL().'user/recupera/'.$user->get_id().'-'.$rand.'/</a> <br/>
+El enlace será valido durante las proximas 48h</p>
+<p><strong>Gracias por seguirnos<strong></p>
+</body>
+</html>';
                 $mailer = Eruda::getMailer();
-                $mailer->send($user->get_mail(), 'Recuperación de contraseña de '.Eruda::getEnvironment()->getTitle(), $msg);
+                $mailer->send($user->get_mail(), 'Recuperación de contraseña', $msg);
+                
+                header( 'Location: /user/recupera/sended/' ) ;
+                $this->end();
                 exit();
             }
+            
+            $model->set_ref($this->refered);
             
             $view = new Eruda_View_HTML('user', array('form'=>'recform'));
             $view->setHeader($this->header);
@@ -351,11 +397,172 @@ Sigue este enlace para recuperar el control de tu cuenta:
         return null;
     }
     
+    
+    function RecuperaSended() {        
+        if(!$this->_onlyheader) {
+            if($this->user->get_id()>0) {
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
+                $this->end();
+                exit();
+            }
+            
+            $model = new Eruda_Model_Message('Petición de nueva contraseña enviada con exito.');
+            
+            $model->set_ref($this->refered);
+            $this->header->addJavascript('user.js');
+            
+            $view = new Eruda_View_HTML('user', array('form'=>'okmessage'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function RecuperaChanged() {        
+        if(!$this->_onlyheader) {
+            $model = new Eruda_Model_Message('Contraseña modificada con exito.');
+            
+            $model->set_ref($this->refered);
+            
+            $this->header->addJavascript('user.js');
+            $view = new Eruda_View_HTML('user', array('form'=>'okmessage'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function RecuperaMailForm() {        
+        if(!$this->_onlyheader) {
+            if($this->user->get_id()>0) {
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
+                $this->end();
+                exit();
+            }
+            
+            $id = $this->_params[0];
+            $rec = substr($this->_params[1],0,40);
+            
+            $user = Eruda_Mapper_User::getByID_Rec($id,$rec);
+            
+            if($user==null) {
+                return new Eruda_CF('User', 'RecuperaError');
+            }
+            
+            $model = new Eruda_Model_EditForm();
+            
+            $model->set_user($user);
+            
+            $model->set_ref($this->refered);
+            
+            $view = new Eruda_View_HTML('user', array('form'=>'recnewpassform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function RecuperaMail() {        
+        if(!$this->_onlyheader) {
+            if(($this->user->get_id()>0)) {
+                header( 'Location: '.$this->refered ) ;
+                $this->resetRefered();
+                $this->end();
+                exit();
+            }
+            
+            $id = $this->_params[0];
+            $rec = substr($this->_params[1],0,40);
+            
+            $user = Eruda_Mapper_User::getByID_Rec($id,$rec);
+            
+            if($user==null) {
+                return new Eruda_CF('User', 'RecuperaError');
+            }
+            
+            
+            $form = new Eruda_Form('EditForm');
+            
+            $fieldPass2 = new Eruda_Field('newpass', 'La nueva contraseña no puede estar en blanco.');
+            $fieldPass2->add_validator(new Eruda_Validator_Lenght(6,20,
+                    'La nueva contraseña ha de tener un minimo de 4 caracteres.',
+                    'La nueva contraseña no puede superar los 20 caracteres.'
+                    ))->add_validator(new Eruda_Validator_Equal('newpass2',
+                            'Las contraseñas no coinciden'
+                    ));
+            $form->addField('passnew', $fieldPass2);
+            
+            $form->validate();
+            
+            $model = $form->getValue();
+            
+            $model->set_user($user);
+            
+            if(count($form->getErrors())>0) {
+                $model->set_errors($form->getErrors());
+            } else {
+                $pass = Eruda_Helper_Auth::hashPassword($model->get_passnew());
+                Eruda_Mapper_User::updatePass($user, $pass);
+                
+                Eruda_Helper_Auth::setUser($user);
+                
+                header( 'Location: /user/recupera/changed/' ) ;
+                $this->end();
+                exit();
+            }
+            
+            $model->set_ref($this->refered);
+            
+            $view = new Eruda_View_HTML('user', array('form'=>'recnewpassform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function RecuperaError() {        
+        if(!$this->_onlyheader) {
+            $model = new Eruda_Model_Message('El codigo de recuperación es incorrecto o ha caducado.');
+            
+            $model->set_ref(Eruda::getEnvironment()->getBaseURL());
+            
+            $view = new Eruda_View_HTML('user', array('form'=>'errormessage'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    
     function LogOut() {        
         Eruda_Helper_Auth::LogOut();
-        header( 'Location: /' ) ;
+        header( 'Location: '.$this->refered ) ;
+        $this->resetRefered();
         $this->end();
         exit();
+    }
+    
+    
+    
+    function setRefered(){
+        if(isset($_SERVER['HTTP_REFERER']) && strlen($_SERVER['HTTP_REFERER'])>0 && !preg_match('~/user/.*$~', $_SERVER['HTTP_REFERER'])){
+            $this->refered = $_SERVER['HTTP_REFERER'];
+            $_SESSION['REFERER'] = $this->refered;
+        } else if(!$this->refered && isset($_SESSION['REFERER']) && strlen($_SESSION['REFERER'])>0){
+            $this->refered = $_SESSION['REFERER'];
+        } else {
+            $this->refered = Eruda::getEnvironment()->getBaseURL();
+            $_SESSION['REFERER'] = $this->refered;
+        }
+    }
+    
+    function resetRefered(){
+        unset($_SESSION['REFERER']);
     }
 }
 

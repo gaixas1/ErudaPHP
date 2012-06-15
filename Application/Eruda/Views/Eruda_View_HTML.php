@@ -38,7 +38,7 @@ class Eruda_View_HTML extends Eruda_View{
     
     public function showframe($frame, $model) {
         $folders = Eruda::getFolders();
-        include('Layouts/Frames/'.$this->frames[$frame].'.php');
+        include('Layouts/'.$this->layout.'/'.$this->frames[$frame].'.php');
     }
 }
 

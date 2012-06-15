@@ -125,7 +125,7 @@ class Eruda_Helper_Auth {
      * @return string 
      */
     static function random_gen($len){
-        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+-*/._#";
+        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+-*/._";
         $random = '';
         for($i = 0; $i < $len; $i++)  {    
             $random .= $chars[rand()%(strlen($chars))];  

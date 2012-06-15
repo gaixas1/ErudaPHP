@@ -15,6 +15,7 @@ class Eruda_Model_LogForm extends Eruda_Model{
     protected $mantain;
     protected $error;
     protected $pass;
+    protected $ref;
     
     public function __toString() {
         return 'Eruda_Model_LogForm';
@@ -64,6 +65,12 @@ class Eruda_Model_LogForm extends Eruda_Model{
     
     public function has_errors() {
         return $this->error!=null;
+    }
+    public function set_ref($val){
+        $this->ref = $val;
+    }
+    public function get_ref(){
+        return $this->ref;
     }
 }
 

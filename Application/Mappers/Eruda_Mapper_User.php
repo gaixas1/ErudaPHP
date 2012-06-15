@@ -46,6 +46,23 @@ class Eruda_Mapper_User {
         return $user;
     }
     
+    
+    
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
+    static function getByID_Rec($id, $pass){
+        $values = array(
+            'id' => $id,
+            'rec' => $pass
+        );
+        $user = Eruda::getDBConnector()->selectOne(self::$_table, $values, 0, 'User');
+        return $user;
+    }
+    
+    
     /**
      *
      * @param Eruda_Model_User $user
@@ -85,7 +102,9 @@ class Eruda_Mapper_User {
             'pass' => $user->get_pass(),
             'mail' => $user->get_mail(),
             'level' => $user->get_level(),
-            'lastlog' => 'NOW()'
+            'lastlog' => 'NOW()',
+            'rec' => 'NULL',
+            'rectime' => 'NULL'
         );
         
         Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
@@ -99,11 +118,28 @@ class Eruda_Mapper_User {
     static function updatePass(&$user, $pass){
         $values = array(
             'pass' => $pass,
-            'lastlog' => 'NOW()'
+            'lastlog' => 'NOW()',
+            'rec' => 'NULL',
+            'rectime' => 'NULL'
         );
         
         Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
         $user->set_pass($pass);
+        return $user;
+    }
+    
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
+    static function setRecup($user, $pass){
+        $values = array(
+            'rec' => $pass,
+            'rectime' => 'NOW()'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
         return $user;
     }
     

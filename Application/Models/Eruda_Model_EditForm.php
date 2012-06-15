@@ -16,6 +16,7 @@ class Eruda_Model_EditForm extends Eruda_Model {
     protected $passnew;
     protected $changed;
     protected $error = array();
+    protected $ref;
     
     public function __construct(){
     }
@@ -75,6 +76,12 @@ class Eruda_Model_EditForm extends Eruda_Model {
     }
     public function add_error($val) {
         return $this->error[] = $val;
+    }
+    public function set_ref($val){
+        $this->ref = $val;
+    }
+    public function get_ref(){
+        return $this->ref;
     }
 }
 

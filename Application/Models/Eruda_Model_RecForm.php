@@ -14,6 +14,7 @@ class Eruda_Model_RecForm extends Eruda_Model{
     protected $username;
     protected $mail;
     protected $error = array();
+    protected $ref;
     
     public function __construct(){
     }
@@ -62,6 +63,12 @@ class Eruda_Model_RecForm extends Eruda_Model{
     }
     public function add_error($val) {
         return $this->error[] = $val;
+    }
+    public function set_ref($val){
+        $this->ref = $val;
+    }
+    public function get_ref(){
+        return $this->ref;
     }
 }
 

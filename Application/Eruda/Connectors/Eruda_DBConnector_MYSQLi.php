@@ -15,7 +15,7 @@
  */
 
 class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
-    public static $_protectedValues = array('NOW()', 'RAND()');
+    public static $_protectedValues = array('NOW()', 'RAND()', 'NULL');
     protected $_host;
     protected $_dbase;
     protected $_port;
@@ -52,7 +52,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
      */
     function disconnect(){
         if($this->_mysqli instanceof mysqli)
-            $this->_mysqli->close();
+            $this->_mysqli->close ();
         return $this;
     }
     
@@ -453,7 +453,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         
         $ret = array();
         
-        if($res = $this->_mysqli->query($query))
+        if($res = $this->_mysqli->query($query)){
             if($object!=null && is_string($object)){
                 while($row = $res->fetch_array()){
                     $ret[] = new $object($row);
@@ -463,6 +463,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
                     $ret[] = $row;
                 }
             }
+        }
         
         return $ret;
     }
