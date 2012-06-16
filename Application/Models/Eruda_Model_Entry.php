@@ -9,7 +9,7 @@ class Eruda_Model_Entry extends Eruda_Model {
     protected $id;
     protected $title;
     protected $text;
-    protected $fragments;
+    protected $comments;
     
     protected $created;
     protected $lastmod;
@@ -20,11 +20,8 @@ class Eruda_Model_Entry extends Eruda_Model {
     protected $cats_id = array();
     protected $cats = array();
     
-    protected $tags = array();
-    
-    protected $items_type_id = array();
-    protected $items = array();
-    
+    //
+    //protected $tags = array();
     
     function set_id($id){
         $this->id = $id;
@@ -49,14 +46,6 @@ class Eruda_Model_Entry extends Eruda_Model {
     }
     function get_text(){
         return $this->text;
-    }
-    
-    function set_fragments($fragments){
-        $this->fragments = $fragments;
-        return $this;
-    }
-    function get_fragments(){
-        return $this->fragments;
     }
     
     function set_author_id($author_id){
@@ -92,6 +81,14 @@ class Eruda_Model_Entry extends Eruda_Model {
         return $this->cats;
     }
     
+    function set_comments($comments){
+        $this->comments = $comments;
+        return $this;
+    }
+    function get_comments(){
+        return $this->comments;
+    }
+    /*
     function set_tags($tags){
         $this->tags = $tags;
         return $this;
@@ -99,24 +96,7 @@ class Eruda_Model_Entry extends Eruda_Model {
     function get_tags(){
         return $this->tags;
     }
-    
-    function set_items_type_id($items_type_id){
-        $this->items_type_id = unserialize($items_type_id);
-        return $this;
-    }
-    function get_items_type_id(){
-        return $this->items_type_id;
-    }
-    
-    function set_items($items){
-        $this->items = $items;
-        return $this;
-    }
-    function get_items(){
-        return $this->items;
-    }
-    
-    
+    */
     function set_created($created){
         $this->created = $created;
         return $this;

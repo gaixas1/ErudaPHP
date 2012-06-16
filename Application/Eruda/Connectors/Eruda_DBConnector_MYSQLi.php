@@ -512,6 +512,38 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         
         return $ret;
     }
+    /**
+     * @param string $table
+     * @param array $values
+     * @return int 
+     */
+    function selectCountValues($table, $values = array()){
+        $query = 'SELECT count(*) AS count FROM '.$table;
+        if(count($values)>0){
+            $query .= ' WHERE ';
+            $qvals = array();
+            foreach($values as $attr => $val){
+                if(in_array($val, Eruda_DBConnector_MYSQLi::$_protectedValues))
+                    $qvals[] = $attr.' = '.$val;
+                else if(is_array($val) && $val[1] = true)
+                    $qvals[] = $attr.' = '.$val;
+                else
+                    $qvals[] = $attr.' = '.'"'.$this->_mysqli->real_escape_string($val).'"';
+            }
+
+            $query .= implode(' AND ', $qvals).' ';
+        }
+        $query .= ' ;';
+        
+        $ret = 0;
+        if($res = $this->_mysqli->query($query)) {
+            if($row = $res->fetch_array()){
+                $ret = $row['count'];
+            }
+        }
+        
+        return $ret;
+    }
     
     /**
      *

@@ -138,7 +138,10 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $entry = Eruda_Mapper_Entry::get($id);
             self::setEntry($entry);
             
-            $model = new Eruda_Model_ViewEntry($this->user, $this->cats, $this->archives, $entry, null);
+            $comments = Eruda_Mapper_Comment::getFrom($id);
+            self::setComments($comments);
+            
+            $model = new Eruda_Model_ViewEntry($this->user, $this->cats, $this->archives, $entry, $comments);
             
             $view = new Eruda_View_HTML('basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
@@ -162,8 +165,21 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
                     $cats[] = Eruda_Mapper_Category::get($catId);
                 }
                 $entry->set_cats($cats);
-                $entry->set_tags(Eruda_Mapper_Tag::tagsfromEntry($id));
+                //$entry->set_tags(Eruda_Mapper_Tag::tagsfromEntry($id));
                 $entry->set_text(Eruda_Helper_Parser::parseText($entry->get_text()));
+                
+                $entry->set_comments(Eruda_Mapper_Comment::getCountFrom($id));
+    }
+    
+    static function setComments(&$comments){
+        foreach($comments as $comment){
+            self::setComment($comment);
+        }
+    }
+    
+    static function setComment(&$comment){
+        $comment->set_author(Eruda_Mapper_User::get($comment->get_author_id()));
+        $comment->set_text(Eruda_Helper_Parser::parseText($comment->get_text()));
     }
 }
 

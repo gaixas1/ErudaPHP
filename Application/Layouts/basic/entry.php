@@ -45,11 +45,47 @@
                             <a class="twiter" target="_blank" href="http://twitter.com/?status=FSFansub%20%3E%3E%20http://fallensoul.es/701/koudelka_08">Enviar a Twitter</a>
                         </div>
                         <div class="entrada_ncomentarios">
-                            <a class="comLink" title="Koudelka 08" href="/<?php echo $entry->get_id(); ?>/<?php echo Eruda_Helper_Parser::Text2Link($entry->get_title()); ?>/">
-                                Sin Comentarios
-                            </a>
-                            </a>
+                            <?php 
+                                $comNum = $entry->get_comments();
+                                if($comNum<=0)
+                                    echo 'Sin Comentarios';
+                                else if($comNum==1)
+                                    echo '1 Comentario';
+                                else
+                                    echo $comNum.' Comentarios';
+                            ?>
                         </div>
                     </footer>
                 </article>
+                
+                <?php
+                    $comments = $model->get_comments();
+                    if($comments!=null && is_array($comments) && count($comments)>0) {
+                ?>
+                <section id="comentarios">
+                    <h1>Comentarios</h1>
+                <?php
+                $t = true;
+                        foreach($comments as $comment){
+                            if($comment->can_see($model->get_user())) {
+                                $us = $comment->get_author();
+                ?>
+                    <article id="comment_<?php echo $comment->get_id();?>" class="comentario coment_<?php echo ($t ? 'a' : 'b');?>">
+			<img class="gravatar" src="<?php echo $us->get_gravatar(50);?>">
+                        <header>Por <?php echo $us->get_name();?> el <?php echo Eruda_Helper_Parser::parseAllDate($comment->get_date());?></header>
+			<section class="text"><?php echo $comment->get_text(); ?></section>
+		</article>
+                    
+                    <article id="comment_<?php echo $comment->get_id();?>">
+                    
+                    </article>
+                <?php
+                                $t = !$t;
+                            }
+                        }
+                ?>
+                </section>
+                <?php
+                    }
+                ?>
             </section>

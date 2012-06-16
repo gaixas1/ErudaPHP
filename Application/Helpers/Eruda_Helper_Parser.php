@@ -22,6 +22,14 @@ class Eruda_Helper_Parser {
         return date ( "j.n.Y" , strtotime($date));
     }
     
+    static function parseAllDate($date){
+        $ret = date ( "j" , strtotime($date)). ' de ';
+        $ret .= self::parseMonth( date ( "n" , strtotime($date))).' de ';
+        $ret .= date ( "Y" , strtotime($date)).' a las '.date ( "G:i" , strtotime($date));
+        
+        return $ret;
+    }
+    
     static function Text2Link($text){
         $text = strtolower($text);
         $text = str_replace(' ', '_', $text);

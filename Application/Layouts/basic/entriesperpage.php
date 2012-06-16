@@ -52,8 +52,15 @@
                         </div>
                         <div class="entrada_ncomentarios">
                             <a class="comLink" title="Koudelka 08" href="/<?php echo $entry->get_id(); ?>/<?php echo Eruda_Helper_Parser::Text2Link($entry->get_title()); ?>/">
-                                Sin Comentarios
-                            </a>
+                                <?php 
+                                    $comNum = $entry->get_comments();
+                                    if($comNum<=0)
+                                        echo 'Sin Comentarios';
+                                    else if($comNum==1)
+                                        echo '1 Comentario';
+                                    else
+                                        echo $comNum.' Comentarios';
+                                ?>
                             </a>
                         </div>
                     </footer>

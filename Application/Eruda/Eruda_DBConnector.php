@@ -128,6 +128,14 @@ abstract class  Eruda_DBConnector {
      * @return array 
      */
     abstract function selectCount($table, $group=null, $order=null);
+    
+    
+    /**
+     * @param string $table
+     * @param array $values
+     * @return int 
+     */
+    abstract function selectCountValues($table, $values = array());
 }
 
 

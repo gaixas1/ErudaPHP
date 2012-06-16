@@ -503,6 +503,53 @@ a.jlist_img_max img {
 /****<<<<<<<Entrada Pie****/
 
 
+/*** Comentarios ***/
+#comentarios{
+    margin-top: 25px;
+    margin-right: 25px;
+}
+
+.comentario{
+    border: solid 1px #999999;
+    margin : 10px;
+}
+
+.comentario header {
+    padding : 5px;
+    font-weight: bold;
+}
+
+.comentario .text    {
+    padding : 5px;
+}
+
+
+.coment_a {
+    background: #000000;
+    color : #dddddd;
+}
+
+.coment_a .gravatar{
+    float:left;
+    padding : 10px 40px 10px 10px;
+    background-image: url('img/commenta.jpg');
+    margin-right : 10px;
+    margin-bottom : 10px;
+}
+
+
+.coment_b {
+    background: #ffffff;
+    color : #222222;
+}
+.coment_b .gravatar{
+    float:right;
+    padding : 10px 10px 10px 40px;
+    background-image: url('img/commentb.jpg');
+    margin-left : 10px;
+    margin-bottom : 10px;
+}
+
 
 /*** Paginacion ***/
 #paginacion{
