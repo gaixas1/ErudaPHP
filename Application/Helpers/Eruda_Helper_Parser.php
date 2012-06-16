@@ -73,6 +73,16 @@ class Eruda_Helper_Parser {
         
         $text = nl2br($text);
         
+        
+        //Emoticonos
+        $emotic = array('cabre', 'chulo', 'confu', 'dance', 'duda', 'lloron', 'love', 'nervi', 'plauso', 'sorry', 'morros', 'casi', 'powa', 'trellao');
+        
+        if (preg_match_all('`:('.implode('|', $emotic).'):`is', $text, $matches)) foreach ($matches[0] as $key => $match) { 
+            $emot = $matches[1][$key];
+            $replacement = '<img class="emoticono" src="/emotic/icon_'.$emot.'.gif" alt=":'.$emot.':"/>';
+            $text = str_replace($match, $replacement, $text); 
+        } 
+                
         /**Replace Items**/
         $tags = 'cap|ani'; 
         while (preg_match_all('`\[('.$tags.')\]([0-9]+)\[/\1\]`is', $text, $matches)) foreach ($matches[0] as $key => $match) { 

@@ -48,11 +48,11 @@
                             <?php 
                                 $comNum = $entry->get_comments();
                                 if($comNum<=0)
-                                    echo 'Sin Comentarios';
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentar">Sin Comentarios</a>';
                                 else if($comNum==1)
-                                    echo '1 Comentario';
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">1 Comentario</a>';
                                 else
-                                    echo $comNum.' Comentarios';
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">'.$comNum.' Comentarios</a>';
                             ?>
                         </div>
                     </footer>
@@ -88,4 +88,52 @@
                 <?php
                     }
                 ?>
+                
+                
+                <section id="comentar">
+                    <h1>Comentar</h1>
+                    <?php
+                    $us = $model->get_user();
+                    if($us->get_level()>0) {
+                    ?>
+                    <form action="" method="post" accept-charset="utf-8">
+                        <p>
+                            Identificado como <?php echo $us->get_name();?>. <a href="/user/logout/" title="Salir">Salir</a>
+                        </p>
+                        <section id="emoticDisplay">
+                            <?php
+                                //Emoticonos
+                                $emotic = array('cabre', 'chulo', 'confu', 'dance', 'duda', 'lloron', 'love', 'nervi', 'plauso', 'sorry', 'morros', 'casi', 'powa', 'trellao');
+                                foreach($emotic as $k=>$emo) {
+                                    if($k==  round(count($emotic)/2)) echo '<br/>';
+                                    echo '
+                                        <a href=":'.$emo.':" class="emotico">
+                                            <img src="/emotic/icon_'.$emo.'.gif" alt=":'.$emo.':">
+                                        </a>';
+                                }
+                            ?>
+                        </section>
+                        <textarea id="comTxt" name="text"></textarea>
+                        <section id="comBotones">	
+                                <button id="comPrevia">Vista Previa</button><input type="submit" value="Enviar" />
+                        </section>
+                    </form>
+                    <section id="vistaPrevia">
+                        
+                    </section>
+                    
+                    
+                    <?php
+                    }else{
+                    ?>
+                    <p>
+                        Necesitas estar logeado para poder comentar.
+                    </p class="center">
+                    <p class="center">
+                        <a title="Entrar" href="/user/log/"> Entrar </a> | <a  title="Registrarse" href="/user/register/"> Registrarse </a>
+                    </p>
+                    <?php
+                    }
+                    ?>
+                </section>
             </section>

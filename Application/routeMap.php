@@ -70,7 +70,13 @@ $router = new Eruda_Router(     //Index Router
                 ),
                 'ajax/' 
                     => new Eruda_Router(    //Ajax Router
-                        /*TO-DO*/
+                        new Eruda_CF('Error', 'E404'),
+                        array(
+                            'previewcomment/' 
+                                => new Eruda_Router(    //VistaPrevia Comment
+                                        new Eruda_CF('Ajax', 'Preview', 'POST')
+                                )
+                            )
                 ),
                 'user/' 
                     => new Eruda_Router(    //Categorias Router

@@ -51,17 +51,15 @@
                             <a class="twiter" target="_blank" href="http://twitter.com/?status=FSFansub%20%3E%3E%20http://fallensoul.es/701/koudelka_08">Enviar a Twitter</a>
                         </div>
                         <div class="entrada_ncomentarios">
-                            <a class="comLink" title="Koudelka 08" href="/<?php echo $entry->get_id(); ?>/<?php echo Eruda_Helper_Parser::Text2Link($entry->get_title()); ?>/">
-                                <?php 
-                                    $comNum = $entry->get_comments();
-                                    if($comNum<=0)
-                                        echo 'Sin Comentarios';
-                                    else if($comNum==1)
-                                        echo '1 Comentario';
-                                    else
-                                        echo $comNum.' Comentarios';
-                                ?>
-                            </a>
+                            <?php 
+                                $comNum = $entry->get_comments();
+                                if($comNum<=0)
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentar">Sin Comentarios</a>';
+                                else if($comNum==1)
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">1 Comentario</a>';
+                                else
+                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">'.$comNum.' Comentarios</a>';
+                            ?>
                         </div>
                     </footer>
                 </article>

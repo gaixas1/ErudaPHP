@@ -50,6 +50,17 @@ class Eruda_Controller_Error extends Eruda_Controller {
         }
         return null;
     }
+    function E404() {        
+        header('Status: 404');
+        if(!$this->_onlyheader) {
+            $this->error->set_message('PAGE NOT FOUND');
+            $this->header->append2Title('Pagina no encontrada');
+            $view = new Eruda_View_HTML('error');
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $this->error);
+        }
+        return null;
+    }
 }
 
 ?>

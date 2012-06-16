@@ -14,7 +14,7 @@ class Eruda_Model_Message extends Eruda_Model{
     protected $msg;
     protected $ref;
     
-    public function __construct($msg) {
+    public function __construct($msg='') {
         $this->msg = $msg;
     }
 
@@ -28,6 +28,12 @@ class Eruda_Model_Message extends Eruda_Model{
     }
     public function get_ref(){
         return $this->ref;
+    }
+    public function set_msg($val){
+        $this->msg = $val;
+    }
+    public function get_msg(){
+        return $this->msg;
     }
 }
 

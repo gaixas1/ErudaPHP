@@ -99,7 +99,6 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $pag = $this->_params[1];
             $catLink = $this->_params[0];
             $categoria = Eruda_Mapper_Category::getLink($catLink);
-            var_dump($pag*Eruda::getEnvironment()->getEntriesPerPage());
             $entries = Eruda_Mapper_Entry::getFromCat($categoria->get_id(), ($pag-1)*Eruda::getEnvironment()->getEntriesPerPage(), Eruda::getEnvironment()->getEntriesPerPage());
             self::setEntries($entries);
             
@@ -142,6 +141,8 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             self::setComments($comments);
             
             $model = new Eruda_Model_ViewEntry($this->user, $this->cats, $this->archives, $entry, $comments);
+            
+            $this->header->addJavascript('comment.js');
             
             $view = new Eruda_View_HTML('basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
