@@ -632,7 +632,7 @@ a.jlist_img_max img {
 }
 
 #vistaPrevia .text {
-    
+    background: #fafafa;
     border: solid 1px #999999;
     margin : 10px;
     padding : 5px 15px;

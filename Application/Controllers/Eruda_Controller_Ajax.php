@@ -28,7 +28,7 @@ class Eruda_Controller_Ajax extends Eruda_Controller {
             $model = null;
             if($form->validate()) {
                 $model = $form->getValue();
-                $model->set_msg(Eruda_Helper_Parser::parseText(htmlspecialchars ($model->get_msg())));
+                $model->set_msg(Eruda_Helper_Parser::parseText(utf8_decode(htmlspecialchars ($model->get_msg()))));
             } else {
                 $model = new Eruda_Model_Message('El comentario no puede estar en blanco.');
                 
