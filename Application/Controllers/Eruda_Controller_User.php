@@ -95,7 +95,7 @@ class Eruda_Controller_User extends Eruda_Controller{
             
             if($loged){
                 $model = new Eruda_Model_Message('Bienvenido '.$name);
-            $this->header->addJavascript('user.js');
+                $this->header->addJavascript('user.js');
                 $view = new Eruda_View_HTML('user', array('form'=>'okmessage'));
             }else
                 $view = new Eruda_View_HTML('user', array('form'=>'logform'));
