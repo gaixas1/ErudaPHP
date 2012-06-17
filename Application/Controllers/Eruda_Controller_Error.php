@@ -39,22 +39,33 @@ class Eruda_Controller_Error extends Eruda_Controller {
     public function end() {}
     
     
-    function E500() {        
-        header('Status: 500');
+    function E404() {        
+        header('Status: 404');
         if(!$this->_onlyheader) {
-            $this->error->set_message('SERVER Error');
-            $this->header->append2Title('SERVER ERROR');
+            $this->error->set_message('404 Not Found');
+            $this->header->append2Title('404 Not Found');
             $view = new Eruda_View_HTML('error');
             $view->setHeader($this->header);
             return new Eruda_MV($view, $this->error);
         }
         return null;
     }
-    function E404() {        
-        header('Status: 404');
+    function E500() {        
+        header('Status: 500');
         if(!$this->_onlyheader) {
-            $this->error->set_message('PAGE NOT FOUND');
-            $this->header->append2Title('Pagina no encontrada');
+            $this->error->set_message('500 Internal Server Error');
+            $this->header->append2Title('500 Internal Server Error');
+            $view = new Eruda_View_HTML('error');
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $this->error);
+        }
+        return null;
+    }
+    function E550() {        
+        header('Status: 550');
+        if(!$this->_onlyheader) {
+            $this->error->set_message('550 Permission Denied');
+            $this->header->append2Title('550 Permission Denied');
             $view = new Eruda_View_HTML('error');
             $view->setHeader($this->header);
             return new Eruda_MV($view, $this->error);

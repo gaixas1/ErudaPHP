@@ -73,6 +73,13 @@
                     <article id="comment_<?php echo $comment->get_id();?>" class="comentario coment_<?php echo ($t ? 'a' : 'b');?>">
 			<img class="gravatar" src="<?php echo $us->get_gravatar(50);?>">
                         <header>Por <?php echo $us->get_name();?> el <?php echo Eruda_Helper_Parser::parseAllDate($comment->get_date());?></header>
+                        <?php
+                            if(!$comment->is_valid()){
+                        ?>
+                        <p class="toMod">(A la espera de moderación)</p>
+                        <?php
+                            }
+                        ?>
 			<section class="text"><?php echo $comment->get_text(); ?></section>
 		</article>
                     
@@ -113,22 +120,24 @@
                                 }
                             ?>
                         </section>
-                        <textarea id="comTxt" name="text"></textarea>
+                        <textarea id="comTxt" name="text"><?php echo $model->get_comtxt();?></textarea>
                         <section id="comBotones">	
                                 <button id="comPrevia">Vista Previa</button><input type="submit" value="Enviar" />
                         </section>
                     </form>
                     <section id="vistaPrevia">
-                        
+                        <?php
+                        if($model->has_errors()){
+                            echo '<p class="error">'.$model->get_errors().'</p>';
+                        }
+                        ?>
                     </section>
-                    
-                    
                     <?php
                     }else{
                     ?>
                     <p>
                         Necesitas estar logeado para poder comentar.
-                    </p class="center">
+                    </p>
                     <p class="center">
                         <a title="Entrar" href="/user/log/"> Entrar </a> | <a  title="Registrarse" href="/user/register/"> Registrarse </a>
                     </p>

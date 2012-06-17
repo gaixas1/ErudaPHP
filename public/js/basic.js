@@ -21,11 +21,19 @@ array_imagen[4] = new Image(800,180) ;
 array_imagen[4].src = "/img/b0.jpg" ;
 
 contadorIMG = 1 ;
+contadorAviso = 3 ;
 
 function rotarBaner(){ 
 	$j('#baner img').attr('src', array_imagen[contadorIMG].src);
    	contadorIMG = (contadorIMG+1) % 5;
    	setTimeout("rotarBaner()",4000) ;
+}
+
+function rotarAviso(){ 
+	$j('#novedades span').addClass('none');
+   	contadorAviso = (contadorAviso) % 3 +1;
+	$j('#aviso_'+contadorAviso).removeClass('none');
+   	setTimeout("rotarAviso()",4000) ;
 }
 
 
@@ -46,7 +54,6 @@ $j(document).ready(function() {
 	});
 
    	setTimeout("rotarBaner()",2000) ;
-        
-
+   	rotarAviso();
 
 });

@@ -38,9 +38,21 @@
         </header>
         
         <div id="cuerpo">
+            <?php 
+            $avisos = $model->get_avisos();
+            if($avisos && count($avisos)){
+            ?>
             <section id="novedades">
-                Novedades
+                <h1>Novedades</h1>
+            <?php 
+            foreach($avisos as $k => $aviso){
+                echo '<span id="aviso_'.($k+1).'" class="none">'.$aviso->get_msg().'</span>';
+            }
+            ?>
             </section>
+            <?php
+            }
+            ?>
         
             <nav id="menu_lateral">
                 <?php

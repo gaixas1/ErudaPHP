@@ -79,7 +79,7 @@ class Eruda_Helper_Parser {
         
         if (preg_match_all('`:('.implode('|', $emotic).'):`is', $text, $matches)) foreach ($matches[0] as $key => $match) { 
             $emot = $matches[1][$key];
-            $replacement = '<img class="emoticono" src="/emotic/icon_'.$emot.'.gif" alt=":'.$emot.':"/>';
+            $replacement = '<img class="emoticono" src="/emotic/icon_'.$emot.'.gif" alt="'.$emot.'"/>';
             $text = str_replace($match, $replacement, $text); 
         } 
                 

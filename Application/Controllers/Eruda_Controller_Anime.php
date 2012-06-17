@@ -51,6 +51,9 @@ class Eruda_Controller_Anime extends Eruda_Controller {
         if(!$this->_onlyheader) {
             $serie = $this->_params[0];
             $animes = Eruda_Mapper_Anime::getLastsFromSerie(10,$serie);
+            if(!(count($animes)>0)) {
+                return new Eruda_CF('Error', 'E404');
+            }
             
             $model = new Eruda_Model_Manganime($this->user, $this->series, $animes);
             
@@ -66,6 +69,9 @@ class Eruda_Controller_Anime extends Eruda_Controller {
             $serie = $this->_params[0];
             $cont = $this->_params[1];
             $animes = Eruda_Mapper_Anime::getSerieCont($serie, $cont);
+            if(!(count($animes)>0)) {
+                return new Eruda_CF('Error', 'E404');
+            }
             
             $model = new Eruda_Model_Manganime($this->user, $this->series, $animes);
             

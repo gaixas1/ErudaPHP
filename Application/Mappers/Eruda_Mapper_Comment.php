@@ -15,6 +15,32 @@ class Eruda_Mapper_Comment {
     
     /**
      *
+     * @param Eruda_Model_Comment $comment
+     * @return \Eruda_Model_Comment
+     */
+    static function save(&$comment){
+        $attr = array(
+            'entry',
+            'author_id',
+            'valid',
+            'text',
+            'date',
+        );
+        $values = array(
+            $comment->get_entry_id(),
+            $comment->get_author_id(),
+            $comment->get_valid(),
+            $comment->get_text(),
+            'NOW()'
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tablea, $attr, $values);
+        $comment->set_id(Eruda::getDBConnector()->lastID());
+        return $comment;
+    }
+    
+    /**
+     *
      * @param int $id
      * @return Eruda_Model_Entry
      */

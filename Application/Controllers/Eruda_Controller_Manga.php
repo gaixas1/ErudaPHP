@@ -51,6 +51,9 @@ class Eruda_Controller_Manga extends Eruda_Controller {
         if(!$this->_onlyheader) {
             $serie = $this->_params[0];
             $mangas = Eruda_Mapper_Manga::getLastsFromSerie(10,$serie);
+            if(!(count($mangas)>0)) {
+                return new Eruda_CF('Error', 'E404');
+            }
             
             $model = new Eruda_Model_Manganime($this->user, $this->series, $mangas);
             
@@ -66,6 +69,9 @@ class Eruda_Controller_Manga extends Eruda_Controller {
             $serie = $this->_params[0];
             $tomo = $this->_params[1];
             $mangas = Eruda_Mapper_Manga::getSerieTomo($serie, $tomo);
+            if(!(count($mangas)>0)) {
+                return new Eruda_CF('Error', 'E404');
+            }
             
             $model = new Eruda_Model_Manganime($this->user, $this->series, $mangas);
             

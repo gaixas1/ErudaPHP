@@ -331,7 +331,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         $query = 'SELECT * FROM '.$table.' WHERE id ="'.$this->_mysqli->real_escape_string($id).'";';
         
         $ret = null;
-        if($res = $this->_mysqli->query($query))
+        if($res = $this->_mysqli->query($query)){
             if($object!=null && is_string($object)){
                 if($row = $res->fetch_array()){
                     $ret = new $object($row);
@@ -339,7 +339,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
             } else {
                 $ret = $res->fetch_array();
             }
-        $res->close();
+        }
         return $ret;
     }
     

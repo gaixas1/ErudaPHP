@@ -59,7 +59,12 @@ body {
 }
 
 .hidden {
-    visibility : hidden;
+    visibility : hidden !important;
+}
+
+.none {
+    visibility : hidden !important;
+    display: none !important;
 }
 
 /*   Clases BBCode   */
@@ -270,11 +275,28 @@ body {
     padding-left : 20px;
     background-color : #ffffff;
     border-top : solid 1px #b0b0b0;
-    border-bottom : solid 1px #b0b0b0;
+    border-bottom : solid 2px #b0b0b0;
     margin-bottom : 6px;
     
     color : #808080;
     font-family: "arial",sans-serif; 
+}
+
+#novedades span {
+    display : block;
+    width: 640px;
+    padding : 5px 25px;
+    margin-left : 140px;
+    background-color : #b0b0b0;
+    color : #eeeeee;
+    font-family: "arial",sans-serif; 
+}
+
+#novedades h1 {
+    float:left;
+    color : #808080;
+    font-family: "arial",sans-serif; 
+    font-size: 1em;
 }
 
 /**  Menu Lateral  **/
@@ -364,6 +386,7 @@ a.jlist_img_max img {
 #articulos {
     display : block;
     margin-left : 250px;
+    padding-bottom: 25px;
 }
 
 .grupo_entradas {
@@ -517,6 +540,7 @@ a.jlist_img_max img {
 .comentario{
     border: solid 1px #999999;
     margin : 10px;
+    min-height: 70px;
 }
 
 .comentario header {
@@ -548,6 +572,13 @@ a.jlist_img_max img {
     margin-left : 100px;
 }
 
+.coment_a .toMod {
+    color: #bbbbbb;
+    text-align: right;
+    padding-right: 20px;
+    text-decoration: underline;
+}
+
 .coment_b {
     background: #ffffff;
     color : #222222;
@@ -564,6 +595,12 @@ a.jlist_img_max img {
     margin-right : 100px;
 }
 
+.coment_b .toMod {
+    color: #666666;
+    text-align: left;
+    padding-left: 20px;
+    text-decoration: underline;
+}
 
 
 /*** Comentar ***/
@@ -638,6 +675,15 @@ a.jlist_img_max img {
     padding : 5px 15px;
     text-align: justify;
 }
+#vistaPrevia .error {
+    background: #fafafa;
+    border: solid 1px #ff9999;
+    margin : 10px;
+    padding : 5px 15px;
+    text-align: justify;
+}
+
+
 
 
 /*** Paginacion ***/
@@ -691,7 +737,7 @@ a.jlist_img_max img {
 }
 
 
-/**  Articulos  **/
+/**  Manganime  **/
 
 #manganime {
     padding-right:  25px;

@@ -13,6 +13,7 @@
 class Eruda_Model_Comment extends Eruda_Model {
     protected $id;
     protected $text;
+    protected $entry_id;
     protected $author_id;
     protected $author;
     protected $valid;
@@ -34,6 +35,14 @@ class Eruda_Model_Comment extends Eruda_Model {
     }
     function get_text(){
         return $this->text;
+    }
+    
+    function set_entry_id($entry_id){
+        $this->entry_id = $entry_id;
+        return $this;
+    }
+    function get_entry_id(){
+        return $this->entry_id;
     }
     
     function set_author_id($author_id){

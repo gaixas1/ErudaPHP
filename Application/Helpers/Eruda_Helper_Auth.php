@@ -119,6 +119,13 @@ class Eruda_Helper_Auth {
         return $user->get_level()>=7;
     }
     
+    /**
+     * @param Eruda_Model_User $user 
+     */
+    static function validComments($user){
+        return $user->get_level()>=3;
+    }
+    
     
     /**
      * @param int $len
