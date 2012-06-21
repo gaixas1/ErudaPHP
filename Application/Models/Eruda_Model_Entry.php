@@ -5,7 +5,10 @@
  * @author gaixas1
  */
 
-class Eruda_Model_Entry extends Eruda_Model {
+/**
+ * @property Eruda_Model_User $author 
+ */
+class Eruda_Model_Entry extends Eruda_Model implements Eruda_Interface_rssItem, Eruda_Interface_sitemapItem {
     protected $id;
     protected $title;
     protected $text;
@@ -60,6 +63,9 @@ class Eruda_Model_Entry extends Eruda_Model {
         $this->author = $author;
         return $this;
     }
+    /**
+     * @return Eruda_Model_User 
+     */
     function get_author(){
         return $this->author;
     }
@@ -116,6 +122,88 @@ class Eruda_Model_Entry extends Eruda_Model {
 
     public function __toString() {
         return 'Eruda_Model_Entry('.$this->id.')::'.$this->title;
+    }
+
+    
+    public function rss_get_pubDate() {
+        return $this->created;
+    }
+
+    public function rss_get_author() {
+        return $this->author->get_name();
+        
+    }
+
+    public function rss_get_categories() {
+        $ret = array();
+        foreach ($this->cats as $cat) {
+            $ret[] = $cat->get_name();
+        }
+        return $ret;
+    }
+
+    public function rss_get_comments() {
+        return Eruda::getEnvironment()->getBaseURL().$this->id.'/'.Eruda_Helper_Parser::Text2Link($this->title).'/#comentar';
+    }
+
+    public function rss_get_description() {
+        return $this->text;
+    }
+
+
+    public function rss_get_guid() {
+        return Eruda::getEnvironment()->getBaseURL().$this->id.'/'.Eruda_Helper_Parser::Text2Link($this->title).'/#comentar';
+    }
+
+    public function rss_get_link() {
+        return Eruda::getEnvironment()->getBaseURL().$this->id.'/'.Eruda_Helper_Parser::Text2Link($this->title).'/';
+    }
+
+    public function rss_get_source() {}
+
+    public function rss_get_title() {
+        return $this->title;
+    }
+
+    public function rss_has_author() {
+        return true;
+    }
+
+    public function rss_has_comments() {
+        return true;
+    }
+
+
+    public function rss_has_guid() {
+        return true;
+    } 
+    
+    public function rss_has_pubDate() {
+        return true;
+    }
+
+    public function rss_has_source() {
+        return false;
+    }
+
+    public function sitemap_get_changefreg() {
+        return 'never';
+    }
+
+    public function sitemap_get_lastmod() {
+        return $this->lastmod;
+    }
+
+    public function sitemap_get_loc() {
+        return Eruda::getEnvironment()->getBaseURL().$this->id.'/'.Eruda_Helper_Parser::Text2Link($this->title).'/';
+    }
+
+    public function sitemap_get_priority() {
+        return '0.9';
+    }
+
+    public function sitemap_has_lastmod() {
+        return true;
     }
 }
 

@@ -5,7 +5,7 @@
  *
  * @author gaixas1
  */
-class Eruda_Model_Category extends Eruda_Model {
+class Eruda_Model_Category extends Eruda_Model implements Eruda_Interface_sitemapItem {
     protected $id;
     protected $name;
     protected $link;
@@ -45,6 +45,25 @@ class Eruda_Model_Category extends Eruda_Model {
 
     public function __toString() {
         return 'Eruda_Model_Category('.$this->id.')::'.$this->name;
+    }
+
+
+    public function sitemap_get_changefreg() {
+        return 'monthly';
+    }
+
+    public function sitemap_get_lastmod() {}
+
+    public function sitemap_has_lastmod() {
+        return false;
+    }
+
+    public function sitemap_get_loc() {
+        return Eruda::getEnvironment()->getBaseURL().Eruda_Helper_Parser::Text2Link($this->link).'/';
+    }
+
+    public function sitemap_get_priority() {
+        return '0.9';
     }
     
 }

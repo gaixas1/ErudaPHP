@@ -47,8 +47,9 @@
                     </div>
                     <footer class="entrada_pie">
                         <div class="entrada_social">
-                            <a name="fb_share" type="button_count" share_url="http://fallensoul.es/701/koudelka_08">Compartir en FB</a>
-                            <a class="twiter" target="_blank" href="http://twitter.com/?status=FSFansub%20%3E%3E%20http://fallensoul.es/701/koudelka_08">Enviar a Twitter</a>
+                            <a class="fb_link" target="_blank" href="<?php echo Eruda_Helper_Parser::facebookLink(Eruda::getEnvironment()->getBaseURL().$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/',$entry->get_title());?>">Compartir en FB</a>
+                            <a class="twitter_link" target="_blank"  href="<?php echo Eruda_Helper_Parser::twitterLink(Eruda::getEnvironment()->getBaseURL().$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/',$entry->get_title());?>">Enviar a Twitter</a>
+                            <a class="google_link" target="_blank"  href="<?php echo Eruda_Helper_Parser::googleLink(Eruda::getEnvironment()->getBaseURL().$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/',$entry->get_title());?>">Compartir en Google+</a>
                         </div>
                         <div class="entrada_ncomentarios">
                             <?php 

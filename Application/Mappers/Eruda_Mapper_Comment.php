@@ -50,13 +50,16 @@ class Eruda_Mapper_Comment {
     }
     
     static function getCountFrom($entry){
-        $values = array('entry'=>$entry);
+        $values = array('entry'=>$entry,
+            'valid'=>'1');
         $comments = Eruda::getDBConnector()->selectCountValues(self::$_tablea, $values);
         return $comments;
     }
     
     static function getFrom($entry){
-        $values = array('entry'=>$entry);
+        $values = array(
+            'entry'=>$entry
+            );
         $order = array(array('id','ASC'));
         $comments = Eruda::getDBConnector()->selectMulti(self::$_tablea, $values, $order, 0, 999999, 'Comment');
         return $comments;

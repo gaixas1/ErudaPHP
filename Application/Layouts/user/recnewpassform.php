@@ -5,7 +5,7 @@
 ?>
     
     <section id="user">
-        <img class="user_avatar" alt="<?php echo $user->get_name();?>" src="<?php echo $user->get_gravatar();?>"> 
+        <img class="user_avatar" alt="<?php echo $user->get_name();?>" src="<?php echo $user->get_avatar();?>"> 
         <h3><?php echo $user->get_name();?></h3>
         <h4>«<?php echo $user->get_mail();?>»</h4>
     </section>

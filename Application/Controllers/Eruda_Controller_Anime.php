@@ -7,6 +7,7 @@
 class Eruda_Controller_Anime extends Eruda_Controller {
     protected $header;
     protected $series;
+    protected $avisos;
     
     public function ini() {
         Eruda::getDBConnector()->connect();
@@ -14,6 +15,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
         $this->user = Eruda_Helper_Auth::getUser();
         
         if(!$this->_onlyheader) {
+            $this->avisos = Eruda_Mapper_Aviso::getLast(3);
             $this->header = new Eruda_Header_HTML();
             $this->header->setType('HTML5');
             $this->header->setMetatag('Description', 'FallenSoulFansub, todos nuestros mangas on-line para tu disfrute.');
@@ -22,6 +24,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
             $this->header->addCSS('anime.css');
             $this->header->addJavascript('jquery.js');
             $this->header->addJavascript('basic.js');
+            $this->header->addJavascript('fb.js');
             
             $this->series = Eruda_Mapper_Anime::getSeries();
         }
@@ -38,7 +41,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
         if(!$this->_onlyheader) {
             $animes = Eruda_Mapper_Anime::getLasts(10);
             
-            $model = new Eruda_Model_Manganime($this->user, $this->series, $animes);
+            $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $animes);
             
             $view = new Eruda_View_HTML('basic', array('section'=>'manganime', 'lateral'=>'lateralmanganime'));
             $view->setHeader($this->header);
@@ -55,7 +58,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
                 return new Eruda_CF('Error', 'E404');
             }
             
-            $model = new Eruda_Model_Manganime($this->user, $this->series, $animes);
+            $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $animes);
             
             $view = new Eruda_View_HTML('basic', array('section'=>'manganime', 'lateral'=>'lateralmanganime'));
             $view->setHeader($this->header);
@@ -73,7 +76,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
                 return new Eruda_CF('Error', 'E404');
             }
             
-            $model = new Eruda_Model_Manganime($this->user, $this->series, $animes);
+            $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $animes);
             
             $view = new Eruda_View_HTML('basic', array('section'=>'manganime', 'lateral'=>'lateralmanganime'));
             $view->setHeader($this->header);

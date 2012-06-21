@@ -36,7 +36,8 @@ class Eruda {
     static function init(){
         self::$_router = null;
         self::$_base = '';
-        self::setUri($_SERVER['REQUEST_URI']);
+        $url = explode('?',$_SERVER['REQUEST_URI']);
+        self::setUri($url[0]);
         self::setMethod($_SERVER['REQUEST_METHOD']);
         
         self::$_cf = null;

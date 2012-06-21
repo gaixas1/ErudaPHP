@@ -26,6 +26,7 @@ class Eruda_Model_Manga extends Eruda_Model {
     static public $URLd = '/download/';
     static public $URLt =  '/img/servers/';
     static public $URLc =  '/capturas_manga/';
+    static public $VERONLINE =  'http://veronline.fallensoul.es/';
     
     protected $id;
     protected $serie;
@@ -39,7 +40,7 @@ class Eruda_Model_Manga extends Eruda_Model {
         $this->serie = $vals['serie'];
         $this->titulo = $vals['titulo'];
         $this->tomo = $vals['tomo'];
-        $this->verO = $vals['verO'];
+        $this->verO = $vals['vero'];
         $this->links = unserialize($vals['downloads']);
     }
     
@@ -62,7 +63,7 @@ class Eruda_Model_Manga extends Eruda_Model {
         $a .= '<footer>';
         
         if($this->verO)
-            $a .=  '<a title="Ver online" target="_blank" href="'.VERONLINE.'/ver.php?pg='.$this->serie.'/'.$this->tomo.'/'.$this->titulo.'"><img class ="donwImage"  alt="Ver online" src="'.self::$URLt.'/servers/ver.jpg"></a>';
+            $a .=  '<a title="Ver online" target="_blank" href="'.self::$VERONLINE.'ver.php?pg='.$this->serie.'/'.$this->tomo.'/'.$this->titulo.'"><img class ="donwImage"  alt="Ver online" src="'.self::$URLt.'ver.jpg"></a>';
             
         foreach($this->links as $k => $link) {
             if (isset(self::$servers[$link[0]])) 

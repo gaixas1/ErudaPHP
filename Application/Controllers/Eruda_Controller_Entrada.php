@@ -36,6 +36,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $this->header->addCSS('manga.css');
             $this->header->addJavascript('jquery.js');
             $this->header->addJavascript('basic.js');
+            $this->header->addJavascript('fb.js');
         }
     }
     
@@ -231,9 +232,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $com->set_author($this->user);
             $com->set_author_id($this->user->get_id());
             $com->set_text($msg);
-            if(Eruda_Helper_Auth::canAdmin($this->user)){
-                $com->set_valid(2);
-            } else if(Eruda_Helper_Auth::validComments($this->user)){
+            if(Eruda_Helper_Auth::validComments($this->user)){
                 $com->set_valid(1);
             } else {
                 $com->set_valid(0);
@@ -271,6 +270,8 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             return null;
         }
     }
+    
+    
     
     
     static function setEntries(&$entries){

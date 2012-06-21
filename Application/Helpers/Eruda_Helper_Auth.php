@@ -55,7 +55,6 @@ class Eruda_Helper_Auth {
             setcookie('Eruda_auth', $auth, time()-3600, '/');
             setcookie('Eruda_session', $session, time()-3600, '/');
         }
-        
     }
     
     /**
@@ -76,6 +75,56 @@ class Eruda_Helper_Auth {
                 $user = Eruda_Mapper_User::get($id);
         }
         
+        if($user==null) {
+            $facebook = new Facebook(array(
+            'appId'  => '349147981823451',
+            'secret' => '2eba833898f95a4d0336b36db64024d6',
+            'cookie' => true
+            ));
+
+            $userId = $facebook->getUser();
+
+            if ($userId) { 
+                try{
+                    $userInfo = $facebook->api('/me');
+                    
+                    $user = Eruda_Mapper_User::getFb($userId);
+                    
+                    if($user==null) {
+                        $user = Eruda_Mapper_User::getMail($userInfo['email']);
+                        if($user!=null) {
+                            Eruda_Mapper_User::setFb($user, $userId);
+                        }
+                    }
+                    
+                    if($user==null) {
+                        $uname = $userInfo['username'];
+                        $user = Eruda_Mapper_User::getName($uname);
+                        if($user==null) {
+                            $user = new Eruda_Model_User();
+                            $user->set_name($uname);
+                            $user->set_mail($userInfo['email']);
+                            $user->set_pass(self::random_gen(60));
+                            Eruda_Mapper_User::save($user);
+                            Eruda_Mapper_User::setFb($user, $userId);
+                        } else {
+                            $i = 0;
+                            do {
+                                $i++;
+                            } while(($user = Eruda_Mapper_User::getName($uname.'_'.$i))!=null);
+                            $user = new Eruda_Model_User();
+                            $user->set_name($uname.'_'.$i);
+                            $user->set_mail($userInfo['email']);
+                            $user->set_pass(self::random_gen(60));
+                            Eruda_Mapper_User::save($user);
+                            Eruda_Mapper_User::setFb($user, $userId);
+                        }
+                    }
+                }  catch (Exception $e) {
+                }    
+            }
+        }
+        
         if($user!=null) {
             self::setUser($user);
         } else{
@@ -91,6 +140,7 @@ class Eruda_Helper_Auth {
      * @param Eruda_Model_User $user 
      */
     static function setUser($user, $mantain = false){
+        Eruda_Mapper_User::Log($user);
         $_SESSION['Eruda_auth'] = array();
         $_SESSION['Eruda_auth']['id'] = $user->get_id();
         

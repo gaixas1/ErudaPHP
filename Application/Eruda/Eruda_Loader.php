@@ -20,6 +20,15 @@ function __autoload($class_name) {
         else
             throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
         
+    } else if(preg_match('~^Eruda_Interface_.*$~', $class_name)) {                      //Interface
+        if(is_file($inc.'Interfaces/'.$class_name.'.php'))
+            include 'Interfaces/'.$class_name . '.php';
+        else if(is_file($inc.'Eruda/Interfaces/'.$class_name.'.php'))
+            include 'Eruda/Interfaces/'.$class_name . '.php';
+        else
+            throw new Exception('__autoload - CLASS NOT FOUND : '.$class_name);
+        
+        
     } else if(preg_match('~^Eruda_Helper_.*$~', $class_name)) {                      //Helpers
         if(is_file($inc.'Helpers/'.$class_name.'.php'))
             include 'Helpers/'.$class_name . '.php';

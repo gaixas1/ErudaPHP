@@ -553,5 +553,27 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
     function query($query){
         return $this->_mysqli->query($query);
     }
+
+    public function selectType($table, $object = null) {
+        if($object!=null) $object = 'Eruda_Model_'.$object;
+        $query = 'SELECT * FROM '.$table.' ;';
+        
+        $ret = array();
+        
+        if($res = $this->_mysqli->query($query)){
+            if($object!=null && is_string($object)){
+                while($row = $res->fetch_array()){
+                    $ret[] = new $object($row);
+                }
+            } else {
+                while($row = $res->fetch_array()){
+                    $ret[] = $row;
+                }
+            }
+        }
+        
+        return $ret;
+        
+    }
 }
 ?>

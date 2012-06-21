@@ -13,12 +13,34 @@
 class Eruda_View_HTML extends Eruda_View{
     protected $layout;
     protected $frames;
+    protected $_header;
     
     function __construct($layout, $frames=array()) {
         $this->layout = $layout;
         $this->frames = $frames;
     }
 
+    
+    
+    /**
+     * @param Eruda_Header $header
+     * @return \Eruda_View
+     * @throws Exception 
+     */
+    function setHeader($header){
+        if($header!=null && $header instanceof Eruda_Header)
+            $this->_header = $header;
+        else
+            throw new Exception('Eruda_View::setHeader - BAD HEADER : '.$header);
+        return $this;
+    }
+    
+    /**
+     * @return \Eruda_Header_HTML 
+     */
+    function getHeader(){
+        return $this->_header;
+    }
 
     
     public function show($model) {

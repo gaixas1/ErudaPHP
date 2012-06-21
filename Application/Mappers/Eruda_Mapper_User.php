@@ -27,6 +27,16 @@ class Eruda_Mapper_User {
     }
     
     /**
+     * @param int $id
+     * @return \Eruda_Model_User 
+     */
+    static function getFb($id){
+        $user = Eruda::getDBConnector()->selectOne(self::$_table, array('fb_id' => $id), 0, 'User');
+        if($user) self::$users[$user->get_id()] = $user;
+        return $user;
+    }
+    
+    /**
      * @param string $name
      * @return \Eruda_Model_User 
      */
@@ -133,10 +143,40 @@ class Eruda_Mapper_User {
      * @param Eruda_Model_User $user
      * @return \Eruda_Model_User 
      */
+    static function Log(&$user){
+        $values = array(
+            'lastlog' => 'NOW()',
+            'rec' => 'NULL',
+            'rectime' => 'NULL'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
+        return $user;
+    }
+    
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
     static function setRecup($user, $pass){
         $values = array(
             'rec' => $pass,
             'rectime' => 'NOW()'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());
+        return $user;
+    }
+    
+    /**
+     *
+     * @param Eruda_Model_User $user
+     * @return \Eruda_Model_User 
+     */
+    static function setFb($user, $id){
+        $values = array(
+            'fb_id' => $id
         );
         
         Eruda::getDBConnector()->updateID(self::$_table, $values, $user->get_id());

@@ -27,4 +27,5 @@ abstract class Eruda_Model {
     
     abstract function __toString();
 }
+
 ?>

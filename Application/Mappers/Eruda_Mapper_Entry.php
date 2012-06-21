@@ -13,6 +13,7 @@ class Eruda_Mapper_Entry {
     public static $_tablea = 'entry';
     public static $_tableb = 'entry_from_cat';  
     public static $_tablec = 'archives';    
+    public static $_tabled = 'minientry';    
     
     /**
      *
@@ -52,6 +53,10 @@ class Eruda_Mapper_Entry {
     
     static function getArchive(){
         return Eruda::getDBConnector()->selectAll(self::$_tablec, array(array('year','ASC'), array('month', 'ASC')));
+    }
+    
+    static function All(){
+        return Eruda::getDBConnector()->selectType(self::$_tabled,'Entry');
     }
 }
 

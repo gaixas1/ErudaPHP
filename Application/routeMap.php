@@ -78,11 +78,34 @@ $router = new Eruda_Router(     //Index Router
                                 )
                             )
                 ),
+                'rss/' 
+                    => new Eruda_Router(    
+                        new Eruda_CF('RSS', 'index'),
+                        array(
+                            'all/' 
+                                => new Eruda_Router(    
+                                        new Eruda_CF('RSS', 'all')
+                                ),
+                            '([a-z][0-9a-z_-]*)/' 
+                                => new Eruda_Router(    
+                                        new Eruda_CF('RSS', 'category')
+                                )
+                            )
+                ),
+                'sitemap.xml' 
+                    => new Eruda_Router(    
+                        new Eruda_CF('sitemap', 'index')
+                ),
                 'user/' 
                     => new Eruda_Router(    //Categorias Router
                         new Eruda_CF('Error', 'E404'),
                         array(
                             'log/' 
+                                => new Eruda_Router(    //Categoria-Paginacion Router
+                                        array(new Eruda_CF('User', 'LogIn', 'POST'),
+                                        new Eruda_CF('User', 'LogForm', 'DEFAULT'))
+                                ),
+                            'facebook/' 
                                 => new Eruda_Router(    //Categoria-Paginacion Router
                                         array(new Eruda_CF('User', 'LogIn', 'POST'),
                                         new Eruda_CF('User', 'LogForm', 'DEFAULT'))

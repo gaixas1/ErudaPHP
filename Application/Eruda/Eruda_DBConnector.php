@@ -105,11 +105,20 @@ abstract class  Eruda_DBConnector {
     
     /**
      * @param string $table
+     * @param array $order
      * @param int $start
+     * @param int $total
      * @param string $object
      * @return array
      */
     abstract function selectAll($table, $order=null, $start=0, $total = 999999, $object=null);
+    
+    /**
+     * @param string $table
+     * @param string $object
+     * @return array
+     */
+    abstract function selectType($table, $object=null);
             
     /**
      * @param string $table

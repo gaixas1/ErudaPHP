@@ -30,12 +30,21 @@ class Eruda_Helper_Parser {
         return $ret;
     }
     
-    static function Text2Link($text){
-        $text = strtolower($text);
-        $text = str_replace(' ', '_', $text);
-        $safe = "~![a-zA-Z0-9-_.!*'()]~";
-	return preg_replace ($safe,
-            '-',$text);
+    static function Text2Link($s){
+        $s= utf8_decode(strtolower($s));
+
+	$s = ereg_replace("[áàâãª]","",$s);
+	$s = ereg_replace("[éèê]","e",$s);
+	$s = ereg_replace("[íìî]","i",$s);
+	$s = ereg_replace("[óòôõº]","o",$s);
+	$s = ereg_replace("[úùû]","u",$s);
+	$s = str_replace(" ","_",$s);
+	$s = str_replace("ñ","ny",$s);
+	$s = str_replace("&","and",$s);
+	$s = filter_var($s, FILTER_SANITIZE_URL);
+//	$s = str_replace("¡","!",$s);
+
+	return urldecode($s);
     }
     
     static function Link2Text($text){
@@ -103,6 +112,20 @@ class Eruda_Helper_Parser {
         
         return $text;
     }
+    
+    static function facebookLink($link, $title){
+        return 'https://www.facebook.com/sharer.php?'.http_build_query(array(
+                'u' => $link,
+                't' => $title
+            ));
+    }
+    static function twitterLink($link, $title){
+        return 'http://twitter.com/?status='.urlencode('#FSFansub '.$title.' >> '.$link);
+    }
+    static function googleLink($link, $title){
+        return 'https://plus.google.com/share?url='.urlencode($link);
+    }
+    
     
 }
 ?>
