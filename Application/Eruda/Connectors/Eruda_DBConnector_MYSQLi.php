@@ -554,9 +554,12 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         return $this->_mysqli->query($query);
     }
 
-    public function selectType($table, $object = null) {
+    public function selectType($table, $object = null, $random = false) {
         if($object!=null) $object = 'Eruda_Model_'.$object;
-        $query = 'SELECT * FROM '.$table.' ;';
+        if($random)
+            $query = 'SELECT * FROM '.$table.' ORDER BY RAND();';
+        else
+            $query = 'SELECT * FROM '.$table.' ;';
         
         $ret = array();
         

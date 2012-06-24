@@ -118,7 +118,7 @@ abstract class  Eruda_DBConnector {
      * @param string $object
      * @return array
      */
-    abstract function selectType($table, $object=null);
+    abstract function selectType($table, $object=null, $random = false);
             
     /**
      * @param string $table

@@ -25,9 +25,17 @@ class Eruda_Controller_sitemap {
         if(!$this->_onlyheader) {
             $entries = Eruda_Mapper_Entry::All();
             $cats = Eruda_Mapper_Category::All();
+            $proy = Eruda_Mapper_Proyecto::All();
             
-            $model = new Eruda_Model_sitemap($entries);
+            $model = new Eruda_Model_sitemap();
+            $model->add_item(new Eruda_Model_SitemapItem(
+                    Eruda::getEnvironment()->getBaseURL(),
+                    'weekly',
+                    1
+                    ));
+            $model->add_items($entries);
             $model->add_items($cats);
+            $model->add_items($proy);
             
             $view = new Eruda_View_sitemap();
             return new Eruda_MV($view, $model);

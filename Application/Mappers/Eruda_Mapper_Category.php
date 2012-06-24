@@ -22,7 +22,6 @@ class Eruda_Mapper_Category {
      */
     static function All(){
         $cats = Eruda::getDBConnector()->selectAll(self::$_tableB, array(array('name','ASC')), 0, 999, 'Category');
-        foreach($cats as $cat) self::$cats[$cat->get_id()] = $cat;
         return $cats;
     }
     

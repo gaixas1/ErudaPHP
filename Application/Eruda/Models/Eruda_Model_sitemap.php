@@ -13,15 +13,15 @@
 class Eruda_Model_sitemap extends Eruda_Model {
     protected $items;
     
-    public function __construct($items) {
-        $this->items = $items;
+    public function __construct() {
+        $this->items = array();
     }
     
     function add_items($items){
         $this->items = array_merge($this->items, $items);
     }
     function add_item($item){
-        $this->items[] = $items;
+        $this->items[] = $item;
     }
     
     function get_items(){

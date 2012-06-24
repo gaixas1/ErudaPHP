@@ -169,7 +169,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $id = $this->_params[0];
             $link = $this->_params[1];
             $entry = Eruda_Mapper_Entry::get($id);
-            if(!(count($entry)>0)) {
+            if(!$entry) {
                 return new Eruda_CF('Error', 'E404');
             }
             if(Eruda_Helper_Parser::Text2Link($entry->get_title())!=$link){
