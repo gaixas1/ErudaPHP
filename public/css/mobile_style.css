@@ -16,11 +16,11 @@ html {
     background-image : url('img/fondo.jpg');
     background-repeat : repeat;
     background-position : top center;
-    min-width : 850px;
+    width : 100%;
 }
 
 body {
-    width : 850px;
+    width : 100%;
     margin : auto;
 }
 
@@ -83,13 +83,10 @@ header, nav, section, article, aside, footer  {
 
 #user {
     display : block;
-    width : 220px;
-    height : 180px;
     -webkit-border-bottom-right-radius: 10px;
     -moz-border-radius-bottomright: 10px;
     border-bottom-right-radius: 10px;
     background-color : #2a2a2a;
-    float : left;
 }
 #user h3 {
     color : #d0d0d0;
@@ -97,33 +94,42 @@ header, nav, section, article, aside, footer  {
     padding : 10px 25px;
 }
 #user .user_avatar {
-    width: 70px;
-    height: 70px;
-    float:left;
-    margin : 15px;
+    width: 50px;
+    height: 50px;
+    display : inline-block;
+    margin-left: 20px;
+    margin-right: 10px;
 }
 #user a.ulink {
-    display : block;
+    vertical-align:top;
+    display : inline-block;
     color : #e0e0e0;
     font-family: "arial",sans-serif; 
     font-size: 1.1em;
-    margin-left: 100px;
-    margin-top: 15px;
+    margin-left: 10px;
+    padding: 15px;
 }
 #user a.ulink:hover {
-    color : #c0c0c0;
+    color : #777777;
     text-decoration: underline;
+    background-color: #dddddd;
 }
 #user .fb-login-button {
+    vertical-align:top;
+    display : inline-block;
     text-align: right;
+    font-size: 1.1em;
+    margin-left: 10px;
+    padding: 15px;
 }
 
 /*   Social   */
 #social {
     display : block;
-    padding-left : 650px;
+    width: 100%;
     z-index : 999;
     position : absolute;
+    text-align: center;
 }
 
 #social a {
@@ -172,28 +178,26 @@ header, nav, section, article, aside, footer  {
     padding-left : 8px;
     /*height : 167px;*/
     background-color : #f6f6f6;
-    top : 15px;
-    margin-left : 230px;
     z-index : 0;
     padding-bottom : 15px;
+    text-align: center;
 }
 
 /**  Baner  **/
 
 #baner {
     display : block;
-    width : 610px;
+    text-align: center;
     height : 140px;
     background-color : #dadada;
 }
 
 #baner img{
-    display : block;
     width : 610px;
     height : 140px;
     position : relative;
-    top : -3px;
-    left : -5px;
+    padding: 0px 20px;
+    background: #eeeeee;
 }
 
 /**  Menu Superior  **/
@@ -264,6 +268,7 @@ header, nav, section, article, aside, footer  {
 
 #cuerpo {
     background-color : #f6f6f6;
+    background-color : #2a2a2a;
     clear : both;
     position : relative;
     padding-top : 6px;
@@ -273,117 +278,19 @@ header, nav, section, article, aside, footer  {
     border-bottom-right-radius: 25px;
 }
 
-/**  Novedades  **/
-
-#novedades {
-    display : block;
-    height : 20px;
-    padding : 4px;
-    padding-left : 20px;
-    background-color : #ffffff;
-    border-top : solid 1px #b0b0b0;
-    border-bottom : solid 2px #b0b0b0;
-    margin-bottom : 6px;
-    
-    color : #808080;
-    font-family: "arial",sans-serif; 
-}
-
-#novedades span {
-    display : block;
-    width: 640px;
-    padding : 5px 25px;
-    margin-left : 140px;
-    background-color : #b0b0b0;
-    color : #eeeeee;
-    font-family: "arial",sans-serif; 
-}
-
-#novedades h1 {
-    float:left;
-    color : #808080;
-    font-family: "arial",sans-serif; 
-    font-size: 1em;
-}
-
-/**  Menu Lateral  **/
-
-#menu_lateral {
-    display : block;
-    width : 200px;
-    float : left;
-}
-
-.nav_container {
-    display : block;
-    -webkit-border-top-right-radius: 25px;
-    -moz-border-radius-topright: 25px;
-    border-top-right-radius: 25px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    border-bottom-right-radius: 5px;
-    padding : 10px;
-    margin-top : 10px;
-    margin-bottom : 15px;
-    border-top : solid 1px #939393;
-    border-right : solid 2px #939393;
-    border-bottom : solid 3px #939393;
-    
-    background-color : #939393;
-    background-image : url('img/nav_container_back.png');
-}
-
-.nav_container h1 {
-    color : #e0e0e0;
-    font-family: "arial",sans-serif; 
-    font-size : 1em;
-}
-
-.nav_container h2 {
-    color : #555555;
-    font-family: "arial",sans-serif; 
-    font-size : 0.9em;
-    padding-left: 30px;
-}
-
-.nav_container h2 a{
-    color : #777777;
-}
-.nav_container h2 a:hover{
-    color : #333333;
-}
-
-#nav_archivos {
-    display : block;
-    margin-top : 10px;
-    margin-bottom : 15px;
-    width : 100%;
-}
-
 /*** JList>>>>>>> ***/
-a.jlist_img_mini, a.jlist_img_max {
+a.jlist_img_baner {
     display : block;
-    width : 160px;
-    margin : auto;
-}
-a.jlist_img_mini, a.jlist_img_max img {
-    width : 160px;
-}
-
-a.jlist_img_mini {
-    height : 180px;
+    padding: 5px;
+    background-color: #777777;
+    text-align: center;
+    margin : 0;
 }
 
-a.jlist_img_mini img {
-    height : 180px;
-}
-
-a.jlist_img_max {
-    height : 600px;
-}
-
-a.jlist_img_max img {
-    height : 600px;
+a.jlist_img_baner img {
+    height : 90px;
+    padding: 5px 15px;
+    background-color: #999999;
 }
 /*** <<<<<<<JList ***/
 
@@ -392,7 +299,7 @@ a.jlist_img_max img {
 
 #articulos {
     display : block;
-    margin-left : 250px;
+    margin-left : 5px;
     padding-bottom: 25px;
 }
 
@@ -405,31 +312,29 @@ a.jlist_img_max img {
 
 /*** Entrada ***/
 .entrada {
-    margin-top : 25px;
+    margin-top : 20px;
     display : block;
-    position : relative;
+    padding: 5px;
 }
 
 /****Entrada Header>>>>>>>****/
 .entrada header.entrada_titulo{
     display : block;
     position : relative;
-    margin-left : 15px;
     
     background-color : #d6d6d6;
     color : #666666;
     
-    border-top : solid 2px #333333;
-    border-left : solid 1px #333333;
 
-    -webkit-border-top-left-radius: 25px;
-    -moz-border-radius-topleft: 25px;
-    border-top-left-radius: 25px;
+    -webkit-border-top-left-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    border-top-left-radius: 20px;
 }
 
 .entrada header.entrada_titulo h1{
     padding : 3px;
     padding-left : 30px;
+    font-size: 1.1em;
 }
 
 .entrada header.entrada_titulo h1 a{
@@ -448,6 +353,7 @@ a.jlist_img_max img {
     color : #eeeeee;
     padding : 3px;
     padding-left : 20px;
+    font-size: 0.9em;
 }
 
 .entrada header.entrada_titulo div.entrada_categorias a{
@@ -463,7 +369,6 @@ a.jlist_img_max img {
 /****Entrada Texto>>>>>>>****/
 .entrada div.texto_container {
     display : block;
-    position : relative;
     background-color : #dadada;
     margin-top : 15px;
     margin-right : 10px;
@@ -471,14 +376,11 @@ a.jlist_img_max img {
 
 .entrada div.texto_container div.texto {
     display : block;
-    position : relative;
     
     background-color : #ffffff;
     padding : 10px;
     
     position : relative;
-    top : -8px;
-    left : -10px;
     
     color : #222222;
 }
@@ -494,9 +396,6 @@ a.jlist_img_max img {
     background-color : #333333;
     color : #666666;
     
-    border-bottom : solid 3px #d6d6d6;
-    border-left : solid 2px #d6d6d6;
-
     -webkit-border-bottom-left-radius: 25px;
     -moz-border-radius-bottomleft: 25px;
     border-bottom-left-radius: 25px;
@@ -574,6 +473,7 @@ a.jlist_img_max img {
 }
 
 #comentarios h1{
+    font-size: 1.2em;
     color : #555555;
     border-bottom: solid 1px #aaaaaa;
 }
@@ -652,6 +552,7 @@ a.jlist_img_max img {
 
 #comentar h1{
     color : #555555;
+    font-size: 1.2em;
     border-bottom: solid 1px #aaaaaa;
 }
 
@@ -685,7 +586,9 @@ a.jlist_img_max img {
 }
 
 #comTxt {
-    width: 100%;
+    display:block;
+    margin: auto;
+    width: 90%;
     height: 200px;
     border : solid 2px #dddddd;
     border-top : solid 1px #dddddd;

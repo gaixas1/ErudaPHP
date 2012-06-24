@@ -68,6 +68,6 @@
             <div class="clearer" ></div>
         </div>
         <footer id="pie">
-            FallenSoul Fansub v.4 - Eruda | 2007 - 2012 | Diseñado por gaixas1 | <a href="mailto:admin@fallensoul.es">Contacto</a>
+            FallenSoul Fansub v.4 - Eruda | 2007 - 2012 | Diseñado por gaixas1 | <a href="mailto:admin@fallensoul.es">Contacto</a> | <a href="/device/mobile/">Versión para móvil</a>
         </footer>
     </body>

@@ -16,6 +16,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
     protected $avisos;
     protected $user;
     protected $header;
+    protected $device;
 
     public function ini() {
         Eruda::getDBConnector()->connect();
@@ -30,7 +31,11 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             $this->header->setType('HTML5');
             $this->header->setMetatag('Description', 'FallenSoulFansub, todos nuestros mangas on-line para tu disfrute.');
             $this->header->append2Title(Eruda::getEnvironment()->getTitle());
-            $this->header->addCSS('style.css');
+            if(Eruda::getEnvironment()->isMobile()) {
+                $this->device='mobile_';
+            }else
+                $this->device='';
+            $this->header->addCSS($this->device.'style.css');
             $this->header->addCSS('cats.css');
             $this->header->addCSS('anime.css');
             $this->header->addCSS('manga.css');
@@ -54,7 +59,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, $page);
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -82,7 +87,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, $page);
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -106,7 +111,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, $page, 'Archivadas en : '.$categoria->get_name());
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -136,7 +141,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, $page, 'Archivadas en : '.$categoria->get_name());
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -156,7 +161,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, null , Eruda_Helper_Parser::parseMonth($month).' del '.$year);
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -186,7 +191,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $this->header->addJavascript('comment.js');
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -263,7 +268,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
 
                 $this->header->addJavascript('comment.js');
 
-                $view = new Eruda_View_HTML('basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
+                $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entry', 'lateral'=>'lateralblog'));
                 $view->setHeader($this->header);
                 return new Eruda_MV($view, $model);
             }

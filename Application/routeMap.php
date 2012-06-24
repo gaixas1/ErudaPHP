@@ -78,6 +78,20 @@ $router = new Eruda_Router(     //Index Router
                                 )
                             )
                 ),
+                'device/' 
+                    => new Eruda_Router(    //Ajax Router
+                        new Eruda_CF('Error', 'E404'),
+                        array(
+                            'pc/' 
+                                => new Eruda_Router(    //VistaPrevia Comment
+                                        new Eruda_CF('Config', 'Change2PC')
+                                ),
+                            'mobile/' 
+                                => new Eruda_Router(    //VistaPrevia Comment
+                                        new Eruda_CF('Config', 'Change2Mobile')
+                                )
+                            )
+                ),
                 'rss/' 
                     => new Eruda_Router(    
                         new Eruda_CF('RSS', 'index'),

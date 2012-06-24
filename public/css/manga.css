@@ -1,8 +1,8 @@
 
 /*Manga*/
-
-
 article.manga {
+        display: block;
+        width: 100%;
 	border:solid 2px #CCC;
 	margin : auto;
 	margin-bottom : 10px;
