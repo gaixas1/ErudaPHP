@@ -12,7 +12,7 @@
                     <header class="entrada_titulo">
                         <h1>
                             <?php echo Eruda_Helper_Parser::parseDate($entry->get_created()); ?> | 
-                            <a title="<?php echo utf8_encode($entry->get_title()); ?>" href="/<?php echo $entry->get_id(); ?>/<?php echo Eruda_Helper_Parser::Text2Link($entry->get_title()); ?>/"><?php echo utf8_encode($entry->get_title()); ?></a>
+                            <a title="<?php echo ($entry->get_title()); ?>" href="/<?php echo $entry->get_id(); ?>/<?php echo Eruda_Helper_Parser::Text2Link($entry->get_title()); ?>/"><?php echo ($entry->get_title()); ?></a>
                         </h1>
                         <div class="entrada_categorias">
                             <?php if(count($entry->get_cats())>0) {?>
@@ -55,11 +55,11 @@
                             <?php 
                                 $comNum = $entry->get_comments();
                                 if($comNum<=0)
-                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentar">Sin Comentarios</a>';
+                                    echo '<a class="comLink" title="'.($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentar">Sin Comentarios</a>';
                                 else if($comNum==1)
-                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">1 Comentario</a>';
+                                    echo '<a class="comLink" title="'.($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">1 Comentario</a>';
                                 else
-                                    echo '<a class="comLink" title="'.utf8_encode($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">'.$comNum.' Comentarios</a>';
+                                    echo '<a class="comLink" title="'.($entry->get_title()).'" href="/'.$entry->get_id().'/'.Eruda_Helper_Parser::Text2Link($entry->get_title()).'/#comentarios">'.$comNum.' Comentarios</a>';
                             ?>
                         </div>
                     </footer>

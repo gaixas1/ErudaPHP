@@ -26,15 +26,16 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
         if(!$this->_onlyheader) {
             $this->cats = Eruda_Mapper_Category::All();
             $this->archives = Eruda_Mapper_Entry::getArchive();
-            $this->avisos = Eruda_Mapper_Aviso::getLast(3);
             $this->header = new Eruda_Header_HTML();
             $this->header->setType('HTML5');
             $this->header->setMetatag('Description', 'FallenSoulFansub, todos nuestros mangas on-line para tu disfrute.');
             $this->header->append2Title(Eruda::getEnvironment()->getTitle());
             if(Eruda::getEnvironment()->isMobile()) {
                 $this->device='mobile_';
-            }else
+            }else{
                 $this->device='';
+                $this->avisos = Eruda_Mapper_Aviso::getLast(3);
+            }
             $this->header->addCSS($this->device.'style.css');
             $this->header->addCSS('cats.css');
             $this->header->addCSS('anime.css');
@@ -222,7 +223,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
         $model = null;
         if($form->validate()) {
             $model = $form->getValue();
-            $msg = utf8_decode(htmlspecialchars ($model->get_msg()));
+            $msg = (htmlspecialchars ($model->get_msg()));
         } else {
             $model = $form->getValue();
             $valid = false;

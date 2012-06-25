@@ -1,6 +1,4 @@
 <?php
-
-
 interface Eruda_Interface_rssItem
 {
     function rss_get_title();

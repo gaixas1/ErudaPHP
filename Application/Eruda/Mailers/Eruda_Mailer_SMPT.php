@@ -37,7 +37,8 @@ class Eruda_Mailer_SMPT extends Eruda_Mailer{
 	$mail->Username = $this->username;  
 	$mail->Password = $this->password;           
 	$mail->SetFrom($this->from, $this->fromName);
-	$mail->Subject = utf8_decode($subject);
+	//$mail->Subject = utf8_decode($subject);
+	$mail->Subject = $subject;
 	$mail->Body = $message;
 	$mail->AddAddress($to);
 	if(!$mail->Send()) {

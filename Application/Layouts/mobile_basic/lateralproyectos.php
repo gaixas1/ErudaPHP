@@ -1,12 +1,3 @@
-<div class="nav_container">
-    <h1>Publicidad</h1>
-<!-- Start J-List Affiliate Code -->
-                    <a class="jlist_img_mini" href="http://moe.jlist.com/click/3919/118" target="_blank" title="You've got a friend in Japan at J-List!">
-                        <img src="http://moe.jlist.com/media/3919/118" alt="You've got a friend in Japan at J-List!" >
-                    </a>
-<!-- End J-List Affiliate Code -->
-</div>
-
 <?php
     $proyectos = $model->get_proyectos();
 ?>
@@ -20,7 +11,7 @@ if(isset($proyectos['activo'])){
                         echo '<br/>';
                         echo '<h2>'.  ucfirst($tipo).'</h2>';
                         foreach ($proys as $p) {
-                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">- '.$p->get_serie().'</a></h2>';
+                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">'.$p->get_serie().'</a></h2>';
                         }
                     }
                     ?>
@@ -38,7 +29,7 @@ if(isset($proyectos['finalizado'])){
                         echo '<br/>';
                         echo '<h2>'.  ucfirst($tipo).'</h2>';
                         foreach ($proys as $p) {
-                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">- '.$p->get_serie().'</a></h2>';
+                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">'.$p->get_serie().'</a></h2>';
                         }
                     }
                     ?>
@@ -56,7 +47,7 @@ if(isset($proyectos['pausado'])){
                         echo '<br/>';
                         echo '<h2>'.  ucfirst($tipo).'</h2>';
                         foreach ($proys as $p) {
-                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">- '.$p->get_serie().'</a></h2>';
+                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">'.$p->get_serie().'</a></h2>';
                         }
                     }
                     ?>
@@ -73,7 +64,7 @@ if(isset($proyectos['cancelado'])){
                     foreach ($proyectos['cancelado'] as $tipo => $proys) {
                         echo '<h2>'.  ucfirst($tipo).'</h2>';
                         foreach ($proys as $p) {
-                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">- '.$p->get_serie().'</a></h2>';
+                            echo '<h2><a href="/proyectos/'.$p->get_id().'/'.Eruda_Helper_Parser::Text2Link($p->get_serie()).'/">'.$p->get_serie().'</a></h2>';
                         }
                         echo '<br/>';
                     }
@@ -84,12 +75,3 @@ if(isset($proyectos['cancelado'])){
 <?php
 }
 ?>
-
-                <div class="nav_container">
-                    <h1>Publicidad</h1>
-<!-- Start J-List Affiliate Code -->
-                    <a class="jlist_img_max" href="http://pocky.jlist.com/click/3919/117" target="_blank" title="Click to visit J-List now">
-                        <img src="http://pocky.jlist.com/media/3919/117" alt="Click to visit J-List now">
-                    </a>
-<!-- End J-List Affiliate Code -->
-                </div>

@@ -29,7 +29,7 @@ class Eruda_View_RSS2 extends Eruda_View {
  */
 ?>
         <item> 
-            <title><?php echo utf8_decode($item->rss_get_title());?></title> 
+            <title><?php echo ($item->rss_get_title());?></title> 
             <link><?php echo $item->rss_get_link();?></link> 
             <description><![CDATA[<?php echo $item->rss_get_description();?>]]></description> 
 <?php if($item->rss_has_author()){?>

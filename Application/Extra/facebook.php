@@ -788,3 +788,4 @@ class Facebook extends BaseFacebook
                               $key));
   }
 }
+?>

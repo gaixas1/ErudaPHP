@@ -43,7 +43,8 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         $this->_mysqli = @new mysqli($this->_host, $this->_user, $this->_pass, $this->_dbase, $this->_port);   
         if (mysqli_connect_error())
             throw new Exception('Eruda_DBConnector_MYSQLi::connect - CANNOT CONNECT TO DATABASE');
-            
+        if (!$this->_mysqli->set_charset("utf8"))
+            throw new Exception('Eruda_DBConnector_MYSQLi::connect - CANNOT CHANGE TO UTF8');
         return $this;
     }
     

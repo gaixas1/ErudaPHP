@@ -1,3 +1,8 @@
+<section id="navproyectos">
+<?php
+    $this->showframe('lateral',$model);
+?>
+</section>
 <section id="proyectos">
     <?php
     foreach($model->get_items() as $p){

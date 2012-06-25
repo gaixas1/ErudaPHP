@@ -16,6 +16,7 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
     protected $proyectos;
     protected $list;
     protected $avisos;
+    protected $device;
     
     public function ini() {
         Eruda::getDBConnector()->connect();
@@ -23,13 +24,18 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
         $this->user = Eruda_Helper_Auth::getUser();
         
         if(!$this->_onlyheader) {
-            $this->avisos = Eruda_Mapper_Aviso::getLast(3);
+            if(Eruda::getEnvironment()->isMobile()) {
+                $this->device='mobile_';
+            }else{
+                $this->device='';
+                $this->avisos = Eruda_Mapper_Aviso::getLast(3);
+            }
             $this->header = new Eruda_Header_HTML();
             $this->header->setType('HTML5');
             $this->header->setMetatag('Description', 'FallenSoulFansub, todos nuestros mangas on-line para tu disfrute.');
             $this->header->append2Title(Eruda::getEnvironment()->getTitle());
-            $this->header->addCSS('style.css');
-            $this->header->addCSS('proyecto.css');
+            $this->header->addCSS($this->device.'style.css');
+            $this->header->addCSS($this->device.'proyecto.css');
             $this->header->addJavascript('jquery.js');
             $this->header->addJavascript('basic.js');
             $this->header->addJavascript('fb.js');
@@ -54,7 +60,7 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
             
             $model = new Eruda_Model_ProyectosList($this->user, $this->avisos, $this->list, $items);
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'proyectos', 'lateral'=>'lateralproyectos'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'proyectos', 'lateral'=>'lateralproyectos'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
@@ -80,12 +86,11 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
             $items = array($p);
             $model = new Eruda_Model_ProyectosList($this->user, $this->avisos, $this->list, $items);
             
-            $view = new Eruda_View_HTML('basic', array('section'=>'proyectos', 'lateral'=>'lateralproyectos'));
+            $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'proyectos', 'lateral'=>'lateralproyectos'));
             $view->setHeader($this->header);
             return new Eruda_MV($view, $model);
         }
         return null;
     }
 }
-
 ?>

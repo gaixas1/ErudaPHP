@@ -684,9 +684,36 @@ a.jlist_img_baner img {
 /**  Manganime  **/
 
 #manganime {
-    padding-right:  25px;
+    padding : 5px;
     padding-bottom:  35px;
-    margin-left : 250px;
+    
+}
+
+#navmanganime {
+    padding: 5px;
+}
+#navmanganime .nav_container{
+    display: inline-block;
+    background-color: #555555;
+    margin : 5px  5px 0 0;
+    padding: 5px;
+}
+#navmanganime .nav_container h1{
+    font-size: 1.1em;
+}
+#navmanganime .nav_container h2{
+    display: inline-block;
+    margin : 3px;
+    font-size: 1em;
+}
+#navmanganime .nav_container h2 a{
+    display: inline-block;
+    color: #dddddd;
+    padding: 3px;
+}
+#navmanganime .nav_container h2 a:hover{
+    color: #333333;
+    background-color: #dddddd;
 }
 
 /*   Pie de pagina   */

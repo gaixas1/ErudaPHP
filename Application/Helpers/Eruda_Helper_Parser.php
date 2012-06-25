@@ -31,20 +31,22 @@ class Eruda_Helper_Parser {
     }
     
     static function Text2Link($s){
-        $s= utf8_decode(strtolower($s));
-
-	$s = ereg_replace("[áàâãª]","",$s);
-	$s = ereg_replace("[éèê]","e",$s);
-	$s = ereg_replace("[íìî]","i",$s);
-	$s = ereg_replace("[óòôõº]","o",$s);
-	$s = ereg_replace("[úùû]","u",$s);
-	$s = str_replace(" ","_",$s);
-	$s = str_replace("ñ","ny",$s);
-	$s = str_replace("&","and",$s);
-	$s = filter_var($s, FILTER_SANITIZE_URL);
-//	$s = str_replace("¡","!",$s);
-
-	return urldecode($s);
+    //    $s= utf8_decode(strtolower($s));
+		$s= strtolower($s);
+		$s = ereg_replace("[áàâãª]","",$s);
+		$s = ereg_replace("[éèê]","e",$s);
+		$s = ereg_replace("[íìî]","i",$s);
+		$s = ereg_replace("[óòôõº]","o",$s);
+		$s = ereg_replace("[úùû]","u",$s);
+		$s = strtr ($s, "ñ","ny");
+		$s = str_replace("&","and",$s);
+		$s = str_replace("+","plus",$s);
+		$s = str_replace("-","minus",$s);
+		$s = strtr ($s, " ","_");
+		$s = filter_var($s, FILTER_SANITIZE_URL);
+		$s = urldecode($s);
+		$s = strtr ($s, " ","_");
+		return $s;
     }
     
     static function Link2Text($text){
@@ -53,7 +55,7 @@ class Eruda_Helper_Parser {
     
     static function parseText($text){
         
-        $text = utf8_encode($text);
+       // $text = utf8_encode($text);
         
         /**Replace BBCode**/
         $tags = 'b|i|size|color|center|url|img'; 

@@ -1,6 +1,4 @@
 <?php
-
-
 interface Eruda_Interface_sitemapItem
 {
     function sitemap_get_loc();

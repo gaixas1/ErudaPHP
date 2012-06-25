@@ -8,6 +8,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     protected $user;
     protected $header;
     protected $refered;
+    protected $device;
     
     public function ini() {
         Eruda::getDBConnector()->connect();
@@ -17,11 +18,15 @@ class Eruda_Controller_User extends Eruda_Controller{
         $this->user = Eruda_Helper_Auth::getUser();
         
         if(!$this->_onlyheader) {
+            if(Eruda::getEnvironment()->isMobile()) {
+                $this->device='mobile_';
+            }else
+                $this->device='';
             $this->header = new Eruda_Header_HTML();
             $this->header->setType('HTML5');
             $this->header->setMetatag('Description', 'FallenSoulFansub, todos nuestros mangas on-line para tu disfrute.');
             $this->header->append2Title(Eruda::getEnvironment()->getTitle());
-            $this->header->addCSS('userpage.css');
+            $this->header->addCSS($this->device.'userpage.css');
             $this->header->addJavascript('jquery.js');
         }
     }
