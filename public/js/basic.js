@@ -6,8 +6,6 @@ for (var i=0; i<e.length; i++) {
 	document.createElement(e[i]);
 }
 
-var windowUser;
-
 array_imagen = new Array(5);
 array_imagen[0] = new Image(800,180);
 array_imagen[0].src = "/img/b0.jpg" ;
