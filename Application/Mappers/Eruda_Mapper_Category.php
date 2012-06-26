@@ -89,6 +89,22 @@ class Eruda_Mapper_Category {
         if($cat) self::$cats[$cat->get_id()] = $cat;
         return $cat;
     }
+    
+    static function setEntryCat($e, $c) {
+        $attr = array(
+            'entry',
+            'cat'
+        );
+        $values = array(
+            $e,
+            $c
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableC, $attr, $values);
+    }
+    static function unsetEntryCat($e) {
+        Eruda::getDBConnector()->deleteVal(self::$_tableC, 'entry', $e);
+    }
 }
 
 ?>

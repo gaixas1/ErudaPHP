@@ -9,10 +9,10 @@ $j(document).ready(function() {
         
 	$j('#comPrevia').live('click', function(e){
             e.preventDefault();
-            var txt = $('#comTxt').val();
-            $.post('/ajax/previewcomment/', { comment: txt }, function(data) {
-                $('#vistaPrevia').html('<div class="text">'+data+'</div>');
-            });
+            var txt = $j('#comTxt').val();
+            $j.post('/ajax/previewcomment/', { comment: txt }, function(data) {
+                $j('#vistaPrevia').html('<div class="text">'+data+'</div>');
+            }).error(function() { alert("Algo ha fallado"); });
 	});
         
         

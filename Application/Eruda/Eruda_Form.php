@@ -15,12 +15,12 @@ class Eruda_Form {
     protected $errors;
     protected $fields;
     
-    function __construct($object) {
+    function __construct($object=null) {
         if($object!=null) {
             $object = 'Eruda_Model_'.$object;
             $this->return = new $object();
         } else {
-            $this->return = null;
+            $this->return = array();
         }
         $this->errors = array();
         $this->fields = array();
@@ -36,14 +36,18 @@ class Eruda_Form {
         foreach ($this->fields as $field) {
             if(!$field->validate()){
                 $valid = false;
-                if($this->return!=null) {
                     $this->errors[] = $field->get_error();
-                }
             }
         }
         
-        foreach ($this->fields as $key => $field) {
-            $this->return->__set($key, $field->get_value());
+        if($this->return instanceof Eruda_Model) {
+            foreach ($this->fields as $key => $field) {
+                $this->return->__set($key, $field->get_value());
+            }
+        } else if(is_array( $this->return)) {
+            foreach ($this->fields as $key => $field) {
+                $this->return[$key]= $field->get_value();
+            }
         }
         
         return $valid;

@@ -13,12 +13,12 @@ root{
 
 html {
     background-color : #000000;
-    min-width : 450px;
+    min-width : 850px;
 }
 
 body {
     margin : auto;
-    min-width : 450px;
+    min-width : 850px;
 }
 
 header, nav, section, article, aside, footer  {
@@ -181,4 +181,259 @@ header, nav, section, article, aside, footer  {
     color : #eeeeee;
     font-size: 1em !important;
     margin-bottom: 5px;
+}
+
+
+/*   Cuerpo   */
+#cuerpo {
+    margin-left: 190px;
+    padding: 10px;
+    border:solid 2px #999999;
+    background-color: #f9f9f9;
+}
+
+#cuerpo .bloques{
+    display: block;
+}
+
+#cuerpo .bloques .bloque{
+    vertical-align: top;
+    display: inline-block;
+    padding: 10px;
+    border:solid 2px #999999;
+    background-color: #ffffff;
+    min-width: 400px;
+    width: 45%;
+    margin:1%;
+}
+
+#cuerpo h1{
+    font-size: 1.3em;
+    color:#222222;
+}
+#cuerpo h2{
+    font-size: 1.2em;
+    color:#666666;
+}
+.bigmsg {
+    margin : 8px 5px;
+}
+.bigmsg .aviso{
+    padding: 2px;
+    margin: 2px;
+    border: solid 1px #cccccc;
+}
+
+
+a.alllink  {
+    display:block;
+    padding: 1px;
+    margin: 1px;
+    border: solid 1px #cccccc;
+    color : #333333;
+    background-color: #dddddd;
+}
+a.alllink:hover {
+    color : #dddddd;
+    background-color: #333333;
+}
+
+.subt {
+    font-weight: bold;
+    color : #666666;
+}
+
+.value_semi {
+    display: inline-block;
+    width: 49%;
+    margin: 7px 0;
+}
+
+.value_tota {
+    display: block;
+    margin: 7px 0;
+}
+
+input[type=text], input[type=file], select {
+    display:block;
+    border : solid 1px #707070;
+    width: 90%;
+    padding:5px;
+}
+
+input[type=submit] {
+    border : solid 1px #707070;
+    padding:5px;
+    width: 50%;
+    cursor: pointer;
+}
+
+textarea{
+    display:block;
+    border : solid 1px #707070;
+    width: 90%;
+    height: 150px;
+    padding:5px;
+}
+
+label.check{
+    display:inline-block;
+    padding: 2px 5px;
+    margin: 4px;
+    border: solid 1px #cccccc;
+    cursor: pointer;
+}
+
+
+#emoticDisplay {
+    border : solid 1px #dddddd;
+    padding : 5px;
+    text-align: center;
+}
+
+#emoticDisplay a {
+    display : inline-block;
+    border : solid 1px #dddddd;
+    margin : 5px 2px;
+    width: 50px;
+    height: 35px;
+    text-align: center;
+}
+#emoticDisplay a:hover {
+    border : solid 1px #999999;
+}
+
+
+
+
+
+/*** Entrada ***/
+.entrada {
+    margin-top : 25px;
+    display : block;
+    position : relative;
+}
+
+/****Entrada Header>>>>>>>****/
+.entrada header.entrada_titulo{
+    display : block;
+    position : relative;
+    margin-left : 15px;
+    
+    background-color : #d6d6d6;
+    color : #666666;
+    
+    border-top : solid 2px #333333;
+    border-left : solid 1px #333333;
+
+    -webkit-border-top-left-radius: 25px;
+    -moz-border-radius-topleft: 25px;
+    border-top-left-radius: 25px;
+}
+
+.entrada header.entrada_titulo h1{
+    padding : 3px;
+    padding-left : 30px;
+}
+
+.entrada header.entrada_titulo h1 a{
+    color : #333333;
+}
+
+.entrada header.entrada_titulo h1 a:hover{
+    color : #555555;
+    text-decoration : underline;
+}
+
+.entrada header.entrada_titulo div.entrada_categorias{
+    display : block;
+    
+    background-color : #333333;
+    color : #eeeeee;
+    padding : 3px;
+    padding-left : 20px;
+}
+
+.entrada header.entrada_titulo div.entrada_categorias a{
+    color : #cccccc;
+}
+
+.entrada header.entrada_titulo div.entrada_categorias a:hover{
+    color : #aaaaaa;
+    text-decoration : underline;
+}
+/****<<<<<<<Entrada Header****/
+
+/****Entrada Texto>>>>>>>****/
+.entrada div.texto_container {
+    display : block;
+    position : relative;
+    background-color : #dadada;
+    margin-top : 15px;
+    margin-right : 10px;
+}
+
+.entrada div.texto_container div.texto {
+    display : block;
+    position : relative;
+    
+    background-color : #ffffff;
+    padding : 10px;
+    
+    position : relative;
+    top : -8px;
+    left : -10px;
+    
+    color : #222222;
+}
+/****<<<<<<<Entrada Texto****/
+
+
+
+/*** Comentarios ***/
+
+.comentario{
+    border: solid 1px #999999;
+    margin : 10px;
+    min-height: 70px;
+}
+
+.comentario header {
+    padding : 7px 10px;
+    font-weight: bold;
+    border-bottom: dotted 2px;
+}
+
+.comentario .text    {
+    padding : 5px 15px;
+    text-align: justify;
+}
+
+
+.comentario {
+    background: #000000;
+    color : #dddddd;
+}
+
+.comentario .gravatar{
+    float:left;
+    padding : 10px 40px 10px 10px;
+    background-image: url('img/commenta.jpg');
+    margin-right : 10px;
+    margin-bottom : 10px;
+}
+
+.comentario .text    {
+    margin-left : 100px;
+}
+
+.comentario .toMod {
+    color: #bbbbbb;
+    text-align: right;
+    padding-right: 20px;
+    text-decoration: underline;
+}
+.tovalid {
+    border : solid 1px #999999;
+    padding: 5px 5px 15px 5px;
 }

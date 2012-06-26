@@ -2,9 +2,9 @@ $j = $;
 
 
 $j(document).ready(function() {
-   	setTimeout("return2Blog()",2000) ;
+   	setTimeout("return2Blog()",1000) ;
 });
 
 function return2Blog(){
-    window.location.href= $('a.link').attr('href');
+    window.location.href= $j('a.link').attr('href');
 }

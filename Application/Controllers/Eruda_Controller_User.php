@@ -155,7 +155,7 @@ class Eruda_Controller_User extends Eruda_Controller{
             
             $fieldPass = new Eruda_Field('pass', 'La contraseña no puede estar en blanco.');
             $fieldPass->add_validator(new Eruda_Validator_Lenght(6,20,
-                    'La contraseña ha de tener un minimo de 4 caracteres.',
+                    'La contraseña ha de tener un minimo de 6 caracteres.',
                     'La contraseña no puede superar los 20 caracteres.'
                     ))->add_validator(new Eruda_Validator_Equal('pass2',
                             'Las contraseñas no coinciden'

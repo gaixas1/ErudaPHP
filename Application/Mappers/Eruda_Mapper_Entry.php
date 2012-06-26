@@ -6,9 +6,6 @@
  */
 
 
-/**
- * @property string $_table
- */
 class Eruda_Mapper_Entry {
     public static $_tablea = 'entry';
     public static $_tableb = 'entry_from_cat';  
@@ -57,6 +54,54 @@ class Eruda_Mapper_Entry {
     
     static function All(){
         return Eruda::getDBConnector()->selectType(self::$_tabled,'Entry');
+    }
+    static function Mini($i,$n){
+        $order = array(array('id','DESC'));
+        return Eruda::getDBConnector()->selectAll(self::$_tabled, $order, $i, $n, 'Entry');
+    }
+    
+    
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Entry $entry
+     * @return \Eruda_Model_Entry
+     */
+    static function save(&$entry){
+        $attr = array(
+            'title',
+            'text',
+            'author_id',
+            'created',
+            'lastmod'
+        );
+        $values = array(
+            $entry->get_title(),
+            $entry->get_text(),
+            $entry->get_author_id(),
+            'NOW()',
+            'NOW()'
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tablea, $attr, $values);
+        $entry->set_id(Eruda::getDBConnector()->lastID());
+        return $entry;
+    }
+    /**
+     *
+     * @param Eruda_Model_Entry $entry
+     * @return \Eruda_Model_Entry
+     */
+    static function update(&$entry){
+        $values = array(
+            'title' => $entry->get_title(),
+            'text' => $entry->get_text(),
+            'lastmod'=> 'NOW()'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tablea, $values, $entry->get_id());
+        return $entry;
     }
 }
 

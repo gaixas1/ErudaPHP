@@ -8,7 +8,7 @@
                 <?php
                     foreach($model->get_entries() as $entry){
                         ?>
-                <article class="entrada" id="entrada_701">
+                <article class="entrada" id="entrada_<?php echo $entry->get_id(); ?>">
                     <header class="entrada_titulo">
                         <h1>
                             <?php echo Eruda_Helper_Parser::parseDate($entry->get_created()); ?> | 

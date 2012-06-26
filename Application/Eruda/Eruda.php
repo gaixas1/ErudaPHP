@@ -274,7 +274,6 @@ class Eruda {
                 $controller->end();
                 $i++;
             } catch (Exception $e) {
-
                 $controller = new Eruda_Controller_Error(null, self::$_method=='HEADER');
                 $controller->ini();
                 $temp = $controller->E500();

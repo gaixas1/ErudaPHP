@@ -18,10 +18,6 @@ $router = new Eruda_Router(     //Index Router
                                                     new Eruda_CF('Admin', 'EntradaPost', 'POST')
                                                 )
                                         ),
-                                        'ver/([0-9]+)/'
-                                            => new Eruda_Router(    //Admin-Entradas Router
-                                                new Eruda_CF('Admin', 'EntradaVer')
-                                        ),
                                         'new/'
                                             => new Eruda_Router(    //Admin-Entradas-New Router
                                                 array(
@@ -33,8 +29,24 @@ $router = new Eruda_Router(     //Index Router
                                     )           
                             ),
                             'comentarios/'
-                                => new Eruda_Router(    //Admin-Comentarios Router
-                                    /*TO-DO*/
+                                 => new Eruda_Router(    //Admin-Entradas Router
+                                    new Eruda_CF('Admin', 'CommentsList'),
+                                    array(
+                                        '([0-9]+)/'
+                                            => new Eruda_Router(    //Admin-Entradas-Edit Router
+                                                new Eruda_CF('Error', 'E404'),
+                                                array(
+                                                    'valid/' => 
+                                                        new Eruda_Router( 
+                                                            new Eruda_CF('Admin', 'CommentsValid')
+                                                        ),
+                                                    'delete/' => 
+                                                        new Eruda_Router( 
+                                                            new Eruda_CF('Admin', 'CommentsDelete')
+                                                        )
+                                                )
+                                        )
+                                    )     
                             ),
                             'avisos/'
                                 => new Eruda_Router(    //Admin-Avisos Router
@@ -75,6 +87,14 @@ $router = new Eruda_Router(     //Index Router
                             'previewcomment/' 
                                 => new Eruda_Router(    //VistaPrevia Comment
                                         new Eruda_CF('Ajax', 'Preview', 'POST')
+                                ),
+                            'lastmanga/' 
+                                => new Eruda_Router(    //Get Last manga
+                                        new Eruda_CF('Ajax', 'LastManga')
+                                ),
+                            'lastanime/' 
+                                => new Eruda_Router(    //Get Last anime
+                                        new Eruda_CF('Ajax', 'LastAnime')
                                 )
                             )
                 ),

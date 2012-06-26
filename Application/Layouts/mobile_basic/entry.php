@@ -2,7 +2,7 @@
                 <?php
                     $entry = $model->get_entry()
                 ?>
-                <article class="entrada" id="entrada_701">
+                <article class="entrada" id="entrada_<?php echo $entry->get_id(); ?>">
                     <header class="entrada_titulo">
                         <h1>
                             <?php echo Eruda_Helper_Parser::parseDate($entry->get_created()); ?> | 
@@ -72,7 +72,7 @@
                                 $us = $comment->get_author();
                 ?>
                     <article id="comment_<?php echo $comment->get_id();?>" class="comentario coment_<?php echo ($t ? 'a' : 'b');?>">
-			<img class="gravatar" src="<?php echo $us->get_avatar(50);?>">
+			<img class="gravatar" src="<?php echo $us->get_avatar(50);?>" />
                         <header>Por <?php echo $us->get_name();?> el <?php echo Eruda_Helper_Parser::parseAllDate($comment->get_date());?></header>
                         <?php
                             if(!$comment->is_valid()){
@@ -83,10 +83,6 @@
                         ?>
 			<section class="text"><?php echo $comment->get_text(); ?></section>
 		</article>
-                    
-                    <article id="comment_<?php echo $comment->get_id();?>">
-                    
-                    </article>
                 <?php
                                 $t = !$t;
                             }

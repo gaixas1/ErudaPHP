@@ -65,6 +65,48 @@ class Eruda_Mapper_Comment {
         return $comments;
     }
     
+    static function Last($n){
+        $values = array(
+            'valid'=>'1'
+            );
+        $order = array(array('id','DESC'));
+        $comments = Eruda::getDBConnector()->selectMulti(self::$_tablea, $values, $order, 0, $n, 'Comment');
+        return $comments;
+    }
+    static function Wait(){
+        $values = array(
+            'valid'=>'0'
+            );
+        $order = array(array('id','DESC'));
+        $comments = Eruda::getDBConnector()->selectMulti(self::$_tablea, $values, $order, 0, 20, 'Comment');
+        return $comments;
+    }
+    static function Spam(){
+        $values = array(
+            'valid'=>'-1'
+            );
+        $order = array(array('id','DESC'));
+        $comments = Eruda::getDBConnector()->selectMulti(self::$_tablea, $values, $order, 0, 20, 'Comment');
+        return $comments;
+    }
+    
+    static function validate($id){
+        $values = array(
+            'valid'=>'1'
+            );
+        Eruda::getDBConnector()->updateID(self::$_tablea, $values, $id);
+    }
+    
+    static function delete($id){
+        $values = array(
+            'valid'=>'-2'
+            );
+        Eruda::getDBConnector()->updateID(self::$_tablea, $values, $id);
+    }
+    
+    static function countFromAll(){
+        return Eruda::getDBConnector()->selectCount(self::$_tablea, array('valid'));
+    }
 }
 
 ?>

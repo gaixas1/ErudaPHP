@@ -40,7 +40,8 @@ class Eruda_Controller_Error extends Eruda_Controller {
     
     
     function E404() {        
-        header('Status: 404');
+        header('HTTP/1.0 404 Not Found');
+        header("Status: 404 Not Found");
         if(!$this->_onlyheader) {
             $this->error->set_message('404 Not Found');
             $this->header->append2Title('404 Not Found');
@@ -51,6 +52,7 @@ class Eruda_Controller_Error extends Eruda_Controller {
         return null;
     }
     function E500() {        
+        header('HTTP/1.0 500');
         header('Status: 500');
         if(!$this->_onlyheader) {
             $this->error->set_message('500 Internal Server Error');
@@ -62,6 +64,7 @@ class Eruda_Controller_Error extends Eruda_Controller {
         return null;
     }
     function E550() {        
+        header('HTTP/1.0 550');
         header('Status: 550');
         if(!$this->_onlyheader) {
             $this->error->set_message('550 Permission Denied');

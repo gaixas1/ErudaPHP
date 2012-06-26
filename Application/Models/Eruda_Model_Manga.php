@@ -83,6 +83,9 @@ class Eruda_Model_Manga extends Eruda_Model {
             return $a;
     }
     
+    function get_description() {
+        return '['.$this->id.'] '.$this->serie.' - '.$this->tomo.' - '.$this->titulo;
+    }
     
     function get_id(){
         return $this->id;

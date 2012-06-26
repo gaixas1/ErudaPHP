@@ -442,12 +442,12 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         if($object!=null) $object = 'Eruda_Model_'.$object;
         $query = 'SELECT * FROM '.$table.' ';
         
-        if($order==null && is_array($order) && count($order)>0){
+        if($order!=null && is_array($order) && count($order)>0){
             $ovals = array();
             foreach($order as $val){
-                $ovals[] = $val[0].','.$val[1];
+                $ovals[] = $val[0].' '.$val[1];
             }
-            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+            $query .= ' ORDER BY '.implode(' AND ', $ovals).' ';
         }
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
@@ -479,24 +479,23 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
     function selectCount($table, $group=null, $order=null){
         $query = null;
         
-        if($group==null && is_array($group) && count($group)>0){
+        if($group!=null && is_array($group) && count($group)>0){
             $query = 'SELECT '.implode(',',$group).', count(*) AS count FROM '.$table.' ';
             $query .= ' GROUP BY '.implode(',', $group).' ';
         } else {
             $query = 'SELECT count(*) AS count FROM '.$table.' ';
         }
         
-        if($order==null && is_array($order) && count($order)>0){
+        if($order!=null && is_array($order) && count($order)>0){
             $ovals = array();
             foreach($order as $val){
                 $ovals[] = $val[0].','.$val[1];
             }
             $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
         }
-        
         $ret = null;
         
-        if($group==null && is_array($group) && count($group)>0){
+        if($group!=null && is_array($group) && count($group)>0){
             $ret = array();
             if($res = $this->_mysqli->query($query))
             while($row = $res->fetch_array()){
