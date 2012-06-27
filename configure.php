@@ -6,8 +6,8 @@
     define('APP_PATH', PATH.'/Application/');
     require_once APP_PATH.'routeMap.php';
     Eruda::setRouter($router);
-   // Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://localhost/', 5, 'admin@fallensoul.es'));
-    Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://192.168.1.2/', 5, 'admin@fallensoul.es'));
+    Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://localhost/', 5, 'admin@fallensoul.es'));
+   // Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://192.168.1.2/', 5, 'admin@fallensoul.es'));
     
     Eruda::setDBConnector(
         new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', '')

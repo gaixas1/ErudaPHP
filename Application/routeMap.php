@@ -59,20 +59,91 @@ $router = new Eruda_Router(     //Index Router
                                         'new/'
                                             => new Eruda_Router(    //Admin-Avisos-New Router
                                                 array(
-                                                    new Eruda_CF('Admin', 'AvisosPut', 'POST'),
-                                                    new Eruda_CF('Admin', 'AvisosPut', 'PUT')
+                                                    new Eruda_CF('Admin', 'AvisosPut', 'POST')
                                                 )
                                         ),
+                                        'edit/'
+                                            => new Eruda_Router(    //Admin-Avisos-New Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'AvisosPost', 'POST')
+                                                )
+                                        )
                                     )        
                                         
                             ),
                             'manga/'
-                                => new Eruda_Router(    //Admin-Manga Router
-                                    /*TO-DO*/
+                                => new Eruda_Router(    //Admin-Entradas Router
+                                    array(
+                                        new Eruda_CF('Admin', 'MangaList'),
+                                        new Eruda_CF('Admin', 'AddMangaSerie', 'POST')
+                                    ),
+                                    array(
+                                        '([0-9]+)/'
+                                            => new Eruda_Router(    //Admin-Entradas-Edit Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'MangaGet'),
+                                                    new Eruda_CF('Admin', 'MangaPost', 'POST')
+                                                )
+                                        ),
+                                        'new/'
+                                            => new Eruda_Router(    //Admin-Entradas-New Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'MangaForm'),
+                                                    new Eruda_CF('Admin', 'MangaPut', 'PUT'),
+                                                    new Eruda_CF('Admin', 'MangaPut', 'POST')
+                                                )
+                                        ),
+                                        'serie/'
+                                            => new Eruda_Router(    //Admin-Entradas-New Router
+                                                new Eruda_CF('Error', 'E404'),
+                                                array(
+                                                    '([0-9]+)/'
+                                                        => new Eruda_Router(    //VistaPrevia Comment
+                                                                array(
+                                                                    new Eruda_CF('Admin', 'MangaSeriePost', 'POST'),
+                                                                    new Eruda_CF('Admin', 'MangaSerieGet')
+                                                                )
+                                                        )
+                                                    )
+                                        )
+                                    )  
                             ),
                             'anime/'
-                                => new Eruda_Router(    //Admin-Anime Router
-                                    /*TO-DO*/
+                                => new Eruda_Router(    //Admin-Entradas Router
+                                    array(
+                                        new Eruda_CF('Admin', 'AnimeList'),
+                                        new Eruda_CF('Admin', 'AddAnimeSerie', 'POST')
+                                    ),
+                                    array(
+                                        '([0-9]+)/'
+                                            => new Eruda_Router(    //Admin-Entradas-Edit Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'AnimeGet'),
+                                                    new Eruda_CF('Admin', 'AnimePost', 'POST')
+                                                )
+                                        ),
+                                        'new/'
+                                            => new Eruda_Router(    //Admin-Entradas-New Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'AnimeForm'),
+                                                    new Eruda_CF('Admin', 'AnimePut', 'PUT'),
+                                                    new Eruda_CF('Admin', 'AnimePut', 'POST')
+                                                )
+                                        ),
+                                        'serie/'
+                                            => new Eruda_Router(    //Admin-Entradas-New Router
+                                                new Eruda_CF('Error', 'E404'),
+                                                array(
+                                                    '([0-9]+)/'
+                                                        => new Eruda_Router(    //VistaPrevia Comment
+                                                                array(
+                                                                    new Eruda_CF('Admin', 'AnimeSeriePost', 'POST'),
+                                                                    new Eruda_CF('Admin', 'AnimeSerieGet')
+                                                                )
+                                                        )
+                                                    )
+                                        )
+                                    )  
                             ),
                             'proyectos/'
                                 => new Eruda_Router(    //Admin-Proyectos Router

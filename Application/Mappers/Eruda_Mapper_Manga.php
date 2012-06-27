@@ -57,9 +57,7 @@ class Eruda_Mapper_Manga {
     }
     
     static function getSeries(){
-        $order = array(
-            'serie'=> 'ASC'
-        );
+        $order = array(array('serie','ASC'));
         return Eruda::getDBConnector()->selectAll(self::$_tableB, $order, 0, 99999, 'MangaSerie');
     }
 }

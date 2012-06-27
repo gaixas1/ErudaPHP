@@ -451,7 +451,6 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         }
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
-        
         $ret = array();
         
         if($res = $this->_mysqli->query($query)){

@@ -226,7 +226,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
-                'entradas/' => 'Entradas'
+                'comentarios/' => 'Comentarios'
                 );
             
             $model = new Eruda_Model_Admin($this->user, $dir);
@@ -253,8 +253,17 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     function CommentsValid() {      
         $id = $this->_params[0];
+        $comment =Eruda_Mapper_Comment::get($id);
+        
         Eruda_Mapper_Comment::validate($id);
         
+        $user = Eruda_Mapper_User::get($comment->get_author_id());
+        
+        $actlevel = $user->get_level();
+        if($actlevel<5){
+            $user->set_level($actlevel+1);
+            Eruda_Mapper_User::update($user);
+        }
         header( 'Location: /admin/comentarios/') ;
         $this->end();
         exit();
@@ -262,7 +271,16 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     function CommentsDelete() {      
         $id = $this->_params[0];
+        $comment =Eruda_Mapper_Comment::get($id);
         Eruda_Mapper_Comment::delete($id);
+        
+        $user = Eruda_Mapper_User::get($comment->get_author_id());
+        
+        $actlevel = $user->get_level();
+        if($actlevel>1){
+            $user->set_level($actlevel-1);
+            Eruda_Mapper_User::update($user);
+        }
         
         header( 'Location: /admin/comentarios/') ;
         $this->end();
@@ -271,6 +289,108 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
 
 
+    
+    function AvisosGet() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'avisos/' => 'Avisos'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $last = Eruda_Mapper_Aviso::getLast(3);
+            $model->add_data('ultimos',  $last);
+            
+            //$this->header->addJavascript('admin.avisos.js');
+            $view = new Eruda_View_HTML('admin', array('section'=>'avisos'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function AvisosPost() {    
+        $forma = new Eruda_Form();
+        $forma->addField('avisos', new Eruda_Field_Array('aviso'));
+        $forma->validate();
+        $avisos = $forma->getValue();
+        
+        foreach($avisos['avisos'] as $k => $msg) {
+            if($msg!=null && $msg!="") {
+                $aviso = new Eruda_Model_Aviso();
+                $aviso->set_id($k)->set_msg($msg);
+                Eruda_Mapper_Aviso::update($aviso);
+            }
+        }
+        
+        header( 'Location: /admin/avisos/') ;
+        $this->end();
+        exit();
+    }
+    
+    function AvisosPut() {      
+        $forma = new Eruda_Form();
+        $forma->addField('avisos', new Eruda_Field('aviso'));
+        $forma->validate();
+        $avisos = $forma->getValue();
+        $msg = $avisos['avisos'];
+        if($msg!=null && $msg!="") {
+            $aviso = new Eruda_Model_Aviso();
+            $aviso->set_msg($msg);
+            Eruda_Mapper_Aviso::save($aviso);
+        }
+        
+        header( 'Location: /admin/avisos/') ;
+        $this->end();
+        exit();
+    }
+
+    
+    
+    
+    function MangaList() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'manga/' => 'Manga'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('tipo','manga');
+            $model->add_data('descargas',  Eruda_Mapper_Manga::getLasts(30));
+            $model->add_data('series',Eruda_Mapper_Manga::getSeries());
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'manganime'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    
+    
+    function AnimeList() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'anime/' => 'Anime/Dorama'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('tipo','anime');
+            $model->add_data('descargas',  Eruda_Mapper_Anime::getLasts(30));
+            $model->add_data('series',Eruda_Mapper_Anime::getSeries());
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'manganime'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
 
 
 

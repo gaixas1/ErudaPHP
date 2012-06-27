@@ -34,6 +34,29 @@ class Eruda_Mapper_Aviso {
         $avisos = Eruda::getDBConnector()->selectAll(self::$_tablea, $order, 0, $n, 'Aviso');
         return $avisos;
     }
+    
+    
+    static function save(&$aviso) {
+        $attr = array(
+            'msg'   
+        );
+        $values = array(
+            $aviso->get_msg()
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tablea, $attr, $values);
+        $aviso->set_id(Eruda::getDBConnector()->lastID());
+        return $aviso;
+    }
+    
+    static function update($aviso) {
+        $values = array(
+            'msg' => $aviso->get_msg()
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tablea, $values, $aviso->get_id());
+        return $aviso;
+    }
 }
 
 ?>
