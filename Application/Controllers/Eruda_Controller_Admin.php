@@ -370,6 +370,78 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     
+    function AddMangaSerie() {      
+        $forma = new Eruda_Form('MangaSerie');
+        $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
+        if($forma->validate()){
+            $serie = $forma->getValue();
+            $serie->set_serie(str_replace(' ', '_', $serie->get_serie()));
+            if($exist = Eruda_Mapper_Manga::getSerieByTitle($serie->get_serie())) {
+                header( 'Location: /admin/manga/serie/'.$exist->get_id().'/') ;
+            } else {
+                Eruda_Mapper_Manga::saveSerie($serie);
+                header( 'Location: /admin/manga/serie/'.$serie->get_id().'/') ;
+            }
+        } else {
+            header( 'Location: /admin/manga/') ;
+        }
+        $this->end();
+        exit();
+    }
+    
+    function MangaSerieGet() {         
+        $id = $this->_params[0];  
+        if(!($serie = Eruda_Mapper_Manga::getSerie($id))) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'manga/' => 'Manga',
+                'manga/serie/'.$id.'/' => Eruda_Helper_Parser::Link2Text($serie->get_serie())
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('tipo','manga');
+            $model->add_data('serie', $serie);
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'manganimeserie'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function MangaSeriePost() {
+        $id = $this->_params[0];  
+        if(!Eruda_Mapper_Manga::getSerie($id)) {
+            return new Eruda_CF('Error', 'E404');
+        }    
+        $forma = new Eruda_Form('MangaSerie');
+        $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
+        $forma->addField('tomos', new Eruda_Field('tomos'));
+        if($forma->validate()){
+            $serie = $forma->getValue();
+            $serie->set_serie(str_replace(' ', '_', $serie->get_serie()));
+            $serie->set_id($id);
+            Eruda_Mapper_Manga::updateSerie($serie);
+            header( 'Location: /admin/manga/serie/'.$id.'/') ;
+        } else {
+            header( 'Location: /admin/manga/') ;
+        }
+        $this->end();
+        exit();
+    }
+    
+    function MangaSerieDelete() {
+        $id = $this->_params[0];  
+        Eruda_Mapper_Manga::deleteSerie($id);
+        header( 'Location: /admin/manga/') ;
+        $this->end();
+        exit();
+    }
+    
     
     
     function AnimeList() {        
@@ -392,7 +464,83 @@ class Eruda_Controller_Admin extends Eruda_Controller {
         return null;
     }
 
+    
+    function AddAnimeSerie() {      
+        $forma = new Eruda_Form('AnimeSerie');
+        $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
+        if($forma->validate()){
+            $serie = $forma->getValue();
+            $serie->set_serie(str_replace(' ', '_', $serie->get_serie()));
+            
+            if($exist = Eruda_Mapper_Anime::getSerieByTitle($serie->get_serie())) {
+                header( 'Location: /admin/anime/serie/'.$exist->get_id().'/') ;
+            } else {
+                Eruda_Mapper_Anime::saveSerie($serie);
+                header( 'Location: /admin/anime/serie/'.$serie->get_id().'/') ;
+            }
+        } else {
+            header( 'Location: /admin/anime/') ;
+        }
+        $this->end();
+        exit();
+    }
 
+    
+    function AnimeSerieGet() {         
+        $id = $this->_params[0];  
+        if(!($serie = Eruda_Mapper_Anime::getSerie($id))) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'anime/' => 'Anime',
+                'anime/serie/'.$id.'/' => Eruda_Helper_Parser::Link2Text($serie->get_serie())
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('tipo','anime');
+            $model->add_data('serie', $serie);
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'manganimeserie'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function AnimeSeriePost() {
+        $id = $this->_params[0];  
+        if(!Eruda_Mapper_Anime::getSerie($id)) {
+            return new Eruda_CF('Error', 'E404');
+        }    
+        $forma = new Eruda_Form('AnimeSerie');
+        $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
+        $forma->addField('cont', new Eruda_Field('cont'));
+        if($forma->validate()){
+            $serie = $forma->getValue();
+            $serie->set_serie(str_replace(' ', '_', $serie->get_serie()));
+            $serie->set_id($id);
+            Eruda_Mapper_Anime::updateSerie($serie);
+            header( 'Location: /admin/anime/serie/'.$id.'/') ;
+        } else {
+            header( 'Location: /admin/anime/') ;
+        }
+        $this->end();
+        exit();
+    }
+    
+    function AnimeSerieDelete() {
+        $id = $this->_params[0];  
+        Eruda_Mapper_Anime::deleteSerie($id);
+        header( 'Location: /admin/anime/') ;
+        $this->end();
+        exit();
+    }
+    
+    
+    
 
     static function setEntry(&$entry){
                 $id = $entry->get_id();

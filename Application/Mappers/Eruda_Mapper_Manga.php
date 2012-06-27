@@ -60,6 +60,45 @@ class Eruda_Mapper_Manga {
         $order = array(array('serie','ASC'));
         return Eruda::getDBConnector()->selectAll(self::$_tableB, $order, 0, 99999, 'MangaSerie');
     }
+    
+    
+    static function getSerie($id){
+        $serie = Eruda::getDBConnector()->selectID(self::$_tableB, $id, 'MangaSerie');
+        return $serie;
+    }
+    static function getSerieByTitle($title){
+        $serie = Eruda::getDBConnector()->selectOne(self::$_tableB, array('serie' => $title), 0, 'MangaSerie');
+        return $serie;
+    }
+    
+    static function saveSerie(&$serie) {
+        $attr = array(
+            'serie',
+            'tomos'
+        );
+        $values = array(
+            $serie->get_serie(),
+            implode(',', $serie->get_tomos())
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableB, $attr, $values);
+        $serie->set_id(Eruda::getDBConnector()->lastID());
+        return $serie;
+    }
+    
+    static function updateSerie($serie) {
+        $values = array(
+            'serie' => $serie->get_serie(),
+            'tomos' => implode(',', $serie->get_tomos())
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableB, $values, $serie->get_id());
+        return $serie;
+    }
+    
+    static function deleteSerie($id) {
+        Eruda::getDBConnector()->deleteID(self::$_tableB, $id);
+    }
 }
 
 ?>

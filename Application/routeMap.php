@@ -25,7 +25,7 @@ $router = new Eruda_Router(     //Index Router
                                                     new Eruda_CF('Admin', 'EntradaPut', 'PUT'),
                                                     new Eruda_CF('Admin', 'EntradaPut', 'POST')
                                                 )
-                                        ),
+                                        )
                                     )           
                             ),
                             'comentarios/'
@@ -102,6 +102,14 @@ $router = new Eruda_Router(     //Index Router
                                                                 array(
                                                                     new Eruda_CF('Admin', 'MangaSeriePost', 'POST'),
                                                                     new Eruda_CF('Admin', 'MangaSerieGet')
+                                                                ),array(
+                                                                    'delete/'
+                                                                        => new Eruda_Router(    //Admin-Entradas-Edit Router
+                                                                            array(
+                                                                                new Eruda_CF('Admin', 'MangaSerieDelete', 'DELETE'),
+                                                                                new Eruda_CF('Admin', 'MangaSerieDelete', 'POST')
+                                                                            )
+                                                                    )
                                                                 )
                                                         )
                                                     )
@@ -139,6 +147,14 @@ $router = new Eruda_Router(     //Index Router
                                                                 array(
                                                                     new Eruda_CF('Admin', 'AnimeSeriePost', 'POST'),
                                                                     new Eruda_CF('Admin', 'AnimeSerieGet')
+                                                                ),array(
+                                                                    'delete/'
+                                                                        => new Eruda_Router(    //Admin-Entradas-Edit Router
+                                                                            array(
+                                                                                new Eruda_CF('Admin', 'AnimeSerieDelete', 'DELETE'),
+                                                                                new Eruda_CF('Admin', 'AnimeSerieDelete', 'POST')
+                                                                            )
+                                                                    )
                                                                 )
                                                         )
                                                     )
@@ -269,7 +285,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Manga Router
                         new Eruda_CF('Manga'),
                         array(
-                            '([0-9a-z_-]+)/'
+                            '([^/]+)/'
                                 => new Eruda_Router(    //Manga-Serie Router
                                         new Eruda_CF('Manga', 'Serie'),
                                         array(
@@ -285,7 +301,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Anime Router
                         new Eruda_CF('Anime'),
                         array(
-                            '([0-9a-z_-]+)/'
+                            '([^/]+)/'
                                 => new Eruda_Router(    //Anim-Serie Router
                                         new Eruda_CF('Anime', 'Serie'),
                                         array(
@@ -301,7 +317,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Proyectos Router
                         new Eruda_CF('Proyecto'),
                         array(
-                            '([0-9]+)/(.*)/' 
+                            '([0-9]+)/([^/]*)/' 
                                 => new Eruda_Router(    //Proyectos-Serie Router
                                     new Eruda_CF('Proyecto', 'Serie')
                             )
@@ -311,7 +327,7 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Paginacion Router
                         new Eruda_CF('Entrada', 'Paginacion')
                 ),
-                '([a-z][0-9a-z_-]*)/' 
+                '([^/]*)/' 
                     => new Eruda_Router(    //Categorias Router
                         new Eruda_CF('Entrada', 'CategoriaIndex'),
                         array(

@@ -1,6 +1,10 @@
-<h1>Ultimas Entradas</h1>
+
 <div class="bloques">
     <section class="bloque">
+    <h1>Descargas <?php echo $model->get_data('tipo'); ?></h1>
+        <a class="alllink"  href="<?php echo $model->get_data('tipo'); ?>/new/">Nueva descarga</a>
+        <br/>    
+        <h2>Novedades</h2>
         <div class="bigmsg">
             <?php
                 /*Descargas*/
@@ -14,13 +18,14 @@
         </div>
     </section>
     <section class="bloque">
+        <h1>Series <?php echo $model->get_data('tipo'); ?></h1>
         <div class="bigmsg">
             <?php
                 /*Series*/
             foreach($model->get_data('series') as $serie)
             {
             ?>
-            <article><a class="alllink"  href="<?php echo $model->get_data('tipo'); ?>/serie/<?php echo $serie->get_id(); ?>/"><?php echo $serie->get_serie(); ?></a></article>
+            <article><a class="alllink"  href="<?php echo $model->get_data('tipo'); ?>/serie/<?php echo $serie->get_id(); ?>/"><?php echo Eruda_Helper_Parser::Link2Text($serie->get_serie()); ?></a></article>
             <?php
             }
             ?>

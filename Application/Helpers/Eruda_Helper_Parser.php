@@ -40,8 +40,8 @@ class Eruda_Helper_Parser {
 		$s = ereg_replace("[úùû]","u",$s);
 		$s = strtr ($s, "ñ","ny");
 		$s = str_replace("&","and",$s);
-		$s = str_replace("+","plus",$s);
-		$s = str_replace("-","minus",$s);
+		//$s = str_replace("+","plus",$s);
+		//$s = str_replace("-","minus",$s);
 		$s = strtr ($s, " ","_");
 		$s = filter_var($s, FILTER_SANITIZE_URL);
 		$s = urldecode($s);

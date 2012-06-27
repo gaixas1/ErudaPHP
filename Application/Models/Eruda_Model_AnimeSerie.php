@@ -16,6 +16,7 @@ class Eruda_Model_AnimeSerie extends Eruda_Model {
     protected $_cont;
     
     function __construct($vals = array()){
+        $this->_cont= array();
         parent::__construct($vals);
         }
 
@@ -38,8 +39,13 @@ class Eruda_Model_AnimeSerie extends Eruda_Model {
         return $this->_cont;
     }
     function set_cont($val){
-        
-        return $this->_cont = split(',', $val);
+        $t = split(',', $val);
+        foreach($t as $v){
+            if($v!=null && trim($v)!=''){
+                $this->_cont[] = trim($v);
+            }
+        }
+        return $this->_cont;
     }
     
     

@@ -16,6 +16,7 @@ class Eruda_Model_MangaSerie extends Eruda_Model {
     protected $_tomos;
     
     function __construct($vals = array()){
+        $this->_tomos= array();
         parent::__construct($vals);
         }
 
@@ -38,8 +39,13 @@ class Eruda_Model_MangaSerie extends Eruda_Model {
         return $this->_tomos;
     }
     function set_tomos($val){
-        
-        return $this->_tomos = split(',', $val);
+        $t = split(',', $val);
+        foreach($t as $v){
+            if($v!=null && trim($v)!=''){
+                $this->_tomos[] = trim($v);
+            }
+        }
+        return $this->_tomos;
     }
     
     

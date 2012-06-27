@@ -232,7 +232,6 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         $query .= implode(',', $qvals);
         
         $query .= ' WHERE id = "'.$id.'";';
-        
         $this->_mysqli->query($query);
         return $this->_mysqli->affected_rows;
     }
@@ -370,7 +369,6 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
         $query .= ' LIMIT '.$start.', 1 ;';
         
         $ret = null;
-        
         if($res = $this->_mysqli->query($query))
             if($object!=null && is_string($object)){
                 if($row = $res->fetch_array()){
