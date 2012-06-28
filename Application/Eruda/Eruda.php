@@ -25,7 +25,7 @@ class Eruda {
     static protected $_mailer;
     static protected $_params;
     static protected $_environment;
-    static protected $_dbcon;
+    static protected $_dbcon = array();
     static protected $_mv;
     
     static protected $_folders = array();
@@ -225,8 +225,8 @@ class Eruda {
     /**
      * @return \Eruda_DBConnector 
      */
-    static function getDBConnector(){
-        return self::$_dbcon;
+    static function getDBConnector($i = 0){
+        return self::$_dbcon[$i];
     }
     
     /**
@@ -235,7 +235,7 @@ class Eruda {
      */
     static function setDBConnector($connector){
         if($connector!=null && $connector instanceof Eruda_DBConnector)
-            self::$_dbcon = $connector;
+            self::$_dbcon[] = $connector;
         else
             throw new Exception('Eruda_Core::setDBConnector - INVALID DBCONNECTOR : '.$connector);
     }

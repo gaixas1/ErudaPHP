@@ -33,11 +33,12 @@ class Eruda_Helper_Parser {
     static function Text2Link($s){
     //    $s= utf8_decode(strtolower($s));
 		$s= strtolower($s);
-		$s = ereg_replace("[áàâãª]","",$s);
-		$s = ereg_replace("[éèê]","e",$s);
-		$s = ereg_replace("[íìî]","i",$s);
-		$s = ereg_replace("[óòôõº]","o",$s);
-		$s = ereg_replace("[úùû]","u",$s);
+                $s = preg_replace('~&.*;~', '', $s);
+		$s = preg_replace ("~[áàâãª]~","",$s);
+		$s = preg_replace ("~[éèê]~","e",$s);
+		$s = preg_replace ("~[íìî]~","i",$s);
+		$s = preg_replace ("~[óòôõº]~","o",$s);
+		$s = preg_replace ("~[úùû]~","u",$s);
 		$s = strtr ($s, "ñ","ny");
 		$s = str_replace("&","and",$s);
 		//$s = str_replace("+","plus",$s);
@@ -46,6 +47,7 @@ class Eruda_Helper_Parser {
 		$s = filter_var($s, FILTER_SANITIZE_URL);
 		$s = urldecode($s);
 		$s = strtr ($s, " ","_");
+                
 		return $s;
     }
     
@@ -90,7 +92,7 @@ class Eruda_Helper_Parser {
         
         if (preg_match_all('`:('.implode('|', $emotic).'):`is', $text, $matches)) foreach ($matches[0] as $key => $match) { 
             $emot = $matches[1][$key];
-            $replacement = '<img class="emoticono" src="/emotic/icon_'.$emot.'.gif" alt="'.$emot.'"/>';
+            $replacement = '<img class="emoticono" src="'.Eruda::getEnvironment()->getBaseURL().'emotic/icon_'.$emot.'.gif" alt="'.$emot.'"/>';
             $text = str_replace($match, $replacement, $text); 
         } 
                 

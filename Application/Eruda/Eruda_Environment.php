@@ -34,7 +34,7 @@ class Eruda_Environment {
                  $this->_mobile = false;
         }
         if($this->_mobile===null)
-            $this->setMobile((stripos($device,'symbian') !== false)||(stripos($device,'windows ce') !== false)||(stripos($device,'blackberry') !== false)||(stripos($device,'palm') !== false)||(stripos($device,'android') !== false)||(stripos($ua,'mobile') !== false)||(stripos($device,'ipad') !== false)||(stripos($ua,'iphone') !== false));
+            $this->setMobile((stripos($device,'symbian') !== false)||(stripos($device,'windows ce') !== false)||(stripos($device,'blackberry') !== false)||(stripos($device,'palm') !== false)||(stripos($device,'android') !== false)||(stripos($device,'mobile') !== false)||(stripos($device,'ipad') !== false)||(stripos($device,'iphone') !== false));
 
     }
     

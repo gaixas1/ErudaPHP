@@ -24,8 +24,8 @@ class Eruda_Model_Manga extends Eruda_Model {
 		'megarotic' => -1
 		);
     static public $URLd = '/download/';
-    static public $URLt =  '/img/servers/';
-    static public $URLc =  '/capturas_manga/';
+    static public $URLt =  'img/servers/';
+    static public $URLc =  'capturas_manga/';
     static public $VERONLINE =  'http://veronline.fallensoul.es/';
     
     protected $id;
@@ -64,26 +64,26 @@ class Eruda_Model_Manga extends Eruda_Model {
         
         $a .= '<section class="imagenes">';
         if($this->verO)
-            $a .=  '<img src="'.self::$URLc.$this->id.'a.jpg"/> <img src="'.self::$URLc.$this->id.'b.jpg"/>';
+            $a .=  '<img src="'.Eruda::getEnvironment()->getBaseURL().self::$URLc.$this->id.'a.jpg"/> <img src="'.Eruda::getEnvironment()->getBaseURL().self::$URLc.$this->id.'b.jpg"/>';
         else
-            $a .=  '<img src="'.self::$URLc.$this->id.'a.jpg"/>';
+            $a .=  '<img src="'.Eruda::getEnvironment()->getBaseURL().self::$URLc.$this->id.'a.jpg"/>';
         $a .= '</section>';
             
         $a .= '<footer>';
         
         if($this->verO)
-            $a .=  '<a title="Ver online" target="_blank" href="'.self::$VERONLINE.'ver.php?pg='.$this->serie.'/'.$this->tomo.'/'.$this->titulo.'"><img class ="donwImage"  alt="Ver online" src="'.self::$URLt.'ver.jpg"></a>';
+            $a .=  '<a title="Ver online" target="_blank" href="'.self::$VERONLINE.'ver.php?pg='.$this->serie.'/'.$this->tomo.'/'.$this->titulo.'"><img class ="donwImage"  alt="Ver online" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.'ver.jpg"></a>';
             
         foreach($this->links as $k => $link) {
             if (isset(self::$servers[$link[0]])) 
                 if(self::$servers[$link[0]]==1)
-                    $a .=  '<a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage"  alt="Descargar '.$link[0].'" src="'.self::$URLt.$link[0].'.jpg"></a>';
+                    $a .=  '<a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage"  alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.$link[0].'.jpg"></a>';
                 else if(self::$servers[$link[0]]==2)
-                    $a .=  '<a title="Descargar Torrent" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage"  alt="Descargar Torrent" src="'.self::$URLt.'torrent.jpg"></a>';
+                    $a .=  '<a title="Descargar Torrent" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage"  alt="Descargar Torrent" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.'torrent.jpg"></a>';
                 else
-                    $a .=  '<img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.self::$URLt.$link[0].'.jpg">';
+                    $a .=  '<img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.$link[0].'.jpg">';
             else
-                $a .=  '<a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage" alt="Descargar '.$link[0].'" src="'.self::$URLt.'default.jpg"></a>';
+                $a .=  '<a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'manga/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->tomo.'/"><img class ="donwImage" alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.'default.jpg"></a>';
         }
             
         $a .= '</footer>';
@@ -113,6 +113,7 @@ class Eruda_Model_Manga extends Eruda_Model {
     }
     
     function get_downloads() {
+        $ret = '';
         foreach($this->links as $link) {
             $ret .= implode(' , ', $link).'
 ';

@@ -44,6 +44,7 @@ class Eruda_Controller_Manga extends Eruda_Controller {
     
     
     function index() {        
+        $this->header->prepend2Title('Manga');  
         if(!$this->_onlyheader) {
             $mangas = Eruda_Mapper_Manga::getLasts(10);
             
@@ -57,12 +58,15 @@ class Eruda_Controller_Manga extends Eruda_Controller {
     }
     
     function Serie() {        
+        $serie = $this->_params[0];
+        $this->header->prepend2Title('Manga');    
         if(!$this->_onlyheader) {
-            $serie = $this->_params[0];
             $mangas = Eruda_Mapper_Manga::getLastsFromSerie(10,$serie);
             if(!(count($mangas)>0)) {
                 return new Eruda_CF('Error', 'E404');
             }
+            
+            $this->header->prepend2Title(ucfirst(Eruda_Helper_Parser::Link2Text($mangas[0]->get_serie()))); 
             
             $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $mangas);
             
@@ -74,13 +78,16 @@ class Eruda_Controller_Manga extends Eruda_Controller {
     }
     
     function Tomo() {        
+        $serie = $this->_params[0];
+        $tomo = $this->_params[1];
+        $this->header->prepend2Title('Manga');    
         if(!$this->_onlyheader) {
-            $serie = $this->_params[0];
-            $tomo = $this->_params[1];
             $mangas = Eruda_Mapper_Manga::getSerieTomo($serie, $tomo);
             if(!(count($mangas)>0)) {
                 return new Eruda_CF('Error', 'E404');
             }
+            
+            $this->header->prepend2Title(ucfirst(Eruda_Helper_Parser::Link2Text($mangas[0]->get_serie())).' '.strtoupper($tomo)); 
             
             $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $mangas);
             

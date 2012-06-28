@@ -52,6 +52,7 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
     }
     
     public function Index() {
+        $this->header->prepend2Title('Proyectos');    
         if(!$this->_onlyheader) {
             $items = array();
             for($i = 0; $i<3 && $i < count($this->proyectos); $i++){
@@ -68,9 +69,9 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
     }
     
     public function Serie() {
+        $id = $this->_params[0];
+        $link = $this->_params[1];
         if(!$this->_onlyheader) {
-            $id = $this->_params[0];
-            $link = $this->_params[1];
             
             $p = Eruda_Mapper_Proyecto::get($id);
             
@@ -82,6 +83,8 @@ class Eruda_Controller_Proyecto extends Eruda_Controller {
                 $this->end();
                 exit();
             }
+            $this->header->prepend2Title(ucfirst(Eruda_Helper_Parser::Link2Text($p->get_serie()))); 
+            $this->header->prepend2Title('Proyectos');    
             
             $items = array($p);
             $model = new Eruda_Model_ProyectosList($this->user, $this->avisos, $this->list, $items);

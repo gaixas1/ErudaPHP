@@ -39,7 +39,7 @@ class Eruda_Model_AnimeSerie extends Eruda_Model {
         return $this->_cont;
     }
     function set_cont($val){
-        $t = split(',', $val);
+        $t = explode(',', $val);
         foreach($t as $v){
             if($v!=null && trim($v)!=''){
                 $this->_cont[] = trim($v);

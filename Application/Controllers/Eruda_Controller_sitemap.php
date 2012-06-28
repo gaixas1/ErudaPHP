@@ -10,7 +10,7 @@
  *
  * @author gaixas1
  */
-class Eruda_Controller_sitemap {
+class Eruda_Controller_sitemap extends Eruda_Controller {
     
     public function ini() {
         Eruda::getDBConnector()->connect();

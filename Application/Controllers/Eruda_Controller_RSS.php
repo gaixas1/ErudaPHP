@@ -10,7 +10,7 @@
  *
  * @author gaixas1
  */
-class Eruda_Controller_RSS {
+class Eruda_Controller_RSS extends Eruda_Controller {
     
     protected $cats;
 

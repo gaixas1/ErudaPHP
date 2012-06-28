@@ -37,6 +37,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     
     
     function LogForm() {        
+        $this->header->prepend2Title('Entrar');
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -57,6 +58,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     }
     
     function LogIn() {        
+        $this->header->prepend2Title('Entrar');
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -113,7 +115,8 @@ class Eruda_Controller_User extends Eruda_Controller{
         return null;
     }
     
-    function RegisterForm() {        
+    function RegisterForm() {   
+        $this->header->prepend2Title('Registro');     
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -136,6 +139,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     
     
     function Register() {        
+        $this->header->prepend2Title('Registro');
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -216,6 +220,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     
     
     function EditForm() {        
+        $this->header->prepend2Title('Editar');
         if(!$this->_onlyheader) {
             if(!($this->user->get_id()>0)) {
                 header( 'Location: '.$this->refered ) ;
@@ -238,6 +243,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     }
     
     function Edit() {        
+        $this->header->prepend2Title('Editar');
         if(!$this->_onlyheader) {
             if(!($this->user->get_id()>0)) {
                 header( 'Location: '.$this->refered ) ;
@@ -291,6 +297,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     
     
     function RecuperaForm() {        
+        $this->header->prepend2Title('Recuperar contraseña');
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -312,6 +319,7 @@ class Eruda_Controller_User extends Eruda_Controller{
     
     
     function Recupera() {        
+        $this->header->prepend2Title('Recuperar contraseña : Error');  
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -403,7 +411,8 @@ El enlace será valido durante las proximas 48h</p>
     }
     
     
-    function RecuperaSended() {        
+    function RecuperaSended() {     
+        $this->header->prepend2Title('Recuperar contraseña : Enviado');   
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -425,6 +434,7 @@ El enlace será valido durante las proximas 48h</p>
     }
     
     function RecuperaChanged() {        
+        $this->header->prepend2Title('Contraseña modificada');
         if(!$this->_onlyheader) {
             $model = new Eruda_Model_Message('Contraseña modificada con exito.');
             
@@ -439,7 +449,8 @@ El enlace será valido durante las proximas 48h</p>
     }
     
     
-    function RecuperaMailForm() {        
+    function RecuperaMailForm() {     
+        $this->header->prepend2Title('Recuperar contraseña');   
         if(!$this->_onlyheader) {
             if($this->user->get_id()>0) {
                 header( 'Location: '.$this->refered ) ;
@@ -470,7 +481,8 @@ El enlace será valido durante las proximas 48h</p>
         return null;
     }
     
-    function RecuperaMail() {        
+    function RecuperaMail() {      
+        $this->header->prepend2Title('Recuperar contraseña : Error');  
         if(!$this->_onlyheader) {
             if(($this->user->get_id()>0)) {
                 header( 'Location: '.$this->refered ) ;
@@ -529,7 +541,8 @@ El enlace será valido durante las proximas 48h</p>
     }
     
     
-    function RecuperaError() {        
+    function RecuperaError() {      
+        $this->header->prepend2Title('Recuperar contraseña : Error');  
         if(!$this->_onlyheader) {
             $model = new Eruda_Model_Message('El codigo de recuperación es incorrecto o ha caducado.');
             
@@ -545,6 +558,7 @@ El enlace será valido durante las proximas 48h</p>
     
     
     function LogOut() {        
+        $this->header->prepend2Title('Salir');  
         Eruda_Helper_Auth::LogOut();
         header( 'Location: '.$this->refered ) ;
         $this->resetRefered();

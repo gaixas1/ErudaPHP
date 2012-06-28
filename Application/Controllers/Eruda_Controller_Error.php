@@ -18,10 +18,10 @@ class Eruda_Controller_Error extends Eruda_Controller {
         $this->error = new Eruda_Model_Error();
         
         $pageURL = 'http';
-        if ($_SERVER["HTTPS"] == "on")
+        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
             $pageURL .= "s";
         $pageURL .= "://";
-        if ($_SERVER["SERVER_PORT"] != "80")
+        if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] != "80")
             $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
         else
         $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];

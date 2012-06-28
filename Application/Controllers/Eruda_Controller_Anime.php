@@ -44,6 +44,7 @@ class Eruda_Controller_Anime extends Eruda_Controller {
     
     
     function index() {        
+        $this->header->prepend2Title('Anime');       
         if(!$this->_onlyheader) {
             $animes = Eruda_Mapper_Anime::getLasts(10);
             
@@ -56,13 +57,16 @@ class Eruda_Controller_Anime extends Eruda_Controller {
         return null;
     }
     
-    function Serie() {        
+    function Serie() { 
+        $serie = $this->_params[0];
+        $this->header->prepend2Title('Anime');               
         if(!$this->_onlyheader) {
-            $serie = $this->_params[0];
             $animes = Eruda_Mapper_Anime::getLastsFromSerie(10,$serie);
             if(!(count($animes)>0)) {
                 return new Eruda_CF('Error', 'E404');
             }
+            
+            $this->header->prepend2Title(ucfirst(Eruda_Helper_Parser::Link2Text($animes[0]->get_serie())).' '.strtoupper($cont)); 
             
             $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $animes);
             
@@ -73,14 +77,16 @@ class Eruda_Controller_Anime extends Eruda_Controller {
         return null;
     }
     
-    function Contenedor() {        
+    function Contenedor() { 
+        $serie = $this->_params[0];
+        $cont = $this->_params[1];
+        $this->header->prepend2Title('Anime');                
         if(!$this->_onlyheader) {
-            $serie = $this->_params[0];
-            $cont = $this->_params[1];
             $animes = Eruda_Mapper_Anime::getSerieCont($serie, $cont);
             if(!(count($animes)>0)) {
                 return new Eruda_CF('Error', 'E404');
             }
+            $this->header->prepend2Title(ucfirst(Eruda_Helper_Parser::Link2Text($animes[0]->get_serie())).' '.strtoupper($cont)); 
             
             $model = new Eruda_Model_Manganime($this->user, $this->avisos, $this->series, $animes);
             

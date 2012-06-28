@@ -445,12 +445,11 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
             foreach($order as $val){
                 $ovals[] = $val[0].' '.$val[1];
             }
-            $query .= ' ORDER BY '.implode(' AND ', $ovals).' ';
+            $query .= ' ORDER BY '.implode(' , ', $ovals).' ';
         }
         
         $query .= ' LIMIT '.$start.', '.$total.' ;';
         $ret = array();
-        
         if($res = $this->_mysqli->query($query)){
             if($object!=null && is_string($object)){
                 while($row = $res->fetch_array()){
@@ -488,7 +487,7 @@ class Eruda_DBConnector_MYSQLi extends Eruda_DBConnector {
             foreach($order as $val){
                 $ovals[] = $val[0].','.$val[1];
             }
-            $query .= ' ORDER BY '.implode(' AND ', $qvals).' ';
+            $query .= ' ORDER BY '.implode(' , ', $qvals).' ';
         }
         $ret = null;
         

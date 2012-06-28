@@ -39,7 +39,7 @@ class Eruda_Model_MangaSerie extends Eruda_Model {
         return $this->_tomos;
     }
     function set_tomos($val){
-        $t = split(',', $val);
+        $t = explode(',', $val);
         foreach($t as $v){
             if($v!=null && trim($v)!=''){
                 $this->_tomos[] = trim($v);

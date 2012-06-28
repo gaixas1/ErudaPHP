@@ -25,7 +25,7 @@ class Eruda_View_sitemap extends Eruda_View {
 ?>
         <url> 
             <loc><?php echo ($item->sitemap_get_loc());?></loc> 
-            <?php if($item->sitemap_has_lastmod()){?><lastmod><?php echo date('Y-m-dTH:i:s+01:00',$item->sitemap_get_lastmod());?></lastmod> <?php }?>
+            <?php if($item->sitemap_has_lastmod()){?><lastmod><?php echo date('Y-m-dTH:i:s+01:00',strtotime($item->sitemap_get_lastmod()));?></lastmod> <?php }?>
             <changefreg><?php echo ($item->sitemap_get_changefreg());?></changefreg> 
             <priority><?php echo ($item->sitemap_get_priority());?></priority> 
         </url>

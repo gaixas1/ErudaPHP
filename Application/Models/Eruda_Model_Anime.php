@@ -24,8 +24,8 @@ class Eruda_Model_Anime extends Eruda_Model{
 		'megarotic' => -1
 		);
     static public $URLd = '/download/';
-    static public $URLt =  '/img/servers/';
-    static public $URLc =  '/capturas_anime/';
+    static public $URLt =  'img/servers/';
+    static public $URLc =  'capturas_anime/';
     
     
     
@@ -59,7 +59,7 @@ class Eruda_Model_Anime extends Eruda_Model{
         $a .= '<header><h1>'.$serie.'</h1><h2>['.$this->cont.'] '.$this->titulo.'</h2></header>';
         
         $a .= '<section class="imagenes">';
-        $a .=  '<img src="'.self::$URLc.$this->id.'.jpg"/> ';
+        $a .=  '<img src="'.Eruda::getEnvironment()->getBaseURL().self::$URLc.$this->id.'.jpg"/> ';
         $a .= '</section>';
         
         $a .= '<footer>';
@@ -67,13 +67,13 @@ class Eruda_Model_Anime extends Eruda_Model{
         foreach($this->links as $k => $link) {
             if (isset(self::$servers[$link[0]])) 
                 if(self::$servers[$link[0]]==1)
-                    $a .=  '<div class="animelink"><a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage"  alt="Descargar '.$link[0].'" src="'.self::$URLt.''.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></a></div>';
-                else if($servers[$link[0]]==2)
-                    $a .=  '<div class="animelink"><a title="Descargar Torrent" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage"  alt="Descargar Torrent" src="'.self::$URLt.'torrent.jpg"><span class="dtext"> Descargar Torrent</span></a></div>';
+                    $a .=  '<div class="animelink"><a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage"  alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.''.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></a></div>';
+                else if(self::$servers[$link[0]]==2)
+                    $a .=  '<div class="animelink"><a title="Descargar Torrent" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage"  alt="Descargar Torrent" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.'torrent.jpg"><span class="dtext"> Descargar Torrent</span></a></div>';
                 else
-                    $a .=  '<div class="animelinkOff"><img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.self::$URLt.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></div>';
+                    $a .=  '<div class="animelinkOff"><img class ="donwImageOff"  alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.$link[0].'.jpg"><span class="dtext"> Descargar '.$link[2].'</span></div>';
             else
-                $a .=  '<div class="animelink"><a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage" alt="Descargar '.$link[0].'" src="'.self::$URLt.'default.jpg"><span class="dtext"> Descargar '.$link[2].'</span></a></div>';
+                $a .=  '<div class="animelink"><a title="Descargar '.$link[0].'" target="_blank" href="'.self::$URLd.'anime/'.$this->id.'/'.$k.'/'.$this->serie."/".$this->titulo.'/"><img class ="donwImage" alt="Descargar '.$link[0].'" src="'.Eruda::getEnvironment()->getBaseURL().self::$URLt.'default.jpg"><span class="dtext"> Descargar '.$link[2].'</span></a></div>';
         }
         
         $a .= '</footer>';
@@ -103,6 +103,7 @@ class Eruda_Model_Anime extends Eruda_Model{
     }
     
     function get_downloads() {
+        $ret = '';
         foreach($this->links as $link) {
             $ret .= implode(' , ', $link).'
 ';

@@ -57,7 +57,6 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             
             $page = new Eruda_Model_Page('/', 1, ceil(Eruda_Mapper_Entry::countFromAll()/Eruda::getEnvironment()->getEntriesPerPage()));
             
-            
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, $page);
             
             $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
@@ -70,6 +69,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
     function Paginacion() {        
         if(!$this->_onlyheader) {
             $pag = $this->_params[0];
+            $this->header->append2Title('Página '.$pag);
             $maxPages = ceil(Eruda_Mapper_Entry::countFromAll()/Eruda::getEnvironment()->getEntriesPerPage());
             
             if($pag>$maxPages) {
@@ -104,6 +104,8 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
                 return new Eruda_CF('Error', 'E404');
             }
             
+            $this->header->append2Title($categoria->get_name());
+            
             $maxPages = ceil($categoria->get_count()/Eruda::getEnvironment()->getEntriesPerPage());
             
             $entries = Eruda_Mapper_Entry::getFromCat($categoria->get_id(), 0, Eruda::getEnvironment()->getEntriesPerPage());
@@ -133,6 +135,8 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
                 $this->end();
                 exit();
             }
+            $this->header->append2Title($categoria->get_name());
+            $this->header->append2Title('Página '.$pag);
             
             $entries = Eruda_Mapper_Entry::getFromCat($categoria->get_id(), ($pag-1)*Eruda::getEnvironment()->getEntriesPerPage(), $maxPages);
             
@@ -160,6 +164,8 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
             }
             self::setEntries($entries);
             
+            $this->header->append2Title(Eruda_Helper_Parser::parseMonth($month).' '.$year);
+            
             $model = new Eruda_Model_ListEntries($this->user, $this->cats, $this->archives, $this->avisos, $entries, null , Eruda_Helper_Parser::parseMonth($month).' del '.$year);
             
             $view = new Eruda_View_HTML($this->device.'basic', array('section'=>'entriesperpage', 'lateral'=>'lateralblog'));
@@ -184,6 +190,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
                 exit();
             }
             self::setEntry($entry);
+            $this->header->append2Title($entry->get_title());
             
             $comments = Eruda_Mapper_Comment::getFrom($id);
             self::setComments($comments);
@@ -261,6 +268,7 @@ class Eruda_Controller_Entrada extends Eruda_Controller{
                     exit();
                 }
                 self::setEntry($entry);
+                $this->header->append2Title($entry->get_title());
 
                 $comments = Eruda_Mapper_Comment::getFrom($eid);
                 self::setComments($comments);

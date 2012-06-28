@@ -55,7 +55,9 @@ class Eruda_Controller_Admin extends Eruda_Controller {
             //Estadisticas
             $model->add_data('nent', Eruda_Mapper_Entry::countFromAll());
             $ncom = Eruda_Mapper_Comment::countFromAll();
-            $ncomval = $ncomesp = $ncomspm = 0;
+            $ncomval = 0;
+            $ncomesp = 0;
+            $ncomspm = 0;
             foreach($ncom as $c) {
                 switch($c['valid']) {
                     case '1': $ncomval = $c['count']; break;
@@ -83,6 +85,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     function EntradasList() {        
         if(!$this->_onlyheader) {
+            $this->header->append2Title('Entradas');
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
                 'entradas/' => 'Entradas'
@@ -101,6 +104,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function EntradaForm() {        
+        $this->header->append2Title('Nueva entrada');
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -124,6 +128,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function EntradaGet() {        
+        $this->header->append2Title('Modificar entrada');
         $id = $this->_params[0];
         $entry = Eruda_Mapper_Entry::get($id);
         if($entry==null) {
@@ -156,7 +161,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
         return null;
     }
     
-    function EntradaPut() {      
+    function EntradaPut() {    
+        $this->header->append2Title('Nueva entrada');  
         $form = new Eruda_Form('Entry');
         $form->addField('title', new Eruda_Field('title'));
         $form->addField('text', new Eruda_Field('text'));
@@ -185,6 +191,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function EntradaPost() {  
+        $this->header->append2Title('Modificar entrada');
         $id = $this->_params[0];
         $entry = Eruda_Mapper_Entry::get($id);
         if($entry==null) {
@@ -222,7 +229,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
 
     
-    function CommentsList() {        
+    function CommentsList() {      
+        $this->header->append2Title('Comentarios');  
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -252,6 +260,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
     
     function CommentsValid() {      
+        $this->header->append2Title('Comentarios');  
         $id = $this->_params[0];
         $comment =Eruda_Mapper_Comment::get($id);
         
@@ -270,6 +279,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function CommentsDelete() {      
+        $this->header->append2Title('Comentarios');  
         $id = $this->_params[0];
         $comment =Eruda_Mapper_Comment::get($id);
         Eruda_Mapper_Comment::delete($id);
@@ -291,6 +301,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
     
     function AvisosGet() {        
+        $this->header->append2Title('Avisos');  
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -311,6 +322,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function AvisosPost() {    
+        $this->header->append2Title('Avisos');  
         $forma = new Eruda_Form();
         $forma->addField('avisos', new Eruda_Field_Array('aviso'));
         $forma->validate();
@@ -330,6 +342,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function AvisosPut() {      
+        $this->header->append2Title('Avisos');  
         $forma = new Eruda_Form();
         $forma->addField('avisos', new Eruda_Field('aviso'));
         $forma->validate();
@@ -350,6 +363,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function MangaList() {        
+        $this->header->append2Title('Manga');  
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -371,6 +385,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function AddMangaSerie() {      
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Nueva serie');  
         $forma = new Eruda_Form('MangaSerie');
         $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
         if($forma->validate()){
@@ -389,7 +405,9 @@ class Eruda_Controller_Admin extends Eruda_Controller {
         exit();
     }
     
-    function MangaSerieGet() {         
+    function MangaSerieGet() {       
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Modificar serie');    
         $id = $this->_params[0];  
         if(!($serie = Eruda_Mapper_Manga::getSerie($id))) {
             return new Eruda_CF('Error', 'E404');
@@ -414,6 +432,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function MangaSeriePost() {
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Modificar serie');  
         $id = $this->_params[0];  
         if(!Eruda_Mapper_Manga::getSerie($id)) {
             return new Eruda_CF('Error', 'E404');
@@ -435,6 +455,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function MangaSerieDelete() {
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Eliminar serie');  
         $id = $this->_params[0];  
         Eruda_Mapper_Manga::deleteSerie($id);
         header( 'Location: /admin/manga/') ;
@@ -444,6 +466,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function MangaForm() {        
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Nueva descarga');  
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -464,6 +488,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function MangaGet() {        
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Modifcar descarga');  
         $id = $this->_params[0];
         $descarga = Eruda_Mapper_Manga::get($id);
         if($descarga==null) {
@@ -491,6 +517,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function MangaPut() {   
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Nueva descarga');  
         $form = new Eruda_Form('Manga');
         $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
         $form->addField('tomo', new Eruda_Field('tomo', 'tomo needed'));
@@ -537,6 +565,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function MangaPost() {   
+        $this->header->append2Title('Manga');  
+        $this->header->append2Title('Modificar descarga');  
         $id = $this->_params[0];
         if(Eruda_Mapper_Manga::get($id)==null) {
             return new Eruda_CF('Error', 'E404');
@@ -580,6 +610,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function AnimeList() {        
+        $this->header->append2Title('Anime');  
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -601,6 +632,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
     
     function AddAnimeSerie() {      
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Nueva serie');  
         $forma = new Eruda_Form('AnimeSerie');
         $forma->addField('serie', new Eruda_Field('title', 'No puede estar en blanco'));
         if($forma->validate()){
@@ -622,6 +655,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
 
     
     function AnimeSerieGet() {         
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Modificar serie');  
         $id = $this->_params[0];  
         if(!($serie = Eruda_Mapper_Anime::getSerie($id))) {
             return new Eruda_CF('Error', 'E404');
@@ -646,6 +681,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function AnimeSeriePost() {
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Modificar serie');  
         $id = $this->_params[0];  
         if(!Eruda_Mapper_Anime::getSerie($id)) {
             return new Eruda_CF('Error', 'E404');
@@ -667,6 +704,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function AnimeSerieDelete() {
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Eliminar serie');  
         $id = $this->_params[0];  
         Eruda_Mapper_Anime::deleteSerie($id);
         header( 'Location: /admin/anime/') ;
@@ -677,7 +716,9 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     
-    function AnimeForm() {        
+    function AnimeForm() {       
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Nueva descarga');   
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -698,6 +739,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function AnimeGet() {        
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Modificar descarga');   
         $id = $this->_params[0];
         $descarga = Eruda_Mapper_Anime::get($id);
         if($descarga==null) {
@@ -725,6 +768,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function AnimePut() {   
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Nueva descarga');   
         $form = new Eruda_Form('Anime');
         $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
         $form->addField('cont', new Eruda_Field('cont', 'cont needed'));
@@ -769,6 +814,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function AnimePost() {   
+        $this->header->append2Title('Anime');  
+        $this->header->append2Title('Modificar descarga');   
         $id = $this->_params[0];
         if(Eruda_Mapper_Anime::get($id)==null) {
             return new Eruda_CF('Error', 'E404');
@@ -809,7 +856,8 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     
-    function ProyectosList() {        
+    function ProyectosList() {   
+        $this->header->append2Title('Proyectos');       
         if(!$this->_onlyheader) {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
@@ -829,6 +877,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     function ProyectosGet() {        
+        $this->header->append2Title('Modificar Proyecto');       
         $id = $this->_params[0];
         $proy = Eruda_Mapper_Proyecto::get($id);
         if($proy==null) {
@@ -855,6 +904,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function ProyectosPut() {   
+        $this->header->append2Title('Proyectos');       
         $form = new Eruda_Form('Proyecto');
         $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
         $form->addField('tipo', new Eruda_Field('tipo', 'tipo needed'));
@@ -895,6 +945,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     function ProyectosPost() {   
+        $this->header->append2Title('Modificar Proyecto');       
         $id = $this->_params[0];
         if(Eruda_Mapper_Proyecto::get($id)==null) {
             return new Eruda_CF('Error', 'E404');
