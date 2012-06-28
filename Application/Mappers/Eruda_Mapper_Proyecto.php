@@ -43,11 +43,54 @@ class Eruda_Mapper_Proyecto {
     /**
      *
      * @param int $id
-     * @return Eruda_Model_Category
+     * @return array(Eruda_Model_Proyecto)
      */
     static function All(){
-        $proys = Eruda::getDBConnector()->selectAll(self::$_tableB, array(array('name','ASC')), 0, 999, 'Proyecto');
+        $proys = Eruda::getDBConnector()->selectAll(self::$_tableB, array(array('serie','ASC')), 0, 999, 'Proyecto');
         return $proys;
+    }
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Proyecto $proy
+     * @return Eruda_Model_Proyecto
+     */
+    static function save(&$proy) {
+        $attr = array(
+            'serie',
+            'tipo',
+            'estado',
+            'texto'
+        );
+        $values = array(
+            $proy->get_serie(),
+            $proy->get_tipo(),
+            $proy->get_estado(),
+            $proy->get_texto()
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableA, $attr, $values);
+        $proy->set_id(Eruda::getDBConnector()->lastID());
+        return $proy;
+    }
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Proyecto $down
+     * @return Eruda_Model_Proyecto 
+     */
+    static function update($proy) {
+        $values = array(
+            'serie' =>  $proy->get_serie(),
+            'tipo' => $proy->get_tipo(),
+            'estado' => $proy->get_estado(),
+            'texto' => $proy->get_texto()
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $proy->get_id());
+        return $proy;
     }
 }
 

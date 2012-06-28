@@ -4,6 +4,7 @@
 
     define('PATH',dirname(__FILE__));
     define('APP_PATH', PATH.'/Application/');
+    define('PUB_PATH', PATH.'/public/');
     require_once APP_PATH.'routeMap.php';
     Eruda::setRouter($router);
     Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://localhost/', 5, 'admin@fallensoul.es'));

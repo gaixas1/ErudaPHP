@@ -35,13 +35,22 @@ class Eruda_Model_Manga extends Eruda_Model {
     protected $links = array();
     protected $verO = false;
     
-    public function __construct($vals) {
-        $this->id = $vals['id'];
-        $this->serie = $vals['serie'];
-        $this->titulo = $vals['titulo'];
-        $this->tomo = $vals['tomo'];
-        $this->verO = $vals['vero'];
-        $this->links = unserialize($vals['downloads']);
+    public function __construct($vals=null) {
+        if(is_array($vals)){
+            $this->id = $vals['id'];
+            $this->serie = $vals['serie'];
+            $this->titulo = $vals['titulo'];
+            $this->tomo = $vals['tomo'];
+            $this->verO = $vals['vero'];
+            $this->links = unserialize($vals['downloads']);
+        } else {
+            $this->id = 0;
+            $this->serie = '';
+            $this->titulo = '';
+            $this->tomo = '';
+            $this->verO = false;
+            $this->links = array();
+        }
     }
     
     public function __toString() {
@@ -87,8 +96,80 @@ class Eruda_Model_Manga extends Eruda_Model {
         return '['.$this->id.'] '.$this->serie.' - '.$this->tomo.' - '.$this->titulo;
     }
     
+    function get_serie() {
+        return $this->serie;
+    }
+    
+    function get_tomo() {
+        return $this->tomo;
+    }
+    
+    function get_titulo() {
+        return $this->titulo;
+    }
+    
+    function get_links() {
+        return $this->links;
+    }
+    
+    function get_downloads() {
+        foreach($this->links as $link) {
+            $ret .= implode(' , ', $link).'
+';
+        }
+        return $ret;
+    }
+    
+    function has_verO() {
+        return ($this->verO != null)&&($this->verO != false);
+    }
+    
+    
     function get_id(){
         return $this->id;
+    }
+    
+    
+    function set_id($val){
+        $this->id = $val;
+    }
+    
+    function set_serie($val){
+        $this->serie = $val;
+    }
+    
+    function set_titulo($val){
+        $this->titulo = $val;
+    }
+    
+    function set_tomo($val){
+        $this->tomo = $val;
+    }
+    
+    function set_verO($val){
+        $this->verO = ($val != null)&&($val != false)&&($val != 0);
+    }
+    
+    function set_links($val){
+        $this->links = $val;
+    }
+    
+    function parseLinks(){
+        foreach($this->links as $k => $link){
+            if(count($link)==1){
+                $val = trim($link[0]);
+		if(preg_match('|^.*\.torrent$|', $val, $matches)) {
+                    $this->links[$k] = array('torrent', $matches[0]);
+		} else if(preg_match('|https?://(www\.)?([^\.]*)|', $val, $matches)) {
+                    if(count($matches)==2)
+                        $this->links[$k] = array($matches[1],$matches[0]);
+                    else
+                        $this->links[$k] = array($matches[2],$matches[0]);
+		}
+            } else {
+                $this->links[$k] = array($link[0], $link[1]);
+            }
+        }
     }
 }
 

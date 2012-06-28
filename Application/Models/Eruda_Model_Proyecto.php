@@ -18,8 +18,17 @@ class Eruda_Model_Proyecto extends Eruda_Model implements Eruda_Interface_sitema
     protected $_texto;
     
     function __construct($vals = array()){
+        $this->_id = 0;
+        $this->_serie = '';
+        $this->_tipo = '';
+        $this->_estado = '';
+        $this->_texto = '********* Texto *********
+		
+Traducción :: *********
+Edición :: *********';
+        
         parent::__construct($vals);
-        }
+    }
 
 
     function get_id(){

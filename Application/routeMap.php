@@ -163,7 +163,19 @@ $router = new Eruda_Router(     //Index Router
                             ),
                             'proyectos/'
                                 => new Eruda_Router(    //Admin-Proyectos Router
-                                    /*TO-DO*/
+                                    array(
+                                            new Eruda_CF('Admin', 'ProyectosList'),
+                                            new Eruda_CF('Admin', 'ProyectosPUT','POST')
+                                    ),
+                                    array(
+                                        '([0-9]+)/'
+                                            => new Eruda_Router(    //Admin-Proyectos-ID Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'ProyectosGET'),
+                                                    new Eruda_CF('Admin', 'ProyectosPOST','POST')
+                                                )
+                                        )
+                                    )
                             )
                         )   
                 ),

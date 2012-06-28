@@ -133,7 +133,7 @@ class Eruda_Controller_Admin extends Eruda_Controller {
             $dir = array(
                 '' => Eruda::getEnvironment()->getTitle(). ' Administración',
                 'entradas/' => 'Entradas',
-                'entradas/new/' => 'Editar'
+                'entradas/'.$id.'/' => 'Editar'
                 );
             
             $model = new Eruda_Model_Admin($this->user, $dir);
@@ -443,6 +443,141 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     }
     
     
+    function MangaForm() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'manga/' => 'Manga',
+                'manga/new/' => 'Nueva Descarga'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('series',Eruda_Mapper_Manga::getSeries());
+            $model->add_data('descarga',new Eruda_Model_Manga());
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'mangaform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function MangaGet() {        
+        $id = $this->_params[0];
+        $descarga = Eruda_Mapper_Manga::get($id);
+        if($descarga==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'manga/' => 'Manga',
+                'manga/'.$id.'/' => 'Editar'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('series',Eruda_Mapper_Manga::getSeries());
+            $model->add_data('descarga',$descarga);
+            
+            $this->header->addCSS('manga.css');
+            $view = new Eruda_View_HTML('admin', array('section'=>'mangaform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function MangaPut() {   
+        $form = new Eruda_Form('Manga');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('tomo', new Eruda_Field('tomo', 'tomo needed'));
+        $form->addField('titulo', new Eruda_Field('descarga', 'descarga needed'));
+        $form->addField('verO', new Eruda_Field('verO'));
+        $form->addField('links', new Eruda_Field_AreaArray('links'));
+        if($form->validate()){
+            $download = $form->getValue();
+            $download->parseLinks();
+            Eruda_Mapper_Manga::save($download);  
+            if(!($download->get_id()>0)) {
+                return new Eruda_CF('Error', 'E500');
+            }
+            $aviso = new Eruda_Model_Aviso();
+            $aviso->set_msg('Disponible '.Eruda_Helper_Parser::Link2Text($download->get_serie()).', '.$download->get_titulo());
+            Eruda_Mapper_Aviso::save($aviso);
+            $id = $download->get_id(); 
+            self::uploadImage('imagen1', $id.'a', 'capturas_manga', false, 255);
+            self::uploadImage('imagen2', $id.'b', 'capturas_manga', false, 255);
+           
+            header( 'Location: /admin/manga/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+                $dir = array(
+                    '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                    'manga/' => 'Manga',
+                    'manga/new/' => 'Nueva Descarga'
+                    );
+                $model = new Eruda_Model_Admin($this->user, $dir);
+                $download = $form->getValue();
+                $model->add_data('series',Eruda_Mapper_Manga::getSeries());
+                $model->add_data('descarga',$download);
+
+
+                $this->header->addCSS('manga.css');
+                $view = new Eruda_View_HTML('admin', array('section'=>'mangaform'));
+                $view->setHeader($this->header);
+                return new Eruda_MV($view, $model);
+            
+        }
+        return null;
+    }
+    
+    
+    function MangaPost() {   
+        $id = $this->_params[0];
+        if(Eruda_Mapper_Manga::get($id)==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        $form = new Eruda_Form('Manga');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('tomo', new Eruda_Field('tomo', 'tomo needed'));
+        $form->addField('titulo', new Eruda_Field('descarga', 'descarga needed'));
+        $form->addField('verO', new Eruda_Field('verO'));
+        $form->addField('links', new Eruda_Field_AreaArray('links'));
+        if($form->validate()){
+            $download = $form->getValue();
+            $download->set_id($id);
+            $download->parseLinks();
+            Eruda_Mapper_Manga::update($download);  
+            self::uploadImage('imagen1', $id.'a', 'capturas_manga', false, 255);
+            self::uploadImage('imagen2', $id.'b', 'capturas_manga', false, 255);
+            header( 'Location: /admin/manga/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+                $dir = array(
+                    '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                    'manga/' => 'Manga',
+                    'manga/new/' => 'Nueva Descarga'
+                    );
+                $model = new Eruda_Model_Admin($this->user, $dir);
+                $download = $form->getValue();
+                $model->add_data('series',Eruda_Mapper_Manga::getSeries());
+                $model->add_data('descarga',$download);
+
+                $this->header->addCSS('manga.css');
+                $view = new Eruda_View_HTML('admin', array('section'=>'mangaform'));
+                $view->setHeader($this->header);
+                return new Eruda_MV($view, $model);
+            
+        }
+        return null;
+    }
+    
+    
     
     function AnimeList() {        
         if(!$this->_onlyheader) {
@@ -541,6 +676,264 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     
     
     
+    
+    function AnimeForm() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'anime/' => 'Anime',
+                'anime/new/' => 'Nueva Descarga'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('series',Eruda_Mapper_Anime::getSeries());
+            $model->add_data('descarga',new Eruda_Model_Anime());
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'animeform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function AnimeGet() {        
+        $id = $this->_params[0];
+        $descarga = Eruda_Mapper_Anime::get($id);
+        if($descarga==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'anime/' => 'Anime',
+                'anime/'.$id.'/' => 'Editar'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('series',Eruda_Mapper_Anime::getSeries());
+            $model->add_data('descarga',$descarga);
+            
+            $this->header->addCSS('anime.css');
+            $view = new Eruda_View_HTML('admin', array('section'=>'animeform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function AnimePut() {   
+        $form = new Eruda_Form('Anime');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('cont', new Eruda_Field('cont', 'cont needed'));
+        $form->addField('titulo', new Eruda_Field('descarga', 'descarga needed'));
+        $form->addField('links', new Eruda_Field_AreaArray('links'));
+        if($form->validate()){
+            $download = $form->getValue();
+            $download->parseLinks();
+            Eruda_Mapper_Anime::save($download);  
+            if(!($download->get_id()>0)) {
+                return new Eruda_CF('Error', 'E500');
+            }
+            $aviso = new Eruda_Model_Aviso();
+            $aviso->set_msg('Disponible '.Eruda_Helper_Parser::Link2Text($download->get_serie()).', '.$download->get_titulo());
+            Eruda_Mapper_Aviso::save($aviso);
+            $id = $download->get_id(); 
+            self::uploadImage('imagen', $id, 'capturas_anime', false, 180);
+           
+            header( 'Location: /admin/anime/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+                $dir = array(
+                    '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                    'anime/' => 'Anime',
+                    'anime/new/' => 'Nueva Descarga'
+                    );
+                $model = new Eruda_Model_Admin($this->user, $dir);
+                $download = $form->getValue();
+                $model->add_data('series',Eruda_Mapper_Anime::getSeries());
+                $model->add_data('descarga',$download);
+
+
+                $this->header->addCSS('anime.css');
+                $view = new Eruda_View_HTML('admin', array('section'=>'animeform'));
+                $view->setHeader($this->header);
+                return new Eruda_MV($view, $model);
+            
+        }
+        return null;
+    }
+    
+    
+    function AnimePost() {   
+        $id = $this->_params[0];
+        if(Eruda_Mapper_Anime::get($id)==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        $form = new Eruda_Form('Anime');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('cont', new Eruda_Field('cont', 'cont needed'));
+        $form->addField('titulo', new Eruda_Field('descarga', 'descarga needed'));
+        $form->addField('links', new Eruda_Field_AreaArray('links'));
+        if($form->validate()){
+            $download = $form->getValue();
+            $download->set_id($id);
+            $download->parseLinks();
+            Eruda_Mapper_Anime::update($download);  
+            self::uploadImage('imagen', $id, 'capturas_anime', false, 180);
+            header( 'Location: /admin/anime/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+                $dir = array(
+                    '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                    'anime/' => 'Anime',
+                    'anime/new/' => 'Nueva Descarga'
+                    );
+                $model = new Eruda_Model_Admin($this->user, $dir);
+                $download = $form->getValue();
+                $model->add_data('series',Eruda_Mapper_Anime::getSeries());
+                $model->add_data('descarga',$download);
+
+                $this->header->addCSS('anime.css');
+                $view = new Eruda_View_HTML('admin', array('section'=>'animeform'));
+                $view->setHeader($this->header);
+                return new Eruda_MV($view, $model);
+            
+        }
+        return null;
+    }
+    
+    
+    
+    function ProyectosList() {        
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'proyectos/' => 'Proyectos'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('proyectos', Eruda_Mapper_Proyecto::All());
+            $model->add_data('proy',new Eruda_Model_Proyecto());
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'proyectos'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function ProyectosGet() {        
+        $id = $this->_params[0];
+        $proy = Eruda_Mapper_Proyecto::get($id);
+        if($proy==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'proyectos/' => 'Proyectos',
+                'proyectos/'.$id.'/' => 'Editar'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $model->add_data('proy',$proy);
+            
+            $this->header->addCSS('proyecto.css');
+            $view = new Eruda_View_HTML('admin', array('section'=>'proyectoform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function ProyectosPut() {   
+        $form = new Eruda_Form('Proyecto');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('tipo', new Eruda_Field('tipo', 'tipo needed'));
+        $form->addField('estado', new Eruda_Field('estado', 'estado needed'));
+        $form->addField('texto', new Eruda_Field('texto', 'texto needed'));
+        if($form->validate()){
+            $proy = $form->getValue();
+            Eruda_Mapper_Proyecto::save($proy);  
+            if(!($proy->get_id()>0)) {
+                return new Eruda_CF('Error', 'E500');
+            }
+            $id = $proy->get_id(); 
+            
+            self::uploadImage('imagen', $id, 'capturas_projects', 200);
+           
+            header( 'Location: /admin/proyectos/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'proyectos/' => 'Proyectos',
+                'proyectos/new/' => 'Nuevo Proyecto'
+            );
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            $proy = $form->getValue();
+            
+            $model->add_data('proyectos', Eruda_Mapper_Proyecto::All());
+            $model->add_data('proy',$proy);
+
+            $this->header->addCSS('proyecto.css');
+            $view = new Eruda_View_HTML('admin', array('section'=>'proyectos'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    
+    function ProyectosPost() {   
+        $id = $this->_params[0];
+        if(Eruda_Mapper_Proyecto::get($id)==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        $form = new Eruda_Form('Proyecto');
+        $form->addField('serie', new Eruda_Field('serie', 'serie needed'));
+        $form->addField('tipo', new Eruda_Field('tipo', 'tipo needed'));
+        $form->addField('estado', new Eruda_Field('estado', 'estado needed'));
+        $form->addField('texto', new Eruda_Field('texto', 'texto needed'));
+        if($form->validate()){
+            $download = $form->getValue();
+            $download->set_id($id);
+            Eruda_Mapper_Proyecto::update($download);  
+            self::uploadImage('imagen', $id, 'capturas_projects', 200);
+            header( 'Location: /admin/proyectos/'.$id.'/') ;
+            $this->end();
+            exit();
+        }else if(!$this->_onlyheader) {
+                $dir = array(
+                    '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                    'proyectos/' => 'Proyectos',
+                    'proyectos/'.$id.'/' => 'Editar'
+                    );
+                $model = new Eruda_Model_Admin($this->user, $dir);
+                $proy = $form->getValue();
+
+                $model->add_data('proyectos', Eruda_Mapper_Proyecto::All());
+                $model->add_data('proy',$proy);
+                
+            $this->header->addCSS('proyecto.css');
+                $view = new Eruda_View_HTML('admin', array('section'=>'proyectoform'));
+                $view->setHeader($this->header);
+                return new Eruda_MV($view, $model);
+            
+        }
+        return null;
+    }
+    
+    
 
     static function setEntry(&$entry){
                 $id = $entry->get_id();
@@ -565,6 +958,34 @@ class Eruda_Controller_Admin extends Eruda_Controller {
     static function setComment(&$comment){
         $comment->set_author(Eruda_Mapper_User::get($comment->get_author_id()));
         $comment->set_text(Eruda_Helper_Parser::parseText($comment->get_text()));
+    }
+    
+    
+    static function uploadImage($var, $name, $dest='img', $min_x = false, $min_y = false, $format = 'jpg'){
+        if(isset($_FILES[$var])){
+            $handle = new upload($_FILES[$var]);
+            if ($handle->uploaded) {
+                $handle->mime_check             = true;
+                //$handle->file_max_size          = '1048576';
+                $handle->image_resize           = true;
+                $handle->jpeg_quality           = 100;
+                if($min_x){
+                    $handle->image_x            = $min_x;
+                    $handle->image_ratio_y      = true;
+                } else if($min_y){
+                    $handle->image_y   = $min_y;
+                    $handle->image_ratio_x      = true;
+                }
+                $handle->image_convert          = $format;
+                $handle->file_new_name_body = $name;
+                $handle->file_overwrite = true;
+                $handle->Process(PUB_PATH.$dest.'/');
+                if($handle->processed) 
+                    return true;
+            }
+        }
+        
+        return false;
     }
 }
 

@@ -99,6 +99,49 @@ class Eruda_Mapper_Anime {
     static function deleteSerie($id) {
         Eruda::getDBConnector()->deleteID(self::$_tableB, $id);
     }
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Anime $down
+     * @return \Eruda_Model_Anime
+     */
+    static function save(&$down) {
+        $attr = array(
+            'serie',
+            'cont',
+            'titulo',
+            'downloads'
+        );
+        $values = array(
+            $down->get_serie(),
+            $down->get_cont(),
+            $down->get_titulo(),
+            serialize($down->get_links())
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableA, $attr, $values);
+        $down->set_id(Eruda::getDBConnector()->lastID());
+        return $down;
+    }
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Anime $down
+     * @return \Eruda_Model_Anime 
+     */
+    static function update($down) {
+        $values = array(
+            'serie' =>  $down->get_serie(),
+            'cont' => $down->get_cont(),
+            'titulo' => $down->get_titulo(),
+            'downloads' => serialize($down->get_links())
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $down->get_id());
+        return $down;
+    }
 }
 
 ?>

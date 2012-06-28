@@ -35,12 +35,20 @@ class Eruda_Model_Anime extends Eruda_Model{
     protected $cont;
     protected $links = array();
     
-    public function __construct($vals) {
-        $this->id = $vals['id'];
-        $this->serie = $vals['serie'];
-        $this->titulo = $vals['titulo'];
-        $this->cont = $vals['cont'];
-        $this->links = unserialize($vals['downloads']);
+    public function __construct($vals=null) {
+        if(is_array($vals)){
+            $this->id = $vals['id'];
+            $this->serie = $vals['serie'];
+            $this->titulo = $vals['titulo'];
+            $this->cont = $vals['cont'];
+            $this->links = unserialize($vals['downloads']);
+        } else {
+            $this->id = 0;
+            $this->serie = '';
+            $this->titulo = '';
+            $this->cont = '';
+            $this->links = array();
+        }
     }
     
     public function __toString() {
@@ -78,8 +86,73 @@ class Eruda_Model_Anime extends Eruda_Model{
         return '['.$this->id.'] '.$this->serie.' - '.$this->cont.' - '.$this->titulo;
     }
     
+    function get_serie() {
+        return $this->serie;
+    }
+    
+    function get_cont() {
+        return $this->cont;
+    }
+    
+    function get_titulo() {
+        return $this->titulo;
+    }
+    
+    function get_links() {
+        return $this->links;
+    }
+    
+    function get_downloads() {
+        foreach($this->links as $link) {
+            $ret .= implode(' , ', $link).'
+';
+        }
+        return $ret;
+    }
     function get_id(){
         return $this->id;
+    }
+    
+    
+    function set_id($val){
+        $this->id = $val;
+    }
+    
+    function set_serie($val){
+        $this->serie = $val;
+    }
+    
+    function set_titulo($val){
+        $this->titulo = $val;
+    }
+    
+    function set_cont($val){
+        $this->cont = $val;
+    }
+    
+    function set_links($val){
+        $this->links = $val;
+    }
+    
+    function parseLinks(){
+        foreach($this->links as $k => $link){
+            if(count($link)==1){
+                $val = trim($link[0]);
+		if(preg_match('|^.*\.torrent$|', $val, $matches)) {
+                    $this->links[$k] = array('torrent', $matches[0],'Torrent');
+		} else if(preg_match('|https?://(www\.)?([^\.]*)\..*|', $val, $matches)) {
+                    if(count($matches)==2)
+                        $this->links[$k] = array($matches[1],$matches[0],ucfirst($matches[1]));
+                    else
+                        $this->links[$k] = array($matches[2],$matches[0],ucfirst($matches[2]));
+		}
+            } else if(count($link)==2) {
+                $this->links[$k] = array($link[0], $link[1],ucfirst($link[0]));
+            } else {
+                $this->links[$k] = array($link[0], $link[1],$link[2]);
+            }
+            
+        }
     }
 }
 

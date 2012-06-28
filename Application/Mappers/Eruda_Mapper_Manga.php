@@ -99,6 +99,53 @@ class Eruda_Mapper_Manga {
     static function deleteSerie($id) {
         Eruda::getDBConnector()->deleteID(self::$_tableB, $id);
     }
+    
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Manga $down
+     * @return \Eruda_Model_Manga 
+     */
+    static function save(&$down) {
+        $attr = array(
+            'serie',
+            'tomo',
+            'titulo',
+            'vero',
+            'downloads'
+        );
+        $values = array(
+            $down->get_serie(),
+            $down->get_tomo(),
+            $down->get_titulo(),
+            ($down->has_verO())? '1':'0',
+            serialize($down->get_links())
+        );
+        
+        Eruda::getDBConnector()->insertOne(self::$_tableA, $attr, $values);
+        $down->set_id(Eruda::getDBConnector()->lastID());
+        return $down;
+    }
+    
+    
+    /**
+     *
+     * @param Eruda_Model_Manga $down
+     * @return \Eruda_Model_Manga 
+     */
+    static function update($down) {
+        $values = array(
+            'serie' =>  $down->get_serie(),
+            'tomo' => $down->get_tomo(),
+            'titulo' => $down->get_titulo(),
+            'vero' => ($down->has_verO())? '1':'0',
+            'downloads' => serialize($down->get_links())
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $down->get_id());
+        return $down;
+    }
 }
 
 ?>

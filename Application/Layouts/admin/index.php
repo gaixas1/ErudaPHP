@@ -79,7 +79,7 @@
             </div>
             <div class="value_semi">
                 <span class="subt">Ver online:</span>
-                <input name="verO" type="checkbox" value="1" checked="" />
+                <input name="verO" type="checkbox" value="1" />
             </div>
             <div class="value_tota">
                     <span class="subt">Enlaces:</span><br>
