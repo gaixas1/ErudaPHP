@@ -89,7 +89,8 @@ class Eruda_Mapper_Manga {
     static function updateSerie($serie) {
         $values = array(
             'serie' => $serie->get_serie(),
-            'tomos' => implode(',', $serie->get_tomos())
+            'tomos' => implode(',', $serie->get_tomos()),
+            'updated' => '0'
         );
         
         Eruda::getDBConnector()->updateID(self::$_tableB, $values, $serie->get_id());
@@ -140,11 +141,43 @@ class Eruda_Mapper_Manga {
             'tomo' => $down->get_tomo(),
             'titulo' => $down->get_titulo(),
             'vero' => ($down->has_verO())? '1':'0',
-            'downloads' => serialize($down->get_links())
+            'downloads' => serialize($down->get_links()),
+            'updated' => '0'
         );
         
         Eruda::getDBConnector()->updateID(self::$_tableA, $values, $down->get_id());
         return $down;
+    }
+    
+    
+    static function getNoUpdatedSeries(){
+        $order = array(array('id','ASC'));
+        $values = array(
+            'updated' => '0'
+        );
+        return Eruda::getDBConnector()->selectMulti(self::$_tableB, $values, $order, 0, 99999);
+    }
+    static function getNoUpdated(){
+        $order = array(array('id','ASC'));
+        $values = array(
+            'updated' => '0'
+        );
+        return Eruda::getDBConnector()->selectMulti(self::$_tableA, $values, $order, 0, 99999);
+    }
+    
+    static function setUpdatedSerie($id){
+        $values = array(
+            'updated' => '1'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableB, $values, $id);
+    }
+    static function setUpdated($id){
+        $values = array(
+            'updated' => '1'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $id);
     }
 }
 

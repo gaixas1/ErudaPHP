@@ -290,6 +290,18 @@ class Eruda {
         self::$_mv = $temp;
     }
     
+    
+    static function runCron($fun = 'Index'){
+        $controller = new Eruda_Cron();
+        try {
+            $controller->ini();
+            $controller->$fun();
+            $controller->end();
+        } catch (Exception $e) {
+            $controller->log('Error '.print_r(e,true));
+        }
+    }
+    
     static function show(){
         self::$_mv->show();
     }

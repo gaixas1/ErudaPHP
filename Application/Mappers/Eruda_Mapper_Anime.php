@@ -63,6 +63,7 @@ class Eruda_Mapper_Anime {
         return Eruda::getDBConnector()->selectAll(self::$_tableB, $order, 0, 99999, 'AnimeSerie');
     }
     
+    
     static function getSerie($id){
         $serie = Eruda::getDBConnector()->selectID(self::$_tableB, $id, 'AnimeSerie');
         return $serie;
@@ -90,7 +91,8 @@ class Eruda_Mapper_Anime {
     static function updateSerie($serie) {
         $values = array(
             'serie' => $serie->get_serie(),
-            'cont' => implode(',', $serie->get_cont())
+            'cont' => implode(',', $serie->get_cont()),
+            'updated' => '0'
         );
         Eruda::getDBConnector()->updateID(self::$_tableB, $values, $serie->get_id());
         return $serie;
@@ -136,11 +138,43 @@ class Eruda_Mapper_Anime {
             'serie' =>  $down->get_serie(),
             'cont' => $down->get_cont(),
             'titulo' => $down->get_titulo(),
-            'downloads' => serialize($down->get_links())
+            'downloads' => serialize($down->get_links()),
+            'updated' => '0'
         );
         
         Eruda::getDBConnector()->updateID(self::$_tableA, $values, $down->get_id());
         return $down;
+    }
+    
+    
+    
+    static function getNoUpdatedSeries(){
+        $order = array(array('id','ASC'));
+        $values = array(
+            'updated' => '0'
+        );
+        return Eruda::getDBConnector()->selectMulti(self::$_tableB, $values, $order, 0, 99999);
+    }
+    static function getNoUpdated(){
+        $order = array(array('id','ASC'));
+        $values = array(
+            'updated' => '0'
+        );
+        return Eruda::getDBConnector()->selectMulti(self::$_tableA, $values, $order, 0, 99999);
+    }
+    static function setUpdatedSerie($id){
+        $values = array(
+            'updated' => '1'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableB, $values, $id);
+    }
+    static function setUpdated($id){
+        $values = array(
+            'updated' => '1'
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $id);
     }
 }
 

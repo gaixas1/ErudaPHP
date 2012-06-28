@@ -7,9 +7,6 @@
     require_once '../configure.php';
     
     Eruda::parseUri();
-    
     Eruda::runController();
-    
-    Eruda::show();
-   
+    Eruda::show();  
 ?>
