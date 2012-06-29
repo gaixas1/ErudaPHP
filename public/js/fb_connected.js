@@ -9,15 +9,9 @@ window.fbAsyncInit = function() {
         });
         
         FB.getLoginStatus(function(response) {
-            if (response.status=="connected") {
-                FB.Event.subscribe('auth.logout', function(response) {
-                    window.location.reload();
-                });
-            }else{
-                FB.Event.subscribe('auth.login', function(response) {
-                    window.location.reload();
-                });
-            }
+            FB.Event.subscribe('auth.logout', function(response) {
+                window.location.reload();
+            });
         }, true);
       };
 

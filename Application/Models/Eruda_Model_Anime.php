@@ -83,7 +83,7 @@ class Eruda_Model_Anime extends Eruda_Model{
     }
     
     function get_description() {
-        return '['.$this->id.'] '.$this->serie.' - '.$this->cont.' - '.$this->titulo;
+        return '['.$this->id.'] '.  Eruda_Helper_Parser::Link2Text($this->serie.' - '.$this->cont.' - '.$this->titulo);
     }
     
     function get_serie() {

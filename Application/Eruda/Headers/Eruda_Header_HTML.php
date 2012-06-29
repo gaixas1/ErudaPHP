@@ -30,6 +30,9 @@ class Eruda_Header_HTML extends Eruda_Header {
     private $_meta = array();
     
     
+    private $_avaliveRSSTypes = array();
+    private $_rss = array();
+    
     private $_css = array();
     private $_js = array();
     
@@ -45,6 +48,11 @@ class Eruda_Header_HTML extends Eruda_Header {
             'XHTML1 Transitional',
             'XHTML1 Frameset',
             'HTML5'
+        );
+        $this->_avaliveRSSTypes = array(
+            'RSS',
+            'RSS2',
+            'ATOM'
         );
         $this->_cType = 'UTF-8';
         $this->setType('HTML5');
@@ -72,24 +80,38 @@ class Eruda_Header_HTML extends Eruda_Header {
     
     <base href="<?php echo $this->_base; ?>" target="<?php echo $this->_target; ?>"/>
     
-    <?php if(!empty($this->_keys)) { ?><meta name="keywords" content="<?php echo implode(',', $this->_keys);?>"><?php }?>
+<?php if(!empty($this->_keys)) { ?>
+    <meta name="keywords" content="<?php echo implode(',', $this->_keys);?>"><?php }?>
     
-    <?php foreach($this->_meta as $name => $value) { ?><meta name="<?php echo $name;?>" content="<?php echo $value;?>">
-    <?php }?>
+<?php foreach($this->_meta as $name => $value) { ?>
+    <meta name="<?php echo $name;?>" content="<?php echo $value;?>">
+<?php }?>
     
-    <?php if(isset($folders['css'])) { 
-        foreach($this->_css as $value) { ?><link href="<?php echo $folders['css'].$value;?>" rel="stylesheet" type="text/css">
-    <?php }
-    }?>
-    <?php  foreach($this->_cssExt as $value) { ?><link href="<?php echo $value;?>" rel="stylesheet" type="text/css">
-    <?php }?>
+<?php if(isset($folders['css'])) { 
+        foreach($this->_css as $value) { ?>
+    <link href="<?php echo $folders['css'].$value;?>" rel="stylesheet" type="text/css">
+<?php } }?>
+<?php  foreach($this->_cssExt as $value) { ?>
+    <link href="<?php echo $value;?>" rel="stylesheet" type="text/css">
+<?php }?>
     
-    <?php if(isset($folders['js'])) { 
-        foreach($this->_js as $value) { ?><script type="text/javascript" src="<?php echo $folders['js'].$value;?>"></script>
-    <?php }
-    }?>
-    <?php  foreach($this->_jsExt as $value) { ?><script type="text/javascript" src="<?php echo $value;?>"></script>
-    <?php }?>
+<?php if(isset($folders['js'])) { 
+        foreach($this->_js as $value) { ?>
+    <script type="text/javascript" src="<?php echo $folders['js'].$value;?>"></script>
+<?php } }?>
+<?php  foreach($this->_jsExt as $value) { ?>
+    <script type="text/javascript" src="<?php echo $value;?>"></script>
+<?php }?>
+    
+<?php if(isset($this->_rss['RSS'])) { ?>
+    <link rel="alternate" type="text/xml" title="RSS .92" href="<?php echo $this->_rss['RSS'];?>" />
+<?php }?>
+<?php if(isset($this->_rss['RSS2'])) { ?>
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php echo $this->_rss['RSS2'];?>" />
+<?php }?>
+<?php if(isset($this->_rss['ATOM'])) { ?>
+    <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php echo $this->_rss['ATOM'];?>" />
+<?php }?>
     
 </head>
 <?php
@@ -180,7 +202,19 @@ class Eruda_Header_HTML extends Eruda_Header {
         return $this;
     }
     
-    
+    /**
+     * @param string $dir
+     * @param string $type
+     * @return \Eruda_Header_HTML
+     * @throws Exception 
+     */
+    function addRSS($dir,$type = 'RSS2') {
+        if(in_array($type, $this->_avaliveRSSTypes))
+            $this->_rss[$type] = $dir;
+        else
+            throw new Exception('Eruda_Header_HTML::addRSS - INVALID RSSTYPE : '.$type);
+        return $this;
+    }
     
     
     /**

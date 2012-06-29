@@ -30,7 +30,10 @@ class Eruda_Controller_Manga extends Eruda_Controller {
             $this->header->addCSS('manga.css');
             $this->header->addJavascript('jquery.js');
             $this->header->addJavascript('basic.js');
-            $this->header->addJavascript('fb.js');
+            if($this->user->get_id()>0)
+                $this->header->addJavascript('fb_connected.js');
+            else
+                $this->header->addJavascript('fb_disconnected.js');
             
             $this->series = Eruda_Mapper_Manga::getSeries();
         }

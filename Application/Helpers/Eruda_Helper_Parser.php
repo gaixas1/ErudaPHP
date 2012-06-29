@@ -31,24 +31,25 @@ class Eruda_Helper_Parser {
     }
     
     static function Text2Link($s){
-    //    $s= utf8_decode(strtolower($s));
-		$s= strtolower($s);
+		$s= mb_strtolower ($s, 'UTF-8');
+                
+                $s = preg_replace ("~ñ~","ny",$s);
                 $s = preg_replace('~&.*;~', '', $s);
-		$s = preg_replace ("~[áàâãª]~","",$s);
+                $s = preg_replace ("~&~","and",$s);
+                $s = preg_replace ("~\?~","",$s);
+                $s = preg_replace ("~(\\\|/|>|<|\?)+~","-",$s);
+                $s = preg_replace ("~[´`^¨]~","",$s);
+                $s = preg_replace ("~[áàâãª]~","a",$s);
 		$s = preg_replace ("~[éèê]~","e",$s);
 		$s = preg_replace ("~[íìî]~","i",$s);
 		$s = preg_replace ("~[óòôõº]~","o",$s);
 		$s = preg_replace ("~[úùû]~","u",$s);
-		$s = strtr ($s, "ñ","ny");
-		$s = str_replace("&","and",$s);
-		//$s = str_replace("+","plus",$s);
-		//$s = str_replace("-","minus",$s);
+		
 		$s = strtr ($s, " ","_");
 		$s = filter_var($s, FILTER_SANITIZE_URL);
 		$s = urldecode($s);
 		$s = strtr ($s, " ","_");
-                
-		return $s;
+         	return $s;
     }
     
     static function Link2Text($text){

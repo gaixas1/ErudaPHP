@@ -29,6 +29,7 @@ class Eruda_Mailer_SMPT extends Eruda_Mailer{
         $mail = new PHPMailer();  // create a new object
 	$mail->IsSMTP(); // enable SMTP
         $mail->IsHTML(true);
+        $mail->CharSet = 'UTF-8';
 	$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
 	$mail->SMTPAuth = true;  // authentication enabled
 	$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail

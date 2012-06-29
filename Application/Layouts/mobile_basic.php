@@ -1,6 +1,6 @@
 <body>
     <section id="social">
-        <a id="social_rss"      title="RSS"         href="/rss/">&nbsp;</a>
+        <a id="social_rss"      title="RSS"         href="/rss.xml">&nbsp;</a>
         <a id="social_twitter"  title="Twitter"     href="https://twitter.com/#!/gaixas1">&nbsp;</a>
         <a id="social_facebook" title="Facebook"    href="https://www.facebook.com/pages/FallenSoul-Fansub/149614985063701">&nbsp;</a>
         <a id="social_google"   title="Google+"     href="https://plus.google.com/u/0/b/109986527431362054063/">&nbsp;</a>

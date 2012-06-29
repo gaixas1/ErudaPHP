@@ -93,7 +93,7 @@ class Eruda_Model_Manga extends Eruda_Model {
     }
     
     function get_description() {
-        return '['.$this->id.'] '.$this->serie.' - '.$this->tomo.' - '.$this->titulo;
+        return '['.$this->id.'] '.Eruda_Helper_Parser::Link2Text($this->serie.' - '.$this->tomo.' - '.$this->titulo);
     }
     
     function get_serie() {

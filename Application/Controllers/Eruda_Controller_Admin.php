@@ -296,9 +296,113 @@ class Eruda_Controller_Admin extends Eruda_Controller {
         $this->end();
         exit();
     }
+    
+    
+    
+    function CategoriaList() {      
+        $this->header->append2Title('Categorias');  
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'categorias/' => 'Categorias'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            
+            $cats = Eruda_Mapper_Category::All();
+            $model->add_data('categorias',  $cats);
+            
+            $view = new Eruda_View_HTML('admin', array('section'=>'categorias'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
+    
+    function CategoriaGet() {        
+        $this->header->append2Title('Modificar categoria');
+        $id = $this->_params[0];
+        $cat = Eruda_Mapper_Category::get($id);
+        if($cat==null) {
+            return new Eruda_CF('Error', 'E404');
+        }
+        if(!$this->_onlyheader) {
+            $dir = array(
+                '' => Eruda::getEnvironment()->getTitle(). ' Administración',
+                'categorias/' => 'Categorias',
+                'categorias/'.$id.'/' => 'Editar'
+                );
+            
+            $model = new Eruda_Model_Admin($this->user, $dir);
+            $model->add_data('categoria',  $cat);
+            
+            $this->header->addJavascript('admin.categoria.js');
+            $view = new Eruda_View_HTML('admin', array('section'=>'categoriaform'));
+            $view->setHeader($this->header);
+            return new Eruda_MV($view, $model);
+        }
+        return null;
+    }
 
-
-
+    
+    function CategoriaPut() {    
+        $this->header->append2Title('Nueva categoria');  
+        $form = new Eruda_Form('Category');
+        $form->addField('name', new Eruda_Field('name', 'name needed'));
+            
+        if($form->validate()) {
+            $cat = $form->getValue();
+            $cat->set_link(Eruda_Helper_Parser::Text2Link($cat->get_name()));
+            $act = Eruda_Mapper_Category::getLink($cat->get_link());
+            if($act!=null){
+            header( 'Location: /admin/categorias/'.$act->get_id().'/') ;
+            }else{
+                Eruda_Mapper_Category::save($cat);  
+                if(!($cat->get_id()>0)) {
+                    return new Eruda_CF('Error', 'E500');
+                }
+                header( 'Location: /admin/categorias/'.$cat->get_id().'/') ;
+            }
+        } else {
+            header( 'Location: /admin/categorias/') ;
+        }
+            $this->end();
+            exit();
+    }
+    
+    function CategoriaPost() {  
+        $this->header->append2Title('Modificar categoria');
+        $id = $this->_params[0];
+        $cat = Eruda_Mapper_Category::get($id);
+        if($cat==null) {
+            return new Eruda_CF('Error', 'E404');
+        }  
+        $this->header->append2Title('Nueva categoria');  
+        $form = new Eruda_Form('Category');
+        $form->addField('name', new Eruda_Field('name', 'name needed'));
+        $form->addField('link', new Eruda_Field('link', 'link needed'));
+            
+        if($form->validate()) {
+            $cat = $form->getValue();
+            $cat->set_id($id);
+            $cat->set_link(Eruda_Helper_Parser::Text2Link($cat->get_link()));
+            Eruda_Mapper_Category::update($cat);
+        }
+        header( 'Location: /admin/categorias/'.$id.'/') ;
+        $this->end();
+        exit();
+    }
+    
+    function CategoriaDelete() {      
+        $this->header->append2Title('Categorias');  
+        $id = $this->_params[0];
+        Eruda_Mapper_Category::delete($id);
+        
+        header( 'Location: /admin/categorias/') ;
+        $this->end();
+        exit();
+    }
+    
     
     function AvisosGet() {        
         $this->header->append2Title('Avisos');  

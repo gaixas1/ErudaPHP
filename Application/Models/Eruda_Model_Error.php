@@ -13,6 +13,7 @@
 class Eruda_Model_Error extends Eruda_Model {
     protected $url;
     protected $message;
+    protected $extra;
     
     
     function set_url($val){
@@ -21,6 +22,9 @@ class Eruda_Model_Error extends Eruda_Model {
     function set_message($val){
         $this->message = $val;
     }
+    function set_extra($val){
+        $this->extra = $val;
+    }
     
     function get_url(){
         return $this->url;
@@ -28,6 +32,10 @@ class Eruda_Model_Error extends Eruda_Model {
     
     function get_message(){
         return $this->message;
+    }
+    
+    function get_extra(){
+        return $this->extra;
     }
     
 

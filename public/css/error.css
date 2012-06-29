@@ -1,0 +1,70 @@
+/*   Globales   */
+
+* {
+    margin : 0;
+    padding : 0;
+    border : 0;
+    text-decoration : none;
+}
+
+root{
+    display : block;
+}
+
+html {
+    background-color : #111111;
+    background-repeat : repeat;
+    background-position : top center;
+}
+
+body {
+    margin : auto;
+}
+
+header, nav, section, article, aside, footer  {
+    display:block;
+}
+
+/*   Clases globales   */
+
+#ascgen-image {
+    float:left;
+    min-width: 380px;
+}
+
+#ascgen-image pre {
+	font-family:  monospace,"Lucida Console";
+	font-size: 5pt;
+	background-color: #FFFFFF;
+	color: #111111;
+	line-height: 7px;
+	border: 1px solid #111111;
+}
+
+#errorcontainer{
+    padding: 25px;
+    font-family:  monospace,"Lucida Console";
+    margin-left: 420px;
+}
+#errorcontainer #pagina{
+    color : #eeeeee;
+    padding: 5px;
+}
+#errorcontainer #msg{
+    color : #ffffff;
+    padding: 25px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#errorcontainer #extra{
+    color : #eeeeee;
+    padding: 10px;
+    border : solid 1px #cccccc;
+}
+#errorcontainer #extra a{
+    color : #cccccc;
+}
+#errorcontainer #extra a:hover{
+    color : #888888;
+    text-decoration: underline;
+}

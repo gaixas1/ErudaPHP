@@ -71,6 +71,33 @@ $router = new Eruda_Router(     //Index Router
                                     )        
                                         
                             ),
+                            'categorias/'
+                                => new Eruda_Router(    //Admin-Avisos Router
+                                    new Eruda_CF('Admin', 'CategoriaList'),
+                                    array(
+                                        'new/'
+                                            => new Eruda_Router(    //Admin-Avisos-New Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'CategoriaPut', 'POST')
+                                                )
+                                        ),
+                                        '([0-9]+)/'
+                                            => new Eruda_Router(    //Admin-Avisos-New Router
+                                                array(
+                                                    new Eruda_CF('Admin', 'CategoriaGet'),
+                                                    new Eruda_CF('Admin', 'CategoriaPost', 'POST'),
+                                                    new Eruda_CF('Admin', 'CategoriaDelete', 'DELETE')
+                                                ),
+                                                array (
+                                                    'delete/'
+                                                    =>new Eruda_Router(    //Admin-Avisos-New Router
+                                                            new Eruda_CF('Admin', 'CategoriaDelete', 'POST')
+                                                    )
+                                                )
+                                        )
+                                    )        
+                                        
+                            ),
                             'manga/'
                                 => new Eruda_Router(    //Admin-Entradas Router
                                     array(
@@ -211,15 +238,19 @@ $router = new Eruda_Router(     //Index Router
                                 )
                             )
                 ),
+                'rss.xml' 
+                    => new Eruda_Router(    
+                        new Eruda_CF('RSS', 'index')
+                ),
                 'rss/' 
                     => new Eruda_Router(    
                         new Eruda_CF('RSS', 'index'),
                         array(
-                            'all/' 
+                            'all.xml' 
                                 => new Eruda_Router(    
                                         new Eruda_CF('RSS', 'all')
                                 ),
-                            '([a-z][0-9a-z_-]*)/' 
+                            '([a-z][0-9a-z_-]*).xml' 
                                 => new Eruda_Router(    
                                         new Eruda_CF('RSS', 'category')
                                 )

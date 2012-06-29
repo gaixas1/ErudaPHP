@@ -71,8 +71,8 @@ class Eruda_Mapper_Category {
     
     /**
      *
-     * @param Eruda_Model_User $user
-     * @return \Eruda_Model_User 
+     * @param Eruda_Model_Category $cat
+     * @return Eruda_Model_Category 
      */
     static function save(&$cat){
         $attr = array(
@@ -88,6 +88,26 @@ class Eruda_Mapper_Category {
         $cat->set_id(Eruda::getDBConnector()->lastID());
         if($cat) self::$cats[$cat->get_id()] = $cat;
         return $cat;
+    }
+    
+    /**
+     *
+     * @param Eruda_Model_Category $cat
+     * @return Eruda_Model_Category 
+     */
+    static function update($cat) {
+        $values = array(
+            'name' => $cat->get_name(),
+            'link' => $cat->get_link()
+        );
+        
+        Eruda::getDBConnector()->updateID(self::$_tableA, $values, $cat->get_id());
+        return $cat;
+    }
+    
+    
+    static function delete($id){
+        Eruda::getDBConnector()->deleteID(self::$_tableA, $id);
     }
     
     static function setEntryCat($e, $c) {

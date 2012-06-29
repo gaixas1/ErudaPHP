@@ -12,6 +12,8 @@
  */
 class Eruda_Mapper_Comment {
     public static $_tablea = 'comment';
+    public static $_tableb = 'lastcomments';
+    public static $_tablec = 'tovalid';
     
     /**
      *
@@ -106,6 +108,13 @@ class Eruda_Mapper_Comment {
     
     static function countFromAll(){
         return Eruda::getDBConnector()->selectCount(self::$_tablea, array('valid'));
+    }
+    
+    static function countForAccept(){
+        return Eruda::getDBConnector()->selectCount(self::$_tablec);
+    }
+    static function countLast(){
+        return Eruda::getDBConnector()->selectCount(self::$_tableb);
     }
 }
 

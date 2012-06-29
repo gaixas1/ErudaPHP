@@ -87,7 +87,24 @@ class Eruda_Cron {
     
     
     public function avisos(){
+        $foraccept = Eruda_Mapper_Comment::countForAccept();
+        $last = Eruda_Mapper_Comment::countLast();
         
+        if($foraccept>0 || $last>0) {
+                $msg = '
+<html>
+<head>
+<title>Datos diarios</title>
+</head>
+<body>
+<p>'.$last.' mensajes nuevos en el ultimo día.</p>
+<p>'.$foraccept.' mensajes a la espera de validación.</p>
+</body>
+</html>';
+                $mailer = Eruda::getMailer();
+                $mailer->send(Eruda::getEnvironment()->getMail(), 'Datos diarios', $msg);
+                
+        }
     }
     
     

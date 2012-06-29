@@ -17,6 +17,7 @@
                     <li><a href="entradas/new/">Nueva</a></li>
                     </ul>
                 <li><a href="comentarios/">Comentarios</a></li>
+                <li><a href="categorias/">Categorias</a></li>
                 <li><a href="avisos/">Avisos</a></li>
                 <li><a href="manga/">Manga</a></li>
                 <li><a href="anime/">Anime</a></li>
