@@ -1,0 +1,23 @@
+{
+    "C":[
+        {"ctr":"Index", "fn":"Index"}
+    ],
+    "S":{
+        "admin/":{
+            "C":[
+                {"ctr":"Admin", "fn":"Index"}
+            ]
+        },
+        "search/":{
+            "C":[
+                {"ctr":"Index", "fn":"Search"}
+            ]
+        },
+        "eCore/([a-zA-Z_]+)/":{
+            "C":[
+                {"ctr":"Index", "fn":"View"},
+                {"ctr":"Index", "fn":"Comment", "mth":"POST"}
+            ]
+        }
+    }
+}

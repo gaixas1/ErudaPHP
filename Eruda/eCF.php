@@ -7,31 +7,17 @@
  * @author gaixas1
  */
 class eCF {
-    public static $methods = array('DEFAULT'=>0, 'GET'=>1, 'POST'=>2, 'PUT'=>3, 'DELETE'=>4, 'HEAD'=>5);
-    
-    protected $meth;
-    protected $ctrl;
+    protected $cont;
     protected $fn;
-    protected $data;
     
     function __construct($ctrl = 'Index', $function = 'Index', $method = 'DEFAULT') { 
-        $this->meth = self::$methods[$method];
-        $this->ctrl = $ctrl;
+        $this->cont = $ctrl;
         $this->fn = $function;
     }
     
 /**
 * * Getters & Setters
 **/
-    
-    function setMethod($method) {
-        $this->meth = self::$methods[$method];
-        return $this;
-    }
-    
-    function getMethod() {
-        return array_search($this->meth, self::$methods);
-    }
     
     function setController($controller) {
         $this->cont = $controller;
@@ -49,15 +35,6 @@ class eCF {
     
     function getFunction() {
         return $this->fn;
-    }
-    
-    function setData($data) {
-        $this->data = $data;
-        return $this;
-    }
-    
-    function getData() {
-        return $this->data;
     }
 }
 ?>

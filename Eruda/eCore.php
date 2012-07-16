@@ -16,6 +16,7 @@ class eCore {
     static protected $params;
     static protected $dbcon = array();
     static protected $mv;
+    static protected $numCFchange;
     
     static protected $folders = array();
     
@@ -88,6 +89,15 @@ class eCore {
 /**
 * * Getters & Setters
 **/
+    
+    static function loadRouter($router) {
+        self::$router = unserialize(file_get_contents ($router));
+    }
+    
+    static function parseRouter($router) {
+        self::$router = eRouter::parse($router);
+        var_dump(self::$router);
+    }
     
     static function setRouter($router) {
         self::$router = $router;
