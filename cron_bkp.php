@@ -1,7 +1,7 @@
 <?php
     session_start();
-    set_include_path('Application/');
-    require_once 'Eruda/Eruda_Loader.php';
-    require_once 'configure.php';
+    set_include_path('ApplicationMini/');
+    require_once 'Eruda_Loader.php';
+    require_once 'configurecron.php';
     Eruda::runCron('backup');
 ?>

@@ -101,6 +101,22 @@ class Eruda_Controller_Manga extends Eruda_Controller {
         return null;
     }
     
+    function Download() {        
+        $id = $this->_params[0];
+        $d = $this->_params[1];
+        
+        $down = Eruda_Mapper_Manga::get($id);
+        if($down!=null) {
+            $links = $down->get_links();
+            if(isset($links[$d])){
+                header( 'Location: '.$links[$d][1]) ;
+                $this->end();
+                exit();
+            }
+        }
+        return new Eruda_CF('Error', 'E404');
+    }
+    
 }
 
 ?>

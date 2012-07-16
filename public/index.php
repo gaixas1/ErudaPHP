@@ -1,10 +1,10 @@
 <?php
     session_start();
-    set_include_path('../Application/');
-    require_once 'Eruda/Eruda_Loader.php';
+    set_include_path('../ApplicationMini/');
+    require_once 'Eruda_Loader.php';
     
     Eruda::init();
-    require_once '../configure.php';
+    require_once '../configuremini.php';
     
     Eruda::parseUri();
     Eruda::runController();

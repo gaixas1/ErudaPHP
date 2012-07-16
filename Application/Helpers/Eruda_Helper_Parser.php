@@ -49,6 +49,7 @@ class Eruda_Helper_Parser {
 		$s = filter_var($s, FILTER_SANITIZE_URL);
 		$s = urldecode($s);
 		$s = strtr ($s, " ","_");
+		$s = preg_replace ("~__+~","_",$s);
          	return $s;
     }
     
@@ -57,8 +58,9 @@ class Eruda_Helper_Parser {
     }
     
     static function parseText($text){
-        
-       // $text = utf8_encode($text);
+        if(preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $text, $url)) {
+            $text = strtr($text, array($url[0]=>'[url]'.$url[0].'[/url]'));
+        }
         
         /**Replace BBCode**/
         $tags = 'b|i|size|color|center|url|img'; 

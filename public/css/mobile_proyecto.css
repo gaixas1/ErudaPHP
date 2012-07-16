@@ -59,6 +59,7 @@
 .proyecto header.titulo h1{
     padding : 3px;
     padding-left : 30px;
+    font-size: 1.1em;
 }
 
 .proyecto header.titulo h1 a{

@@ -1,16 +1,12 @@
-AddDefaultCharset UTF-8
+AddDefaultCharset utf-8
 
 RewriteBase /
 RewriteEngine on
 Options +FollowSymLinks
 
-RewriteCond %{HTTP_HOST} ^www\.localhost/$ [NC]
-RewriteRule ^(.*)$ http://localhost/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^fallensoul.16mb.com$ [NC]
+RewriteRule ^(.*)$ http://fallensoul.16mb.com%{REQUEST_URI} [R=301,L]
 
-RewriteCond %{HTTP_HOST} ^localhost/$ [NC]
-RewriteRule ^(.*)$ http://localhost/$1 [R=301,L]
-
-RewriteCond %{REQUEST_FILENAME} !-s
-RewriteCond %{REQUEST_FILENAME} !-l 
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ index.php [NC,L]
+RewriteRule . index.php [L]

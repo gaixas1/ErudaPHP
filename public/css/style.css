@@ -430,6 +430,7 @@ a.jlist_img_max img {
 .entrada header.entrada_titulo h1{
     padding : 3px;
     padding-left : 30px;
+    font-size: 1.1em;
 }
 
 .entrada header.entrada_titulo h1 a{
@@ -481,6 +482,14 @@ a.jlist_img_max img {
     left : -10px;
     
     color : #222222;
+}
+
+.entrada div.texto_container div.texto a{
+    color : #772222;
+}
+.entrada div.texto_container div.texto a:hover{
+    color : #cc7777;
+    text-decoration: underline;
 }
 /****<<<<<<<Entrada Texto****/
 
@@ -595,6 +604,13 @@ a.jlist_img_max img {
     text-align: justify;
 }
 
+.comentario .text a{
+    color : #772222;
+}
+.comentario .text a:hover{
+    color : #cc7777;
+    text-decoration: underline;
+}
 
 .coment_a {
     background: #000000;

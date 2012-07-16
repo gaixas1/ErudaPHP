@@ -324,6 +324,20 @@ $router = new Eruda_Router(     //Index Router
                     => new Eruda_Router(    //Archivos Router
                         new Eruda_CF('Entrada', 'Archivo')
                 ),
+                'download/' 
+                    => new Eruda_Router(    //Manga Router
+                        new Eruda_CF('Error', 'E404'),
+                        array(
+                            'manga/([0-9]+)/([0-9]+)/.*'
+                                => new Eruda_Router(    //Manga Download
+                                        new Eruda_CF('Manga', 'Download')
+                            ),
+                            'anime/([0-9]+)/([0-9]+)/.*'
+                                => new Eruda_Router(    //Anime Download
+                                        new Eruda_CF('Anime', 'Download')
+                            )
+                        )   
+                ),
                 'manga/' 
                     => new Eruda_Router(    //Manga Router
                         new Eruda_CF('Manga'),

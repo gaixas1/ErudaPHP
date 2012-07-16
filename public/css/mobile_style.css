@@ -384,6 +384,14 @@ a.jlist_img_baner img {
     
     color : #222222;
 }
+
+.entrada div.texto_container div.texto a{
+    color : #772222;
+}
+.entrada div.texto_container div.texto a:hover{
+    color : #cc7777;
+    text-decoration: underline;
+}
 /****<<<<<<<Entrada Texto****/
 
 /****Entrada Pie>>>>>>>****/
@@ -495,6 +503,14 @@ a.jlist_img_baner img {
     text-align: justify;
 }
 
+
+.comentario .text a{
+    color : #772222;
+}
+.comentario .text a:hover{
+    color : #cc7777;
+    text-decoration: underline;
+}
 
 .coment_a {
     background: #000000;
