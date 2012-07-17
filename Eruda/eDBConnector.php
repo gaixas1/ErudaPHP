@@ -16,9 +16,9 @@ abstract class eDBConnector {
     
     
 /* update functions*/
-    abstract function update($table, $values, $where);
+    abstract function update($table, $values, $where = null);
     abstract function updateID($table, $values, $id);
-    abstract function updateVal($table, $values, $where);
+    abstract function updateVal($table, $values, $where = null);
     
 /* delete functions*/
     abstract function delete($table, $where);
@@ -28,10 +28,10 @@ abstract class eDBConnector {
 /* Select functions*/
     abstract function lastID();
     abstract function selectID($table, $id, $object=null);
-    abstract function selectOne($table, $values, $start=0, $object=null);
+    abstract function selectOne($table, $values=array(), $start=0, $object=null);
     abstract function selectAll($table, $order=null, $start=0, $total = 999999, $object=null);
     abstract function selectType($table, $object=null, $random = false);
-    abstract function selectMulti($table, $values, $order=null, $start=0, $total = 999999, $object=null);
+    abstract function selectMulti($table, $values=array(), $order=null, $start=0, $total = 999999, $object=null);
     abstract function selectCount($table, $group=null, $order=null);
     abstract function selectCountValues($table, $values = array());
 }

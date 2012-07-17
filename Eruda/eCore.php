@@ -96,7 +96,6 @@ class eCore {
     
     static function parseRouter($router) {
         self::$router = eRouter::parse($router);
-        var_dump(self::$router);
     }
     
     static function setRouter($router) {

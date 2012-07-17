@@ -1,24 +1,26 @@
 <?php
-/* @var $Eruda Eruda */
-/* @var $router Eruda_Router */
-
     define('PATH',dirname(__FILE__));
-    define('APP_PATH', PATH.'/Application/');
+    define('APP_PATH', PATH.'/ErudaApp/');
+    define('ERUDA_PATH', PATH.'/Eruda/');
     define('PUB_PATH', PATH.'/public/');
-    require_once APP_PATH.'routeMap.php';
-    Eruda::setRouter($router);
-    Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://localhost/', 5, 'admin@fallensoul.es'));
-   // Eruda::setEnvironment(new Eruda_Environment('Fallensoul', 'http://192.168.1.2/', 5, 'admin@fallensoul.es'));
     
-    Eruda::setDBConnector(
-        new Eruda_DBConnector_MYSQLi('localhost', 'erudablog', 'root', '')
+    require_once ERUDA_PATH.'eLoader.php';
+    
+    eCore::init();
+    eCore::parseRouter(APP_PATH.'router.raw.rt');
+    //eCore::loadRouter(APP_PATH.'router.rt');
+    
+    eCore::setDBConnector(
+        new eDBConnector_MYSQLi('localhost', 'erudablog', 'root', '')
     );
-    Eruda::setMailer(
-        new Eruda_Mailer_SMPT('admin@fallensoul.es', 'gaixas1','smtp.gmail.com', 'admin@fallensoul.es', 'sergio')
+    eCore::setMailer(
+        new eMailer_SMPT('admin@fallensoul.es', 'gaixas1','smtp.gmail.com', 'admin@fallensoul.es', 'sergio')
     );
     
-    Eruda::addFolder('css', '/css/');
-    Eruda::addFolder('js', '/js/');
-    Eruda::addFolder('img', '/img/');
+    eCore::addFolder('css', '/css/');
+    eCore::addFolder('js', '/js/');
+    eCore::addFolder('img', '/img/');
+    
+    eEnvironment::init('Eruda, PHP mini Framework', 'http://localhost/', 'admin@fallensoul.es');
     
 ?>

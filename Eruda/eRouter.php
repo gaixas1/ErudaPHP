@@ -15,6 +15,7 @@ class eRouter {
     function __construct() {
         $this->def = array();
         $this->ext = array();
+        $this->err;
     }
     
     function run($uri, $method, &$params) {
@@ -35,6 +36,7 @@ class eRouter {
                     return $router->run($uri, $method, $params);
                 }
             }
+            return $this->err;
         } else {
             if(isset($this->def[$mt])){
                 return $this->def[$mt];
@@ -55,6 +57,11 @@ class eRouter {
         return $this;
     }
     
+    function setErrorCF($cf) {
+        $this->err = $cf;
+        return $this;
+    }
+    
     function addRouter($key, $router) {
         $this->ext[$key] = $router;
         return $this;
@@ -70,6 +77,16 @@ class eRouter {
         if(isset($array->C)){
             self::parseC($array->C, $router);
         }
+        
+        if(isset($array->E)){
+            self::parseE($array->E, $router);
+        } else {
+            $n = new eCF();
+            $n->setController ('Error');
+            $n->setFunction ('E404');
+            $router->setErrorCF($n);
+        }
+        
         if(isset($array->S)){
             self::parseS($array->S, $router);
         }
@@ -88,6 +105,15 @@ class eRouter {
             else
                 $router->addCF($n);
         }
+    }
+    
+    static private function parseE($cf, &$router){
+        $n = new eCF();
+        if(isset($cf->ctr))
+            $n->setController ($cf->ctr);
+        if(isset($cf->fn))
+            $n->setFunction ($cf->fn);
+        $router->setErrorCF($n);
     }
     
     static private function parseS($array, &$router){
