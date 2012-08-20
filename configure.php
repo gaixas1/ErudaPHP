@@ -7,12 +7,14 @@
     require_once ERUDA_PATH.'eLoader.php';
     
     eCore::init();
+    
     eCore::parseRouter(APP_PATH.'router.raw.rt');
     //eCore::loadRouter(APP_PATH.'router.rt');
     
     eCore::setDBConnector(
         new eDBConnector_MYSQLi('localhost', 'erudablog', 'root', '')
     );
+    
     eCore::setMailer(
         new eMailer_SMPT('admin@fallensoul.es', 'gaixas1','smtp.gmail.com', 'admin@fallensoul.es', 'sergio')
     );

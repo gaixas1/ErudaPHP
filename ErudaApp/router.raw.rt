@@ -18,6 +18,11 @@
                 {"ctr":"Index", "fn":"View"},
                 {"ctr":"Index", "fn":"Comment", "mth":"POST"}
             ]
+        },
+        "RE_test ([a-zA-Z0-9]+)-([a-zA-Z0-9]+)":{
+            "C":[
+                {"ctr":"Index", "fn":"Index"}
+            ]
         }
     }
 }

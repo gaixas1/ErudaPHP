@@ -11,6 +11,7 @@ class eRouter {
     
     protected $def;
     protected $ext;
+    protected $err;
     
     function __construct() {
         $this->def = array();
@@ -28,10 +29,7 @@ class eRouter {
         if(is_string($uri) && strlen($uri)>0) {
             foreach ($this->ext as $key => $router) {
                 if(preg_match('~^'.$key.'.*$~', $uri, $matches)) {
-                    array_shift($matches); 
-                    foreach ($matches as $value) {
-                        $params[] = $value;
-                    }
+                    $router->parsematches($params,$matches);
                     $uri = preg_replace ('~^'.$key.'~', '', $uri);
                     return $router->run($uri, $method, $params);
                 }
@@ -45,6 +43,13 @@ class eRouter {
             }
         }
         throw new Exception('Eruda_Router::run - NOT DEFAULT METHOD');
+    }
+    
+    function parsematches(&$params,&$matches){
+        array_shift($matches);
+        foreach ($matches as $value) {
+            $params[] = $value;    
+        }
     }
     
     function addCF($cf, $method='DEFAULT') {
@@ -90,6 +95,30 @@ class eRouter {
         if(isset($array->S)){
             self::parseS($array->S, $router);
         }
+        
+        return $router;
+    }
+    
+    static private function parseRE($array, $extends){
+        $rtT = 'eRouter'.$extends;
+        $router = new $rtT();
+        
+        if(isset($array->C)){
+            self::parseC($array->C, $router);
+        }
+        
+        if(isset($array->E)){
+            self::parseE($array->E, $router);
+        } else {
+            $n = new eCF();
+            $n->setController ('Error');
+            $n->setFunction ('E404');
+            $router->setErrorCF($n);
+        }
+        
+        if(isset($array->S)){
+            self::parseS($array->S, $router);
+        }
         return $router;
     }
     
@@ -118,8 +147,15 @@ class eRouter {
     
     static private function parseS($array, &$router){
         foreach($array as $k => $vl){
-            $rt = self::parseR($vl);
-            $router->addRouter($k,$rt);
+            if(preg_match ('~RE(_[a-zA-Z0-9]+) (.*)~', $k, $matches)) {
+                $extends = $matches[1];
+                $dir = $matches[2];
+                $rt = self::parseRE($vl, $extends);
+                $router->addRouter($dir,$rt);
+            } else {
+                $rt = self::parseR($vl);
+                $router->addRouter($k,$rt);
+            }
         }
     }
 }
