@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+    
+{% block body %}
+<div id="form_container">
+    <form id="contact_form" method="POST">
+        <h2>Contact</h2>
+        {%if sended %}
+            <p class="sendedMsg">
+                Message sent
+            </p>
+        {%endif%}
+		
+        <label for="mail">
+            <span>E-mail : </span>
+            <input type="email" placeholder="E-mail" name="mail" value="{{mail}}"/>
+        </label>
+        <label for="text">
+            <span>Text : </span>
+            <textarea name="text">{{text}}</textarea>
+        </label>
+		
+        <p class="button_container">
+            <input class="button" type="submit" value="Send" name="submit"/>
+        </p>
+    </form>
+</div>
+{% endblock %}
